@@ -1,4 +1,18 @@
 # EasyRead
+
+
+## Architecture
+
+## Front-End
+### User Flow Diagram
+![User Flow Diagram](readme-assets/user-flow-1.png)
+![User Flow Diagram](readme-assets/user-flow-2.png)
+
+
+## Back-End
+### Database Schema
+![Database Schema](readme-assets/database-schema.png)
+
 ## Setup
 
 ### Dependencies
