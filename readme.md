@@ -21,7 +21,7 @@
 
 ### Database Prep
 - Access the MySQL interface in your terminal by running 'mysql -u root -p'
-- Create a new database called students: 'create database easyread;'
+- Create a new database called easyread: 'create database easyread;'
 - Add a '.env' file to the project directory containing MySQL authentication, for example:
 
 ```bash

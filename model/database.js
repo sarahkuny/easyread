@@ -18,18 +18,25 @@ con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 
-  //create students table
-  let sqlStudents = "DROP TABLE if exists students; CREATE TABLE students(id INT NOT NULL AUTO_INCREMENT, first_name VARCHAR(255) not null, last_name VARCHAR(255), group_id INT, PRIMARY KEY (id));";
-  con.query(sqlStudents, function (err, result) {
+  //create users table
+  let sqlUsers = "DROP TABLE if exists users; CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, first_name VARCHAR(255) not null, last_name VARCHAR(255), username VARCHAR(40) not null, password VARCHAR(40) not null, PRIMARY KEY (id));";
+  con.query(sqlUsers, function (err, result) {
     if (err) throw err;
-    console.log("Table creation `students` was successful!");
+    console.log("Table creation `users` was successful!");
 
   });
-  //create behaviors table
-  let sqlBehaviors = "DROP TABLE if exists behaviors; CREATE TABLE behaviors(id INT NOT NULL AUTO_INCREMENT, student_id INT, has_goal_one BOOLEAN not null, has_goal_two BOOLEAN not null, has_goal_three BOOLEAN not null, score INT, PRIMARY KEY (id), FOREIGN KEY (student_id) REFERENCES students(id));";
-  con.query(sqlBehaviors, function (err, result) {
+  //create default_settings table
+  let sqlSettings = "DROP TABLE if exists default_settings; CREATE TABLE default_settings(id INT NOT NULL AUTO_INCREMENT, user_id INT, font_size INT not null, font_color VARCHAR(40) not null, background_color varchar(40) not null, line_spacing INT, PRIMARY KEY (id), FOREIGN KEY (user_id) REFERENCES users(id));";
+  con.query(sqlSettings, function (err, result) {
     if (err) throw err;
-    console.log("Table creation `behaviors` was successful!");
+    console.log("Table creation `default_settings` was successful!");
+
+  });
+
+  let sqlMedia = "DROP TABLE if exists media; CREATE TABLE media(id INT NOT NULL AUTO_INCREMENT, owner_id INT not null, name VARCHAR(40) not null, file_type VARCHAR(40) not null, blob_url VARCHAR(255) not null, shared_ids JSON, PRIMARY KEY (id), FOREIGN KEY (owner_id) REFERENCES users(id));";
+  con.query(sqlMedia, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `media` was successful!");
 
     console.log("Closing...");
   });
