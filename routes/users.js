@@ -1,9 +1,34 @@
-var express = require('express');
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const db = require("../model/helper");
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn")
 
-/* GET users listing. */
+
+//GET all users
+//helpful for development, but comment out before deploying
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  
 });
+
+//POST user (require first_name, last_name, username, password --> store password as hashed password using bcrypt)
+router.post('/', function(req, res, next) {
+
+})
+
+//PUT: edit student
+router.put('/:id', function(req, res, next){
+
+})
+
+//DELETE student
+router.delete('/:id', function(req,res, next) {
+  
+})
+
+
+
+
 
 module.exports = router;
