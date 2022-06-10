@@ -7,3 +7,9 @@ const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn")
 router.get('/', function(req, res, next) {
 
 })
+
+//POST media
+
+//PUT media
+
+//DELETE media
