@@ -3,6 +3,8 @@ const router = express.Router();
 const db = require("../model/helper");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn")
 
+router.use(express.json())
+
 //GET media
 router.get('/', userShouldBeLoggedIn, function(req, res, next) {
 
@@ -26,3 +28,5 @@ router.put('/', userShouldBeLoggedIn, function(req, res, next){
 router.delete('/', userShouldBeLoggedIn, function(req, res, next){
 
 })
+
+module.exports = router;

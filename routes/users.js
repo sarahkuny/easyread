@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn")
 
+router.use(express.json())
 
 //GET all users
 //helpful for development, but comment out before deploying
