@@ -10,7 +10,7 @@ router.use(express.json())
 //GET all users
 //helpful for development, but comment out before deploying
 router.get('/', function(req, res, next) {
-  
+
 });
 
 //POST user (require first_name, last_name, username, password --> store password as hashed password using bcrypt)
