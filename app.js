@@ -4,12 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-const defaultSettingsRouter = require('./routes/index');
+const defaultSettingsRouter = require('./routes/defaultSettings');
 const usersRouter = require('./routes/users');
 const mediaRouter = require('./routes/media')
 
-var app = express();
-
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());

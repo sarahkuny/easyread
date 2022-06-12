@@ -3,6 +3,8 @@ const router = express.Router();
 const db = require("../model/helper");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn")
 
+router.use(express.json())
+
 
 //GET settings by user_id 
 router.get('/:id', function(req, res, next) {
