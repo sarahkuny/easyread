@@ -20,9 +20,9 @@ router.get('/', async function(req, res, next) {
 })
 
 //GET by owner id
-router.get('/:id', async function(req, res, next){
+router.get('/:owner_id', async function(req, res, next){
     try{
-        const { data } = await db(`SELECT * FROM media WHERE owner_id="${req.params.id}";`)
+        const { data } = await db(`SELECT * FROM media WHERE owner_id=${req.params.owner_id};`)
     } catch(err) {
         res.status(500).send(err)
     }
@@ -34,22 +34,31 @@ router.post('/', async function(req, res, next){
         const { name, file_type, blob_url } = req.body;
         const username = req.username;
         const owner_id = await db(`SELECT id FROM users WHERE username="${username}";`)
-        await db(`INSERT INTO media (owner_id, name, file_type, blob_url) VALUES ("${owner_id}", "${name}", "${file_type}", "${blob_url}");`)
+        await db(`INSERT INTO media (owner_id, name, file_type, blob_url) VALUES (${owner_id}, "${name}", "${file_type}", "${blob_url}");`)
     } catch(err) {
         res.status(500).send(err);
     }
-   
-
 })
 
 //PUT media
 //where we can change shared id
-router.put('/', function(req, res, next){
+router.put('/:owner_id', async function(req, res, next){
+    try{
 
+    } catch(err){
+        res.status(500).send(err)
+    }
 })
-//DELETE media
-router.delete('/', function(req, res, next){
 
+//DELETE media by id
+router.delete('/:owner_id', async function(req, res, next){
+    try{
+        await db(`DELETE FROM media WHERE owner_id=${req.params.owner_id};`);
+        const { data } = await db(`SELECT * FROM media;`);
+        res.status(200).send(data);
+    } catch(err){
+        res.status(500).send(err)
+    }
 })
 
 module.exports = router;
