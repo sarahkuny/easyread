@@ -5,7 +5,7 @@ const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn")
 
 router.use(express.json())
 
-//GET media
+//GET shared
 router.get('/', async function(req, res, next) {
     try{
         const results = await db(`SELECT * FROM shared;`);
@@ -19,10 +19,20 @@ router.get('/', async function(req, res, next) {
     }
 })
 
+//GET by recipient id
+router.get('/:recipient_id', async function(req, res, next){
+    try{
+        const { data } = await db(`SELECT * FROM shared WHERE recipient_id=${req.params.recipient_id};`)
+    } catch(err) {
+        res.status(500).send(err)
+    }
+})
+
 //GET by owner id
+//how do we account for multiple owner IDs in the media table?
 router.get('/:owner_id', async function(req, res, next){
     try{
-        const { data } = await db(`SELECT * FROM media WHERE owner_id=${req.params.owner_id};`)
+        const { data } = await db(`SELECT * FROM media WHERE id=${req.params.owner_id};`)
     } catch(err) {
         res.status(500).send(err)
     }
