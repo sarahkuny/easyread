@@ -19,22 +19,32 @@ router.get('/', async function(req, res, next) {
     }
 })
 
-//GET by id
-router.get('/:id', userShouldBeLoggedIn, function(req, res, next){
+//GET by owner id
+router.get('/:id', function(req, res, next){
 
 })
 
 //POST media
-router.post('/', userShouldBeLoggedIn, function(req, res, next){
+router.post('/', async function(req, res, next){
+    try{
+        const { name, file_type, blob_url } = req.body;
+        const username = req.username;
+        const owner_id = await db(`SELECT id FROM users WHERE username="${username}";`)
+        await db(`INSERT INTO media (owner_id, name, file_type, blob_url) VALUES ("${owner_id}", "${name}", "${file_type}", "${blob_url}");`)
+    } catch(err) {
+        res.status(500).send(err);
+    }
+   
 
 })
 
 //PUT media
-router.put('/', userShouldBeLoggedIn, function(req, res, next){
+//where we can change shared id
+router.put('/', function(req, res, next){
 
 })
 //DELETE media
-router.delete('/', userShouldBeLoggedIn, function(req, res, next){
+router.delete('/', function(req, res, next){
 
 })
 
