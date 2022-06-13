@@ -20,8 +20,12 @@ router.get('/', async function(req, res, next) {
 })
 
 //GET by owner id
-router.get('/:id', function(req, res, next){
-
+router.get('/:id', async function(req, res, next){
+    try{
+        const { data } = await db(`SELECT * FROM media WHERE owner_id="${req.params.id}";`)
+    } catch(err) {
+        res.status(500).send(err)
+    }
 })
 
 //POST media
