@@ -9,6 +9,7 @@ const DB_NAME = process.env.DB_NAME;
 const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
   user: DB_USER || "root",
+  port: "52000", //DOCKER PORT
   password: DB_PASS,
   database: DB_NAME || "easyread",
   multipleStatements: true,
@@ -35,6 +36,7 @@ con.connect(function (err) {
 
 
   let sqlMedia = "DROP TABLE if exists media; CREATE TABLE media(id INT NOT NULL AUTO_INCREMENT, owner_id INT not null, name VARCHAR(40) not null, file_type VARCHAR(40) not null, blob_url VARCHAR(255) not null, PRIMARY KEY (id), FOREIGN KEY (owner_id) REFERENCES users(id));";
+
 
   con.query(sqlMedia, function (err, result) {
     if (err) throw err;

@@ -4,7 +4,7 @@ const mysql = require("mysql");
 module.exports = async function db(query) {
   const results = {
     data: [],
-    error: null
+    error: null,
   };
   let promise = await new Promise((resolve, reject) => {
     const DB_HOST = process.env.DB_HOST;
@@ -15,16 +15,17 @@ module.exports = async function db(query) {
     const con = mysql.createConnection({
       host: DB_HOST || "127.0.0.1",
       user: DB_USER || "root",
+      port: "52000", //DOCKER PORT
       password: DB_PASS,
-      database: DB_NAME || "database",
-      multipleStatements: true
+      database: DB_NAME || "easyread",
+      multipleStatements: true,
     });
 
-    con.connect(function(err) {
+    con.connect(function (err) {
       if (err) throw err;
       console.log("Connected!");
 
-      con.query(query, function(err, result) {
+      con.query(query, function (err, result) {
         if (err) {
           results.error = err;
           console.log(err);
@@ -47,7 +48,7 @@ module.exports = async function db(query) {
           // results.data.push(result);
         } else if (result[0].constructor.name == "RowDataPacket") {
           // push each row (RowDataPacket) to data
-          result.forEach(row => results.data.push(row));
+          result.forEach((row) => results.data.push(row));
         } else if (result[0].constructor.name == "OkPacket") {
           // push the first item in result list to data (this accounts for situations
           // such as when the query ends with SELECT LAST_INSERT_ID() and returns an insertId)
