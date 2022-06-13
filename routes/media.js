@@ -6,8 +6,17 @@ const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn")
 router.use(express.json())
 
 //GET media
-router.get('/', userShouldBeLoggedIn, function(req, res, next) {
-
+router.get('/', async function(req, res, next) {
+    try{
+        const results = await db(`SELECT * FROM media;`);
+        if (results.data.length){
+            res.status(200).send(results)
+        } else {
+            res.status(404).send("No media in database")
+        }
+    } catch (err){
+        res.status(500).send(err)
+    }
 })
 
 //GET by id
