@@ -5,24 +5,34 @@ const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn")
 
 router.use(express.json())
 
-//GET media
+//GET shared
 router.get('/', async function(req, res, next) {
     try{
-        const results = await db(`SELECT * FROM media;`);
+        const results = await db(`SELECT * FROM shared;`);
         if (results.data.length){
             res.status(200).send(results)
         } else {
-            res.status(404).send("No media in database")
+            res.status(404).send("No results in database")
         }
     } catch (err){
         res.status(500).send(err)
     }
 })
 
+//GET by recipient id
+router.get('/:recipient_id', async function(req, res, next){
+    try{
+        const { data } = await db(`SELECT * FROM shared WHERE recipient_id=${req.params.recipient_id};`)
+    } catch(err) {
+        res.status(500).send(err)
+    }
+})
+
 //GET by owner id
+//how do we account for multiple owner IDs in the media table?
 router.get('/:owner_id', async function(req, res, next){
     try{
-        const { data } = await db(`SELECT * FROM media WHERE owner_id=${req.params.owner_id};`)
+        const { data } = await db(`SELECT * FROM media WHERE id=${req.params.owner_id};`)
     } catch(err) {
         res.status(500).send(err)
     }
@@ -40,6 +50,15 @@ router.post('/', async function(req, res, next){
     }
 })
 
+//PUT media
+//where we can change shared id
+router.put('/:owner_id', async function(req, res, next){
+    try{
+
+    } catch(err){
+        res.status(500).send(err)
+    }
+})
 
 //DELETE media by id
 router.delete('/:owner_id', async function(req, res, next){
