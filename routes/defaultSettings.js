@@ -4,6 +4,12 @@ const db = require("../model/helper");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 // router.use(express.json());
 
+router.get("/", function (req, res, next) {
+  res.send("request working");
+  // db(`SELECT * FROM default_settings;`)
+  //   .then((results) => res.send(results.data))
+  //   .catch((err) => res.status(500).send(err));
+});
 //GET settings by user_id
 router.get("/:id", function (req, res, next) {
   db(`SELECT * FROM default_settings WHERE id=${req.params.id};`)
