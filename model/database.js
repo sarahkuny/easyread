@@ -11,7 +11,7 @@ const con = mysql.createConnection({
   user: DB_USER || "root",
   port: "52000", //DOCKER PORT
   password: DB_PASS,
-  database: DB_NAME || "sorter",
+  database: DB_NAME || "easyread",
   multipleStatements: true,
 });
 
