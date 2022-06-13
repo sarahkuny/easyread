@@ -40,15 +40,6 @@ router.post('/', async function(req, res, next){
     }
 })
 
-//PUT media
-//where we can change shared id
-router.put('/:owner_id', async function(req, res, next){
-    try{
-
-    } catch(err){
-        res.status(500).send(err)
-    }
-})
 
 //DELETE media by id
 router.delete('/:owner_id', async function(req, res, next){
