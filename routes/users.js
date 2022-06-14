@@ -51,10 +51,22 @@ router.post("/", async function (req, res, next) {
     
 });
 
-//PUT: edit student
+//PUT: edit user
 router.put("/:id", function (req, res, next) {});
 
-//DELETE student
-router.delete("/:id", function (req, res, next) {});
+//DELETE user
+router.delete("/:id", async function (req, res, next) {
+    try{
+        await db(`DELETE FROM users WHERE id=${req.params.id};`);
+        res.status(200).send("user deleted")
+    } catch (err) {
+        res.status(500).send(err)
+    }
+});
+
+//login, receive jwt
+router.post('/', async function (req, res, next){
+
+})
 
 module.exports = router;
