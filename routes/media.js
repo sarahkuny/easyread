@@ -6,7 +6,9 @@ const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 router.use(express.json());
 
 //GET media
-router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
+router.get("/", async function (req, res, next) {
+  // router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
+
   try {
     const results = await db(`SELECT * FROM media;`);
     if (results.data.length) {
@@ -20,7 +22,9 @@ router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //GET by owner id
-router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
+router.get("/:owner_id", async function (req, res, next) {
+  // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
+
   try {
     const { data } = await db(
       `SELECT * FROM media WHERE owner_id=${req.params.owner_id};`

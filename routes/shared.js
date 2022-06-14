@@ -47,14 +47,17 @@ router.get("/:owner_id", async function (req, res, next) {
 });
 
 //POST shared
-router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
+//----works in postman----//
+router.post("/", async function (req, res, next) {
+  // router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { media_id, recipient_id } = req.body;
     const username = req.username;
     await db(`SELECT id FROM users WHERE username="${username}";`);
-    await db(
+    const { data } = await db(
       `INSERT INTO shared (media_id, recipient_id) VALUES (${media_id}, "${recipient_id}");`
     );
+    res.send(data);
   } catch (err) {
     res.status(500).send(err);
   }
