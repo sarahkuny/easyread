@@ -8,8 +8,17 @@ router.use(express.json());
 
 //GET all users
 //helpful for development, but comment out before deploying
-router.get('/', function(req, res, next) {
-
+router.get('/', async function(req, res, next) {
+   try{
+    const { data } = await db(`SELECT * FROM users;`);
+    if (data.length){
+        res.status(200).send(data)
+    } else {
+        res.status(400).send("No users in database")
+    }
+   } catch (err) {
+        res.status(400).send(err)
+   }
 });
 
 //POST user (require first_name, last_name, username, password --> store password as hashed password using bcrypt)
