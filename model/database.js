@@ -20,7 +20,7 @@ con.connect(function (err) {
 
   //create users table
   let sqlUsers =
-    "DROP TABLE if exists users; CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, first_name VARCHAR(255) not null, last_name VARCHAR(255), username VARCHAR(40) not null, password VARCHAR(40) not null, PRIMARY KEY (id));";
+    "DROP TABLE if exists users; CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, first_name VARCHAR(255) not null, last_name VARCHAR(255), username VARCHAR(40) not null, password VARCHAR(255) not null, PRIMARY KEY (id));";
   con.query(sqlUsers, function (err, result) {
     if (err) throw err;
     console.log("Table creation `users` was successful!");
