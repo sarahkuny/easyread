@@ -9,7 +9,6 @@ const DB_NAME = process.env.DB_NAME;
 const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
   user: DB_USER || "root",
-  port: "52000", //DOCKER PORT
   password: DB_PASS,
   database: DB_NAME || "easyread",
   multipleStatements: true,
@@ -21,7 +20,7 @@ con.connect(function (err) {
 
   //create users table
   let sqlUsers =
-    "DROP TABLE if exists users; CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, first_name VARCHAR(255) not null, last_name VARCHAR(255), username VARCHAR(40) not null, password VARCHAR(40) not null, PRIMARY KEY (id));";
+    "DROP TABLE if exists users; CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, first_name VARCHAR(255) not null, last_name VARCHAR(255), username VARCHAR(40) not null, password VARCHAR(255) not null, PRIMARY KEY (id));";
   con.query(sqlUsers, function (err, result) {
     if (err) throw err;
     console.log("Table creation `users` was successful!");
