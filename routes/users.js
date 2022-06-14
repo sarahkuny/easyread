@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const router = express.Router();
 const db = require("../model/helper");
@@ -65,8 +66,30 @@ router.delete("/:id", async function (req, res, next) {
 });
 
 //login, receive jwt
-router.post('/', async function (req, res, next){
+router.post('/login', async function (req, res, next){
+    const { username, password} = req.body;
+    try{
+        //select user info from users table
+        const results = await db(`SELECT * FROM users WHERE username="${username}";`);
+        const user = results.data[0];
 
+        //if user exists
+        if (user) {
+            //compare input password with stored hashed password
+            const correctPassword = await bcrypt.compare(password, user.password);
+            
+            //return error if password incorrect
+            if (!correctPassword) return res.sendStatus(401);
+
+            //send back token
+            var token = jwt.sign( username, process.env.ACCESS_TOKEN_SECRET);
+            res.send(token)
+        } else {
+            res.sendStatus(401);
+        }
+    } catch (err) {
+        res.status(400).send(err)
+    }
 })
 
 module.exports = router;
