@@ -12,14 +12,6 @@ const sharedRouter = require('./routes/shared');
 
 const app = express();
 
-app.use(logger('dev'));
-
-const defaultSettingsRouter = require("./routes/defaultSettings");
-const usersRouter = require("./routes/users");
-const mediaRouter = require("./routes/media");
-
-var app = express();
-
 app.use(logger("dev"));
 
 app.use(express.json());
