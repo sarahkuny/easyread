@@ -21,6 +21,16 @@ router.get('/', async function(req, res, next) {
    }
 });
 
+//GET by id
+router.get('/:id', async function (req, res, next){
+    try{
+        const { data } = await db(`SELECT * FROM users WHERE id=${req.params.id};`);
+        res.status(200).send(data)
+    } catch (err){
+        res.status(400).send(err)
+    }
+})
+
 //POST user (require first_name, last_name, username, password --> store password as hashed password using bcrypt)
 router.post("/", function (req, res, next) {});
 
