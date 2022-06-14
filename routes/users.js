@@ -52,9 +52,6 @@ router.post("/", async function (req, res, next) {
     
 });
 
-//PUT: edit user
-router.put("/:id", function (req, res, next) {});
-
 //DELETE user
 router.delete("/:id", async function (req, res, next) {
     try{
