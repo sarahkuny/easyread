@@ -32,7 +32,7 @@ router.get("/:recipient_id", async function (req, res, next) {
 
 //GET by owner id
 //how do we account for multiple owner IDs in the media table?
-router.get("/:owner_id", async function (req, res, next) {
+router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { data } = await db(
       `SELECT * FROM media WHERE id=${req.params.owner_id};`
@@ -42,40 +42,55 @@ router.get("/:owner_id", async function (req, res, next) {
   }
 });
 
-//POST media
+//POST shared
 router.post("/", async function (req, res, next) {
-  try {
-    const { name, file_type, blob_url } = req.body;
-    const username = req.username;
-    const owner_id = await db(
-      `SELECT id FROM users WHERE username="${username}";`
-    );
-    await db(
-      `INSERT INTO media (owner_id, name, file_type, blob_url) VALUES (${owner_id}, "${name}", "${file_type}", "${blob_url}");`
-    );
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
+  //   try {
+  //     const { name, file_type, blob_url } = req.body;
+  //     const username = req.username;
+  //     const owner_id = await db(
+  //       `SELECT id FROM users WHERE username="${username}";`
+  //     );
+  //     await db(
+  //       `INSERT INTO media (owner_id, name, file_type, blob_url) VALUES (${owner_id}, "${name}", "${file_type}", "${blob_url}");`
+  //     );
+  //   } catch (err) {
+  //     res.status(500).send(err);
+  //   }
 
-//PUT media
-//where we can change shared id
-router.put("/:owner_id", async function (req, res, next) {
   try {
+    const { media_id, recipient_id } = req.body;
+    const username = req.username;
+    await db(`SELECT id FROM users WHERE username="${username}";`);
+    await db(
+      `INSERT INTO shared (media_id, recipient_id) VALUES (${media_id}, "${recipient_id}");`
+    );
   } catch (err) {
     res.status(500).send(err);
   }
 });
 
 //DELETE media by id
-router.delete("/:owner_id", async function (req, res, next) {
-  try {
-    await db(`DELETE FROM media WHERE owner_id=${req.params.owner_id};`);
-    const { data } = await db(`SELECT * FROM media;`);
-    res.status(200).send(data);
-  } catch (err) {
-    res.status(500).send(err);
+router.delete(
+  "/:owner_id",
+  userShouldBeLoggedIn,
+  async function (req, res, next) {
+    try {
+      await db(`DELETE FROM media WHERE owner_id=${req.params.owner_id};`);
+      const { data } = await db(`SELECT * FROM media;`);
+      res.status(200).send(data);
+    } catch (err) {
+      res.status(500).send(err);
+    }
   }
-});
+);
+
+//PUT media
+//where we can change shared id
+// router.put("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
+//   try {
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
 
 module.exports = router;
