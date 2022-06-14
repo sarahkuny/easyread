@@ -6,6 +6,7 @@ const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 router.use(express.json());
 
 //GET shared
+//----works in postman----//
 router.get("/", async function (req, res, next) {
   try {
     const results = await db(`SELECT * FROM shared;`);
@@ -20,11 +21,13 @@ router.get("/", async function (req, res, next) {
 });
 
 //GET by recipient id
+//----works in postman----//
 router.get("/:recipient_id", async function (req, res, next) {
   try {
     const { data } = await db(
       `SELECT * FROM shared WHERE recipient_id=${req.params.recipient_id};`
     );
+    res.send(data);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -32,31 +35,19 @@ router.get("/:recipient_id", async function (req, res, next) {
 
 //GET by owner id
 //how do we account for multiple owner IDs in the media table?
-router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
+router.get("/:owner_id", async function (req, res, next) {
   try {
     const { data } = await db(
       `SELECT * FROM media WHERE id=${req.params.owner_id};`
     );
+    res.send(data);
   } catch (err) {
     res.status(500).send(err);
   }
 });
 
 //POST shared
-router.post("/", async function (req, res, next) {
-  //   try {
-  //     const { name, file_type, blob_url } = req.body;
-  //     const username = req.username;
-  //     const owner_id = await db(
-  //       `SELECT id FROM users WHERE username="${username}";`
-  //     );
-  //     await db(
-  //       `INSERT INTO media (owner_id, name, file_type, blob_url) VALUES (${owner_id}, "${name}", "${file_type}", "${blob_url}");`
-  //     );
-  //   } catch (err) {
-  //     res.status(500).send(err);
-  //   }
-
+router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { media_id, recipient_id } = req.body;
     const username = req.username;
@@ -72,7 +63,7 @@ router.post("/", async function (req, res, next) {
 //DELETE media by id
 router.delete(
   "/:owner_id",
-  userShouldBeLoggedIn,
+  //   userShouldBeLoggedIn,
   async function (req, res, next) {
     try {
       await db(`DELETE FROM media WHERE owner_id=${req.params.owner_id};`);
