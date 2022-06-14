@@ -23,6 +23,8 @@ router.get('/', userShouldBeLoggedIn, async function(req, res, next) {
 router.get('/:owner_id', userShouldBeLoggedIn, async function(req, res, next){
     try{
         const { data } = await db(`SELECT * FROM media WHERE owner_id=${req.params.owner_id};`)
+        if(!data.length) res.status(404).send("no media exists for this user");
+        res.status(200).send(data);
     } catch(err) {
         res.status(500).send(err)
     }
