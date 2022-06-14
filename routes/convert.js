@@ -12,13 +12,14 @@ router.get('/', function (req, res, next){
 })
 
 router.post('/', function (req, res, next){
-
+    const { content, fixation, saccade } = req.body;
     const encodedParams = new URLSearchParams();
-    encodedParams.append("content", "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.");
+    console.log(encodedParams);
+    encodedParams.append("content", `${content}`);
     encodedParams.append("response_type", "html");
     encodedParams.append("request_type", "html");
-    encodedParams.append("fixation", "1");
-    encodedParams.append("saccade", "10");
+    encodedParams.append("fixation", `${fixation}`);
+    encodedParams.append("saccade", `${saccade}`);
     
     const options = {
       method: 'POST',
