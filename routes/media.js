@@ -33,8 +33,10 @@ router.post('/', userShouldBeLoggedIn, async function(req, res, next){
     try{
         const { name, file_type, blob_url } = req.body;
         const username = req.username;
-        const owner_id = await db(`SELECT id FROM users WHERE username="${username}";`)
-        await db(`INSERT INTO media (owner_id, name, file_type, blob_url) VALUES (${owner_id}, "${name}", "${file_type}", "${blob_url}");`)
+        const { data } = await db(`SELECT id FROM users WHERE username="${username}";`)
+        const owner = data[0];
+        await db(`INSERT INTO media (owner_id, name, file_type, blob_url) VALUES (${owner.id}, "${name}", "${file_type}", "${blob_url}");`);
+        res.status(200).send("media added!")
     } catch(err) {
         res.status(500).send(err);
     }
@@ -42,7 +44,7 @@ router.post('/', userShouldBeLoggedIn, async function(req, res, next){
 
 
 //DELETE media by id
-router.delete('/:owner_id', userShouldBeLoggedIn, async function(req, res, next){
+router.delete('/:owner_id',userShouldBeLoggedIn, async function(req, res, next){
     try{
         await db(`DELETE FROM media WHERE owner_id=${req.params.owner_id};`);
         const { data } = await db(`SELECT * FROM media;`);
