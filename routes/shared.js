@@ -20,7 +20,7 @@ router.use(express.json());
    "recipient_id": 3
  }
 */
-router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
+router.get("/", async function (req, res, next) {
   try {
     const results = await db(`SELECT * FROM shared;`);
     if (results.data.length) {
@@ -49,39 +49,34 @@ router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
    }
 */
 //----works in postman----//
-router.get(
-  "/:recipient_id",
-  userShouldBeLoggedIn,
-  async function (req, res, next) {
-    try {
-      const { data } = await db(
-        `SELECT * FROM shared WHERE recipient_id=${req.params.recipient_id};`
-      );
-      res.send(data);
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  }
-);
-
-//GET by media id
-//how do we account for multiple owner IDs in the media table?
-
-router.get("/:media_id", userShouldBeLoggedIn, async function (req, res, next) {
+router.get("/:recipient_id", async function (req, res, next) {
   try {
     const { data } = await db(
-      // `SELECT * FROM shared WHERE id=${req.params.media_id};`
-      `SELECT * FROM media INNER JOIN shared ON media.owner_id=shared.id;`
+      `SELECT * FROM shared WHERE recipient_id=${req.params.recipient_id};`
     );
-    res.send(data);
+    res.status(200).send(data);
   } catch (err) {
     res.status(500).send(err);
   }
 });
 
+//GET by media id
+//how do we account for multiple owner IDs in the media table?
+
+// router.get("/:media_id", async function (req, res, next) {
+//   try {
+//     const { data } = await db(
+//       `SELECT * FROM shared WHERE media_id=${req.params.media_id};`
+//       // `SELECT shared.media_id from shared INNER JOIN media ON shared.media_id = media.id;`
+//     );
+//     res.send(data);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
+
 //POST shared
 //----works in postman----//
-
 router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { media_id, recipient_id } = req.body;
@@ -97,19 +92,19 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //DELETE media by id
-router.delete(
-  "/:owner_id",
-  userShouldBeLoggedIn,
-  async function (req, res, next) {
-    try {
-      await db(`DELETE FROM media WHERE owner_id=${req.params.owner_id};`);
-      const { data } = await db(`SELECT * FROM media;`);
-      res.status(200).send(data);
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  }
-);
+// router.delete(
+//   "/:owner_id",
+//   userShouldBeLoggedIn,
+//   async function (req, res, next) {
+//     try {
+//       await db(`DELETE FROM media WHERE owner_id=${req.params.owner_id};`);
+//       const { data } = await db(`SELECT * FROM media;`);
+//       res.status(200).send(data);
+//     } catch (err) {
+//       res.status(500).send(err);
+//     }
+//   }
+// );
 
 //PUT media
 //where we can change shared id

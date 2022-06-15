@@ -49,5 +49,5 @@
 
 ### Development
 
-- BACKEND TERMINAL: in project directory run 'npm start' (runs on port 5000)
+- BACKEND TERMINAL: in project directory run 'npm start' (runs on port 5005)
 - FRONTEND TERMINAL: 'cd client' then 'npm start' (runs on port 3000)
