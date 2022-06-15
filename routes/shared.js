@@ -7,7 +7,20 @@ router.use(express.json());
 
 //GET shared
 //----works in postman----//
-router.get("/", async function (req, res, next) {
+//ex: http://localhost:5005/api/shared
+/*
+{
+   "id": 1,
+   "media_id": 1,
+   "recipient_id": 2
+},  
+{
+ "id": 2,
+  "media_id": 1,
+   "recipient_id": 3
+ }
+*/
+router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const results = await db(`SELECT * FROM shared;`);
     if (results.data.length) {
@@ -20,25 +33,45 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-//GET by recipient id
-//----works in postman----//
-router.get("/:recipient_id", async function (req, res, next) {
-  try {
-    const { data } = await db(
-      `SELECT * FROM shared WHERE recipient_id=${req.params.recipient_id};`
-    );
-    res.send(data);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
+//GET by recipient_id
 
-//GET by owner id
+//ex: http://localhost:5005/api/shared/1
+/*
+ {
+   "id": 3,
+    "media_id": 2,
+    "recipient_id": 1
+    },
+  {
+    "id": 4,
+     "media_id": 2,
+     "recipient_id": 1
+   }
+*/
+//----works in postman----//
+router.get(
+  "/:recipient_id",
+  userShouldBeLoggedIn,
+  async function (req, res, next) {
+    try {
+      const { data } = await db(
+        `SELECT * FROM shared WHERE recipient_id=${req.params.recipient_id};`
+      );
+      res.send(data);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+);
+
+//GET by media id
 //how do we account for multiple owner IDs in the media table?
-router.get("/:owner_id", async function (req, res, next) {
+
+router.get("/:media_id", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { data } = await db(
-      `SELECT * FROM media WHERE id=${req.params.owner_id};`
+      // `SELECT * FROM shared WHERE id=${req.params.media_id};`
+      `SELECT * FROM media INNER JOIN shared ON media.owner_id=shared.id;`
     );
     res.send(data);
   } catch (err) {
@@ -48,8 +81,8 @@ router.get("/:owner_id", async function (req, res, next) {
 
 //POST shared
 //----works in postman----//
-router.post("/", async function (req, res, next) {
-  // router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
+
+router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { media_id, recipient_id } = req.body;
     const username = req.username;
@@ -66,7 +99,7 @@ router.post("/", async function (req, res, next) {
 //DELETE media by id
 router.delete(
   "/:owner_id",
-  //   userShouldBeLoggedIn,
+  userShouldBeLoggedIn,
   async function (req, res, next) {
     try {
       await db(`DELETE FROM media WHERE owner_id=${req.params.owner_id};`);

@@ -22,6 +22,15 @@ router.get("/", async function (req, res, next) {
 });
 
 //GET by owner id
+//example: http://localhost:5005/api/media/1
+/*  {
+        "id": 1,
+        "owner_id": 1,
+        "name": "Test Name",
+        "file_type": "Test File",
+        "blob_url": "www.test.com"
+    }
+*/
 router.get("/:owner_id", async function (req, res, next) {
   // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
 
