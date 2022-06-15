@@ -26,13 +26,17 @@
 
 - Access the MySQL interface in your terminal by running 'mysql -u root -p'
 - Create a new database called easyread: 'create database easyread;'
-- Add a '.env' file to the project directory containing MySQL authentication, for example:
+- Add a '.env' file to the project directory containing MySQL authentication and access token for jwt
+- to generate secret key:
+  - open terminal, type node, then type:
+  - require('crypto').randomBytes(64).toString('hex')
 
 ```bash
   DB_HOST=127.0.0.1
   DB_USER=root
   DB_NAME=easyread
   DB_PASS=YOURPASSWORD
+  ACCESS_TOKEN_SECRET= [generated secret key - see above]
 ```
 
 - In a new terminal: in the project directory run 'npm run migrate' to create tables within the easyread database
