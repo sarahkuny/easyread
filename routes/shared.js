@@ -20,7 +20,7 @@ router.use(express.json());
    "recipient_id": 3
  }
 */
-router.get("/", async function (req, res, next) {
+router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const results = await db(`SELECT * FROM shared;`);
     if (results.data.length) {
@@ -49,16 +49,20 @@ router.get("/", async function (req, res, next) {
    }
 */
 //----works in postman----//
-router.get("/:recipient_id", async function (req, res, next) {
-  try {
-    const { data } = await db(
-      `SELECT * FROM shared WHERE recipient_id=${req.params.recipient_id};`
-    );
-    res.status(200).send(data);
-  } catch (err) {
-    res.status(500).send(err);
+router.get(
+  "/:recipient_id",
+  userShouldBeLoggedIn,
+  async function (req, res, next) {
+    try {
+      const { data } = await db(
+        `SELECT * FROM shared WHERE recipient_id=${req.params.recipient_id};`
+      );
+      res.status(200).send(data);
+    } catch (err) {
+      res.status(500).send(err);
+    }
   }
-});
+);
 
 //GET by media id
 //how do we account for multiple owner IDs in the media table?
@@ -80,11 +84,12 @@ router.get("/:recipient_id", async function (req, res, next) {
 router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { media_id, recipient_id } = req.body;
-    const username = req.username;
-    await db(`SELECT id FROM users WHERE username="${username}";`);
-    const { data } = await db(
+    // const username = req.username;
+    // await db(`SELECT id FROM users WHERE username="${username}";`);
+    await db(
       `INSERT INTO shared (media_id, recipient_id) VALUES (${media_id}, ${recipient_id});`
     );
+    const { data } = await db(`SELECT * FROM shared;`);
     res.send(data);
   } catch (err) {
     res.status(500).send(err);
