@@ -83,7 +83,7 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
     const username = req.username;
     await db(`SELECT id FROM users WHERE username="${username}";`);
     const { data } = await db(
-      `INSERT INTO shared (media_id, recipient_id) VALUES (${media_id}, "${recipient_id}");`
+      `INSERT INTO shared (media_id, recipient_id) VALUES (${media_id}, ${recipient_id});`
     );
     res.send(data);
   } catch (err) {
