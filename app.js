@@ -4,10 +4,11 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-const defaultSettingsRouter = require("./routes/defaultSettings");
-const usersRouter = require("./routes/users");
-const mediaRouter = require("./routes/media");
-const sharedRouter = require("./routes/shared");
+const defaultSettingsRouter = require('./routes/defaultSettings');
+const usersRouter = require('./routes/users');
+const mediaRouter = require('./routes/media');
+const sharedRouter = require('./routes/shared');
+const convertRouter = require('./routes/convert');
 
 const app = express();
 
@@ -18,10 +19,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/api/defaultSettings", defaultSettingsRouter);
-app.use("/api/users", usersRouter);
-app.use("/api/media", mediaRouter);
-app.use("/api/shared", sharedRouter);
+
+app.use('/api/defaultSettings', defaultSettingsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/media', mediaRouter);
+app.use('/api/shared', sharedRouter);
+app.use('/api/convert', convertRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
