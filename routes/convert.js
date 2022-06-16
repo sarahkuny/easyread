@@ -14,7 +14,6 @@ router.get('/', function (req, res, next){
 router.post('/', function (req, res, next){
     const { content, fixation, saccade } = req.body;
     const encodedParams = new URLSearchParams();
-    console.log(encodedParams);
     encodedParams.append("content", `${content}`);
     encodedParams.append("response_type", "html");
     encodedParams.append("request_type", "html");

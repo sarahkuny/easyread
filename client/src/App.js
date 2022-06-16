@@ -8,8 +8,7 @@ function App() {
   return (
   <>
 
-    <Header buttonOne="Sign Up" buttonTwo="Log In" linkOne="/signin" linkTwo="/login"/>
-    <SignUp />
+    <Header buttonOne="Sign Up" buttonTwo="Log In" linkOne="/signup" linkTwo="/login"/>
   </>
   )
 }
