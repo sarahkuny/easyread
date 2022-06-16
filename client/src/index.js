@@ -20,9 +20,6 @@ root.render(
       <Route path="/convert" element={<Converter />} />
       <Route path="/about" element={<About />} />
       <Route path="/documents" element={<MyDocuments />} />
-
-
-    
     </Routes>
     </BrowserRouter>
   </React.StrictMode>

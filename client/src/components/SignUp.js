@@ -2,6 +2,7 @@
 //Sign Up Form
 //link to login component (send to parent)
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom'
 
 export default function SignUp(){
     const [fullName, setFullName] = useState();
@@ -42,7 +43,7 @@ export default function SignUp(){
                         className=""
                         required />
                 </form>
-                <h6 className="italic">Already have an account? <b><a>Log In</a></b></h6>
+                <h6 className="italic">Already have an account? <Link to="/login"><b>Log In</b></Link> </h6>
             </div>  
         </>
     )
