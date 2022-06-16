@@ -10,7 +10,7 @@ router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const results = await db(`SELECT * FROM shared;`);
     if (results.data.length) {
-      res.status(200).send(results);
+      res.status(200).send(results.data);
     } else {
       res.status(404).send("No results in database");
     }
@@ -20,10 +20,7 @@ router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //GET by recipient_id
-router.get(
-  "/:recipient_id",
-  userShouldBeLoggedIn,
-  async function (req, res, next) {
+router.get("/:recipient_id", userShouldBeLoggedIn, async function (req, res, next) {
     try {
       const { data } = await db(
         `SELECT * FROM shared WHERE recipient_id=${req.params.recipient_id};`
@@ -67,19 +64,16 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 // });
 
 //DELETE media by id
-// router.delete(
-//   "/:owner_id",
-//   userShouldBeLoggedIn,
-//   async function (req, res, next) {
-//     try {
-//       await db(`DELETE FROM media WHERE owner_id=${req.params.owner_id};`);
-//       const { data } = await db(`SELECT * FROM media;`);
-//       res.status(200).send(data);
-//     } catch (err) {
-//       res.status(500).send(err);
-//     }
-//   }
-// );
+router.delete("/:media_id", userShouldBeLoggedIn, async function (req, res, next) {
+    try {
+      await db(`DELETE FROM shared WHERE media_id=${req.params.media_id};`);
+      const { data } = await db(`SELECT * FROM shared;`);
+      res.status(200).send(data);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+);
 
 //PUT media
 //where we can change shared id
