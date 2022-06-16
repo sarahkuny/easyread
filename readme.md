@@ -26,7 +26,7 @@
 
 - Access the MySQL interface in your terminal by running 'mysql -u root -p'
 - Create a new database called easyread: 'create database easyread;'
-- Add a '.env' file to the project directory containing MySQL authentication and access token for jwt
+- Add a '.env' file to the project directory containing MySQL authentication, access token for jwt, and API key for the bionic reading API.
 - to generate secret key:
   - open terminal, type node, then type:
   - require('crypto').randomBytes(64).toString('hex')
@@ -36,6 +36,7 @@
   DB_USER=root
   DB_NAME=easyread
   DB_PASS=YOURPASSWORD
+  API_KEY= [get API key from bionic reading API]
   ACCESS_TOKEN_SECRET= [generated secret key - see above]
 ```
 
