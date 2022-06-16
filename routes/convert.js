@@ -5,13 +5,14 @@ const router = express.Router();
 const db = require("../model/helper");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
+
 router.use(express.json());
 
 router.get('/', function (req, res, next){
     res.send("route works")
 })
 
-router.post('/', function (req, res, next){
+router.post('/', async function (req, res, next){
     const { content, fixation, saccade } = req.body;
     const encodedParams = new URLSearchParams();
     encodedParams.append("content", `${content}`);
@@ -31,11 +32,14 @@ router.post('/', function (req, res, next){
       data: encodedParams
     };
     
-    axios.request(options).then(function (response) {
-        res.send(response.data);
-    }).catch(function (error) {
+    try{
+      let response = await axios.request(options);
+      res.send(response.data);
+    }
+    
+    catch (error) {
         console.error(error);
-    });
+    };
     
 
 });
