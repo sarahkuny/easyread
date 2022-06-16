@@ -4,6 +4,7 @@
 import axios from 'axios';
 import React, {useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
+import parse from 'html-react-parser';
 
 export default function SignUp(){
     const [fullName, setFullName] = useState();
@@ -19,11 +20,11 @@ export default function SignUp(){
                     data: {
                         fixation: 1,
                         saccade: 10,
-                        content: `Dyslexia is though to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`
+                        content: `Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`
                     }
                 })
-                console.log(data);
-                setReadingFact(data)
+                const parsed = parse(data);
+                setReadingFact(parsed)
             } catch (err){
                 console.log(err)
             }
