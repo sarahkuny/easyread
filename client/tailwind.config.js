@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        louisgeorge: ["Louis George Cafe", "sans-serif"]
+      }
+    },
   },
   plugins: [],
 }
