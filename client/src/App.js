@@ -3,6 +3,7 @@ import "./output.css";
 import "./components/SignUp";
 import SignUp from "./components/SignUp";
 import Header from "./components/Header";
+import Banner from "./components/Banner";
 
 function App() {
   return (
@@ -12,8 +13,8 @@ function App() {
         buttonTwo="Log In"
         linkOne="/signup"
         linkTwo="/login"
-        linkThree="/about"
       />
+      <Banner />
     </>
   );
 }
