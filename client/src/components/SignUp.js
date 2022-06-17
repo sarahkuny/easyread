@@ -36,13 +36,13 @@ export default function SignUp(){
         <>
             <h1 className="text-5xl ml-3 my-3 font-louisgeorge">easy<b>Read</b></h1>
             <div className="bg-zinc-900">     
-            <div className="flex flex-col md:flex-row space-between w-4/6 m-auto h-screen bg-zinc-900">
-                <div className="w-80 h-3/6 px-4 m-auto flex flex-col justify-center text-white">
+            <div className="flex flex-col md:flex-row space-between lg:w-5/6 m-auto h-screen bg-zinc-900">
+                <div className="w-96 h-3/6 m-auto flex flex-col justify-center text-white text-2xl">
                     <p>{readingFact}</p>
                 </div>
                 <div className="shadow-lg p-5 m-auto bg-slate-100 rounded-md flex flex-col justify-between content-center max-h-380 min-h-content">
                     <h3 className="font-bold">Fill in your personal details below to create your account.</h3>
-                    <form>
+                    <form className="flex flex-col">
                         {/* Name */}
                         <div className="flex flex-col p-3">
                             <label className="text-s">Full Name</label>
@@ -77,8 +77,9 @@ export default function SignUp(){
                                 className="rounded-md"
                                 required />
                         </div> 
+                        <button className="bg-black text-white text-xl p-2 rounded-md">Create Account</button>
                     </form>   
-                    <h6 className="italic text-xs pl-3">Already have an account? <Link to="/login"><b>Log In</b></Link> </h6>
+                    <h6 className="italic text-xs mt-3 px-3">Already have an account? <Link to="/login"><b>Log In</b></Link> </h6>
                 </div>
             </div>  
             </div> 
