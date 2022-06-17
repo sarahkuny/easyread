@@ -34,7 +34,7 @@ export default function SignUp(){
 
     return (
         <>
-            <h1 className="text-5xl ml-3 my-3 font-louisgeorge">easy<b>Read</b></h1>
+            <Link to="/"><h1 className="text-5xl ml-3 my-6 font-louisgeorge">easy<b>Read</b></h1></Link>
             <div className="bg-zinc-900">     
             <div className="flex flex-col md:flex-row space-between lg:w-5/6 m-auto h-screen bg-zinc-900">
                 <div className="w-96 h-3/6 m-auto flex flex-col justify-center text-white text-2xl">
