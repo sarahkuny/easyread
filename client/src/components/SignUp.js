@@ -39,40 +39,46 @@ export default function SignUp(){
                 <div className="w-96 h-3/6 m-auto flex flex-col justify-center text-white">
                     <p>{readingFact}</p>
                 </div>
-                <div className="shadow-lg p-5 h-3/6 m-auto bg-slate-50 rounded-md">
+                <div className="shadow-lg p-5 m-auto bg-slate-100 rounded-md flex flex-col justify-between content-center max-h-380 min-h-content">
                     <h3 className="font-bold">Fill in your personal details below to create your account.</h3>
-                    <form className="flex flex-col">
+                    <form>
                         {/* Name */}
-                        <label className="text-xs">Full Name</label>
-                        <input 
-                            type="text"
-                            id="full_name"
-                            name="full_name"
-                            value={fullName}
-                            className=""
-                            required />
+                        <div className="flex flex-col p-3">
+                            <label className="text-s">Full Name</label>
+                            <input 
+                                type="text"
+                                id="full_name"
+                                name="full_name"
+                                value={fullName}
+                                className="rounded-md"
+                                required />
+                        </div>
+                        
                         {/* Username input */}
-                        <label className="text-xs">Username</label>
-                        <input 
-                            type="text"
-                            id="username"
-                            name="username"
-                            value={username}
-                            className=""
-                            required />
+                        <div className="flex flex-col p-3">
+                            <label className="text-s">Username</label>
+                            <input 
+                                type="text"
+                                id="username"
+                                name="username"
+                                value={username}
+                                className="rounded-md"
+                                required />
+                        </div>
                         {/* Password input */}
-                        <label className="text-xs">Full Name</label>
-                        <input 
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={password}
-                            className=""
-                            required />
-                    </form>
-                    <h6 className="italic">Already have an account? <Link to="/login"><b>Log In</b></Link> </h6>
+                        <div className="flex flex-col p-3">
+                            <label className="text-s">Password</label>
+                            <input 
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={password}
+                                className="rounded-md"
+                                required />
+                        </div> 
+                    </form>   
+                    <h6 className="italic text-xs pl-3">Already have an account? <Link to="/login"><b>Log In</b></Link> </h6>
                 </div>
-                
             </div>  
         </>
     )
