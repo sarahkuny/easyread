@@ -11,10 +11,11 @@ function App() {
       <Header
         buttonOne="Sign Up"
         buttonTwo="Log In"
+        // buttonThree="About"
         linkOne="/signup"
         linkTwo="/login"
+        // linkThree="/about"
       />
-      <Banner />
     </>
   );
 }
