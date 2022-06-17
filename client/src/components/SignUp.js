@@ -35,15 +35,15 @@ export default function SignUp(){
     return (
         <>
             <h1 className="text-5xl ml-3 my-3 font-louisgeorge">easy<b>Read</b></h1>      
-            <div className="flex space-between">
-                <div className="">
+            <div className="flex space-between w-screen m-auto h-screen bg-zinc-900">
+                <div className="w-96 h-3/6 m-auto flex flex-col justify-center text-white">
                     <p>{readingFact}</p>
                 </div>
-                <div className="">
-                    <h3>Fill in your personal details below to create your account.</h3>
+                <div className="shadow-lg p-5 h-3/6 m-auto bg-slate-50 rounded-md">
+                    <h3 className="font-bold">Fill in your personal details below to create your account.</h3>
                     <form className="flex flex-col">
                         {/* Name */}
-                        <label>Full Name</label>
+                        <label className="text-xs">Full Name</label>
                         <input 
                             type="text"
                             id="full_name"
@@ -52,7 +52,7 @@ export default function SignUp(){
                             className=""
                             required />
                         {/* Username input */}
-                        <label>Username</label>
+                        <label className="text-xs">Username</label>
                         <input 
                             type="text"
                             id="username"
@@ -61,7 +61,7 @@ export default function SignUp(){
                             className=""
                             required />
                         {/* Password input */}
-                        <label>Full Name</label>
+                        <label className="text-xs">Full Name</label>
                         <input 
                             type="password"
                             id="password"
