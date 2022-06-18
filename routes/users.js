@@ -33,7 +33,7 @@ router.get("/:id", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //POST user (require first_name, last_name, username, password --> store password as hashed password using bcrypt)
-router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
+router.post("/", async function (req, res, next) {
   const { username, password, first_name, last_name } = req.body;
   try {
     //check if username taken
