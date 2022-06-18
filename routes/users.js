@@ -64,7 +64,7 @@ router.delete("/:id", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //login, receive jwt
-router.post("/login", userShouldBeLoggedIn, async function (req, res, next) {
+router.post("/login",  async function (req, res, next) {
   const { username, password } = req.body;
   try {
     //select user info from users table
