@@ -23,7 +23,7 @@ export default function Homepage() {
               </p>
               <div className="flex justify-center">
                 <button className="bg-white py-2 px-2 rounded-lg my-6 w-60 hover:bg-sky-300 text-2xl">
-                  <Link to="/About">Learn More</Link>
+                  <Link to="/about">Learn More</Link>
                 </button>
               </div>{" "}
             </div>
@@ -35,7 +35,7 @@ export default function Homepage() {
               <div>
                 <div className="flex justify-center">
                   <button className="bg-white pt-2 pb-2 pl-2 pr-2 rounded-lg mt-6 mb-0 w-60 text-2xl hover:bg-sky-300">
-                    <Link to="/Converter">
+                    <Link to="/convert">
                       <b>Start reading</b>
                     </Link>
                   </button>
@@ -44,7 +44,7 @@ export default function Homepage() {
                   <i>
                     <b>
                       To save converted documents <br></br>or send to others,
-                      <Link to="/SignUp">
+                      <Link to="/signUp">
                         <u>Sign Up</u>
                       </Link>{" "}
                       here
