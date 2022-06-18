@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import parse from 'html-react-parser';
 
 export default function Login(){
-    const [fullName, setFullName] = useState();
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [readingFact, setReadingFact] = useState("Dyslexia is though to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word. ");
