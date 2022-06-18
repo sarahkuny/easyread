@@ -9,6 +9,7 @@ const DB_NAME = process.env.DB_NAME;
 const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
   user: DB_USER || "root",
+  //port: 52000, //Docker
   password: DB_PASS,
   database: DB_NAME || "easyread",
   multipleStatements: true,
@@ -33,17 +34,16 @@ con.connect(function (err) {
     console.log("Table creation `default_settings` was successful!");
   });
 
-
-  let sqlMedia = "DROP TABLE if exists media; CREATE TABLE media(id INT NOT NULL AUTO_INCREMENT, owner_id INT not null, name VARCHAR(40) not null, file_type VARCHAR(40) not null, blob_url VARCHAR(255) not null, PRIMARY KEY (id), FOREIGN KEY (owner_id) REFERENCES users(id));";
-
+  let sqlMedia =
+    "DROP TABLE if exists media; CREATE TABLE media(id INT NOT NULL AUTO_INCREMENT, owner_id INT not null, name VARCHAR(40) not null, file_type VARCHAR(40) not null, blob_url VARCHAR(255) not null, PRIMARY KEY (id), FOREIGN KEY () REFERENCES users(id));";
 
   con.query(sqlMedia, function (err, result) {
     if (err) throw err;
     console.log("Table creation `media` was successful!");
-
   });
 
-  let sqlShared = "DROP TABLE if exists shared; CREATE TABLE shared(id INT NOT NULL AUTO_INCREMENT, media_id INT not null, recipient_id INT not null, PRIMARY KEY (id), FOREIGN KEY (recipient_id) REFERENCES users(id), FOREIGN KEY (media_id) REFERENCES media(id));";
+  let sqlShared =
+    "DROP TABLE if exists shared; CREATE TABLE shared(id INT NOT NULL AUTO_INCREMENT, media_id INT not null, recipient_id INT not null, PRIMARY KEY (id), FOREIGN KEY (recipient_id) REFERENCES users(id), FOREIGN KEY (media_id) REFERENCES media(id));";
   con.query(sqlShared, function (err, result) {
     if (err) throw err;
     console.log("Table creation `shared` was successful!");
