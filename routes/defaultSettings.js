@@ -6,7 +6,7 @@ const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 router.use(express.json());
 
 router.get("/", function (req, res, next) {
-  res.send("request working");
+  res.send("works")
 });
 //GET settings by user_id
 router.get("/:id", userShouldBeLoggedIn, function (req, res, next) {

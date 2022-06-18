@@ -28,14 +28,14 @@ con.connect(function (err) {
   });
   //create default_settings table
   let sqlSettings =
-    "DROP TABLE if exists default_settings; CREATE TABLE default_settings(id INT NOT NULL AUTO_INCREMENT, user_id INT, font_size INT not null, font_color VARCHAR(40) not null, background_color varchar(40) not null, line_spacing INT, PRIMARY KEY (id), FOREIGN KEY (user_id) REFERENCES users(id));";
+    "DROP TABLE if exists default_settings; CREATE TABLE default_settings(id INT NOT NULL AUTO_INCREMENT, user_id INT, font_size INT not null, font_color VARCHAR(40) not null, background_color varchar(40) not null, line_spacing INT, fixation INT not null, saccade INT not null, PRIMARY KEY (id), FOREIGN KEY (user_id) REFERENCES users(id));";
   con.query(sqlSettings, function (err, result) {
     if (err) throw err;
     console.log("Table creation `default_settings` was successful!");
   });
 
   let sqlMedia =
-    "DROP TABLE if exists media; CREATE TABLE media(id INT NOT NULL AUTO_INCREMENT, owner_id INT not null, name VARCHAR(40) not null, file_type VARCHAR(40) not null, blob_url VARCHAR(255) not null, PRIMARY KEY (id), FOREIGN KEY () REFERENCES users(id));";
+    "DROP TABLE if exists media; CREATE TABLE media(id INT NOT NULL AUTO_INCREMENT, owner_id INT not null, name VARCHAR(40) not null, file_type VARCHAR(40) not null, blob_url VARCHAR(255) not null, PRIMARY KEY (id), FOREIGN KEY (owner_id) REFERENCES users(id));";
 
   con.query(sqlMedia, function (err, result) {
     if (err) throw err;
