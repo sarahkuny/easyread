@@ -109,6 +109,11 @@ export default function Converter(){
                         Suspendisse maximus nec felis sed sagittis. Cras sed mi tellus. Nullam lectus libero, sollicitudin non sollicitudin elementum, rutrum et risus. Aliquam ut porttitor ipsum. Vestibulum vulputate dui quam, quis ullamcorper arcu fringilla id. Maecenas et ligula ullamcorper urna vehicula scelerisque aliquam id tellus. Pellentesque lacus arcu, cursus in augue et, feugiat fringilla odio. Cras nec erat quis neque eleifend vulputate. Vestibulum sed sem ac sem venenatis ullamcorper sed id ante. Mauris tincidunt sapien at ante ullamcorper feugiat. Integer sit amet vulputate justo.
                     </h1>
                 </div>
+                <form className="bg-white w-full flex justify-evenly py-2 border">
+                    <label className="w-1/6 py-2">Document Name</label>
+                    <input className="w-3/6 border rounded-md border-black"></input>
+                    <button className="bg-black rounded-md text-white px-4 py-2">Save Document</button>
+                </form>
 
                 <details>
                     <summary>Need help?</summary>
