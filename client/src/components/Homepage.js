@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 export default function Homepage() {
   return (
     <div>
-      {/* <div className="bg-cover bg-left bg-no-repeat h-screen bg-right-bottom bg-[url('./assets/banner-pic.jpg')]"> */}
-      {/* <div className="flex flex-row place-items-center h-screen "> */}
       <div className="flex flex-row">
         <div className="bg-black basis-1/2 bg-black h-screen">
           <div className="grid grid-cols-1 place-items-center h-screen">
@@ -25,7 +23,7 @@ export default function Homepage() {
               </p>
               <div className="flex justify-center">
                 <button className="bg-white py-2 px-2 rounded-lg my-6 w-60 hover:bg-sky-300 text-2xl">
-                  Learn More
+                  <Link to="/About">Learn More</Link>
                 </button>
               </div>{" "}
             </div>
@@ -37,14 +35,19 @@ export default function Homepage() {
               <div>
                 <div className="flex justify-center">
                   <button className="bg-white pt-2 pb-2 pl-2 pr-2 rounded-lg mt-6 mb-0 w-60 text-2xl hover:bg-sky-300">
-                    <b>Start reading</b>
+                    <Link to="/Converter">
+                      <b>Start reading</b>
+                    </Link>
                   </button>
                 </div>{" "}
                 <p className="text-white bg-black/25 text-sm text-center rounded-lg px-2 py-2">
                   <i>
                     <b>
                       To save converted documents <br></br>or send to others,
-                      <u>Sign Up</u> here
+                      <Link to="/SignUp">
+                        <u>Sign Up</u>
+                      </Link>{" "}
+                      here
                     </b>
                   </i>
                 </p>

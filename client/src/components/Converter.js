@@ -5,13 +5,13 @@
 //Save Document Form
 //Help button with popup
 
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-export default function Converter(){
-
-    return(
-        <>
-        </>
-    )
+export default function Converter() {
+  return (
+    <>
+      <h1>Converter</h1>
+    </>
+  );
 }
