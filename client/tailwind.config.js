@@ -6,8 +6,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        louisgeorge: ["Louis George Cafe", "sans-serif"]
-      }
+        louisgeorge: ["Louis George Cafe", "sans-serif"],
+      },
     },
   },
   plugins: [
