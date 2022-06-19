@@ -15,14 +15,35 @@ import ReactTooltip from 'react-tooltip';
 
 export default function Converter(){
     const [settings, setSettings] = useState({
-        fontSize: 14,
-        fontColor: "#000000",
-        backgroundColor: "#FFFDD0",
-        lineSpacing: 1.5,
-        fixation: 1,
-        saccade: 10
     })
     const [displayText, setDisplayText] = useState();
+
+    //load user settings upon page loading
+    useEffect(() => {
+         getSettings();
+    }, [])
+
+    
+
+    const getSettings = async () => {
+        try{
+            let token = localStorage.getItem("token");
+            const {data} = await axios('/api/defaultSettings',{
+                method: "GET",
+                headers: {
+                    authorization: `Bearer ${token}`
+                },
+            })
+        setSettings(data);
+        
+        } catch (err){
+            console.log(err)
+        }
+    }
+
+    const putSettings = async () => {
+
+    }
 
     const fetchConvertedText = async () => {
         try{
@@ -67,8 +88,8 @@ export default function Converter(){
                         <input 
                             onChange={handleInputChange}
                             className="w-10 outline-none border-transparent text-black"
-                            name="fontColor"
-                            value={settings.fontColor}
+                            name="font_color"
+                            value={settings.font_color}
                             type="color"
                         />
                     </div>
@@ -77,8 +98,8 @@ export default function Converter(){
                         <input 
                             onChange={handleInputChange}
                             className="w-10"
-                            name="backgroundColor"
-                            value={settings.backgroundColor}
+                            name="background_color"
+                            value={settings.background_color}
                             type="color" 
                         />
                     </div>
@@ -87,8 +108,8 @@ export default function Converter(){
                         <input 
                             onChange={handleInputChange}
                             className="w-10"
-                            name="fontSize"
-                            value={settings.fontSize}
+                            name="font_size"
+                            value={settings.font_size}
                             min="1"
                             type="number"
                             />
@@ -98,8 +119,8 @@ export default function Converter(){
                         <input 
                             onChange={handleInputChange}
                             className="w-10"
-                            name="lineSpacing"
-                            value={settings.lineSpacing}
+                            name="line_spacing"
+                            value={settings.line_spacing}
                             min="1"
                             type="number"
                             />

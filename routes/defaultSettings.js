@@ -6,10 +6,13 @@ const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 router.use(express.json());
 
 
-//GET settings by user_id
-router.get("/:user_id", userShouldBeLoggedIn, async function (req, res, next) {
+//GET settings by username
+router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
+  const username = req.username; 
   try{
-    const { data } = await db(`SELECT * FROM default_settings WHERE user_id=${req.params.user_id};`);
+    const results = await db(`SELECT id FROM users WHERE username="${username}";`);
+    const user = results.data[0];
+    const { data } = await db(`SELECT * FROM default_settings WHERE user_id=${user.id};`);
     if (data.length){
       res.status(200).send(data);
     } else {
@@ -23,13 +26,13 @@ router.get("/:user_id", userShouldBeLoggedIn, async function (req, res, next) {
 
 //POST settings
 router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
-  const { font_size, font_color, background_color, line_spacing, fixation, saccade } = req.body;
+  const { fontSize, fontColor, backgroundColor, lineSpacing, fixation, saccade } = req.body;
   const username = req.username;
 
   try {
     const results = await db(`SELECT id FROM users WHERE username="${username}";`);
     const user = results.data[0]
-    await db(`INSERT INTO default_settings (user_id, font_size, font_color, background_color, line_spacing, fixation, saccade) VALUES (${user.id}, ${font_size}, "${font_color}", "${background_color}", ${line_spacing}, ${fixation}, ${saccade});`)
+    await db(`INSERT INTO default_settings (user_id, font_size, font_color, background_color, line_spacing, fixation, saccade) VALUES (${user.id}, ${fontSize}, "${fontColor}", "${backgroundColor}", ${lineSpacing}, ${fixation}, ${saccade});`)
     const { data } = await db(`SELECT * FROM default_settings;`);
     res.status(200).send(data)
   } catch (err){
@@ -43,7 +46,7 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 //user_id, font_size, font_color, background_color, line_spacing
 // https://faridho.gitbooks.io/create-rest-api-by-node-js-express-js-and-mysql/content/put-method.html
 router.put("/:user_id", userShouldBeLoggedIn, async function (req, res, next) {
-  const { font_size, font_color, background_color, line_spacing, fixation, saccade } = req.body;
+  const { fontSize, fontColor, backgroundColor, lineSpacing, fixation, saccade } = req.body;
   const username = req.username;
 
   try{

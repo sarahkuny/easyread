@@ -32,6 +32,11 @@ export default function SignUp(){
         fetchConvertedText();
     }, [])
 
+
+    //on signup 
+    //add user to users
+    //add default settings to settings
+    
     return (
         <>
             <Link to="/"><h1 className="text-5xl ml-3 my-6 font-louisgeorge">easy<b>Read</b></h1></Link>
