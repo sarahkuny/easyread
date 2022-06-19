@@ -2,40 +2,53 @@
 //Login Form
 //Link to sign up (send to parent)
 import axios from 'axios';
-import React, {useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import parse from 'html-react-parser';
+import React, {useState, useEffect,  } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export default function Login(){
     const [credentials, setCredentials] = useState({ username:"", password: ""});
     const [readingFact, setReadingFact] = useState("Dyslexia is though to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word. ");
-
-    useEffect(() => {
-        const fetchConvertedText = async () => {
-            try{
-                const { data } = await axios('/api/convert', {
-                    method: "POST",
-                    data: {
-                        fixation: 1,
-                        saccade: 10,
-                        content: `Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`
-                    }
-                })
-                const parsed = parse(data);
-                setReadingFact(parsed)
-            } catch (err){
-                console.log(err)
-            }
-        }
-        fetchConvertedText();
-    }, [])
+    let navigate = useNavigate();
+    // useEffect(() => {
+    //     const fetchConvertedText = async () => {
+    //         try{
+    //             const { data } = await axios('/api/convert', {
+    //                 method: "POST",
+    //                 data: {
+    //                     fixation: 1,
+    //                     saccade: 10,
+    //                     content: `Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`
+    //                 }
+    //             })
+    //             const parsed = parse(data);
+    //             setReadingFact(parsed)
+    //         } catch (err){
+    //             console.log(err)
+    //         }
+    //     }
+    //     fetchConvertedText();
+    // }, [])
 
 
     const handleInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setCredentials({...credentials, [name]: value })
+    }
+
+    const login = async (e) =>{
+        e.preventDefault();
+        try{
+            const { data } = await axios("/api/users/login", {
+                method: "POST",
+                data: credentials
+            });
+            localStorage.setItem("token", data);
+            navigate('/');
+        } catch (err){
+            console.log(err)
+        }
     }
     
 
@@ -49,7 +62,7 @@ export default function Login(){
                 </div>
                 <div className="shadow-lg p-5 m-auto bg-slate-100 rounded-md flex flex-col justify-between content-center max-h-380 min-h-content">
                     <h3 className="font-bold">Fill in your personal details below to log in to your account.</h3>
-                    <form className="flex flex-col">
+                    <form onSubmit={login} className="flex flex-col">
                         {/* Username input */}
                         <div className="flex flex-col p-3">
                             <label className="text-s">Username</label>
