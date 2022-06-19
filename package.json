@@ -22,6 +22,7 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.16",
     "react-router-dom": "^6.3.0",
+    "react-tooltip": "^4.2.21",
     "tailwind": "^4.0.0"
   }
 }

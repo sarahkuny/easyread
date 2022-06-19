@@ -5,6 +5,7 @@
 import React from "react";
 import Header from "./Header";
 import { Link } from "react-router-dom";
+import convertedText from '../assets/converted-text-example.png'
 
 export default function About() {
   return (
@@ -39,11 +40,11 @@ export default function About() {
             creating a more shallow form of reading. As a result, readers are
             able to experience a deeper understanding of the text.
           </p>
-          {/* <img
+          <img
             //test image url
-            src="../src/assets/converted-text-example.png"
+            src={convertedText}
             alt="TEST IMAGE"
-          /> */}
+          />
           <button className=" bg-white text-black py-2 px-2 rounded-lg my-6 w-60 hover:bg-sky-300 text-2xl">
             <a
               href="https://bionic-reading.com/about/"
