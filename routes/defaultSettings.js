@@ -5,25 +5,22 @@ const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
 router.use(express.json());
 
-router.get("/", userShouldBeLoggedIn, function (req, res, next) {
-  res.send("works")
-});
+// router.get("/", userShouldBeLoggedIn, function (req, res, next) {
+//   res.send("works")
+// });
 //GET settings by user_id
-router.get("/:id", userShouldBeLoggedIn, async function (req, res, next) {
+router.get("/:user_id", userShouldBeLoggedIn, async function (req, res, next) {
   try{
-    const { data } = db(`SELECT * FROM default_settings WHERE user_id=${req.params.id};`);
+    const { data } = await db(`SELECT * FROM default_settings WHERE user_id=${req.params.user_id};`);
     if (data.length){
-      console.log("length")
       res.status(200).send(data);
     } else {
       res.status(404).send("no settings found for user")
     }
-    
   } catch (err){
     res.status(500).send(err)
   }
   
-    
 });
 
 //POST settings
