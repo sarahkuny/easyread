@@ -3,12 +3,12 @@
 //Link to sign up (send to parent)
 import axios from 'axios';
 import React, {useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
 
+
 export default function Login(){
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
+    const [credentials, setCredentials] = useState({ username:"", password: ""});
     const [readingFact, setReadingFact] = useState("Dyslexia is though to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word. ");
 
     useEffect(() => {
@@ -31,6 +31,14 @@ export default function Login(){
         fetchConvertedText();
     }, [])
 
+
+    const handleInputChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setCredentials({...credentials, [name]: value })
+    }
+    
+
     return (
         <>
             <Link to="/"><h1 className="text-5xl ml-3 my-6 font-louisgeorge">easy<b>Read</b></h1></Link>
@@ -49,9 +57,10 @@ export default function Login(){
                                 type="text"
                                 id="username"
                                 name="username"
-                                value={username}
-                                className="rounded-md"
-                                required />
+                                value={credentials.username}
+                                className="rounded-md px-2"
+                                required 
+                                onChange={handleInputChange}  />
                         </div>
                         {/* Password input */}
                         <div className="flex flex-col p-3">
@@ -60,9 +69,10 @@ export default function Login(){
                                 type="password"
                                 id="password"
                                 name="password"
-                                value={password}
-                                className="rounded-md"
-                                required />
+                                value={credentials.password}
+                                className="rounded-md px-2"
+                                required
+                                onChange={handleInputChange} />
                         </div> 
                         <button className="bg-black text-white text-xl p-2 rounded-md">Log in</button>
                     </form>   
