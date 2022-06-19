@@ -20,15 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
-<<<<<<< HEAD
     "nodemon": "^2.0.16",
     "react-router-dom": "^6.3.0",
     "tailwind": "^4.0.0"
-||||||| 481c91c
-    "nodemon": "^2.0.16"
-=======
-    "nodemon": "^2.0.16",
-    "react-router-dom": "^6.3.0"
->>>>>>> f5f7333cf4ea611ef287f97a3ae28ed5981672a3
   }
 }
