@@ -33,7 +33,7 @@ router.get("/:id", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //POST user (require first_name, last_name, username, password --> store password as hashed password using bcrypt)
-router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
+router.post("/", async function (req, res, next) {
   const { username, password, first_name, last_name } = req.body;
   try {
     //check if username taken
@@ -64,7 +64,7 @@ router.delete("/:id", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //login, receive jwt
-router.post("/login", userShouldBeLoggedIn, async function (req, res, next) {
+router.post("/login",  async function (req, res, next) {
   const { username, password } = req.body;
   try {
     //select user info from users table

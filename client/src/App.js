@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import "./output.css";
 import "./components/SignUp";
-import SignUp from "./components/SignUp";
 import Header from "./components/Header";
 import Homepage from "./components/Homepage";
 
