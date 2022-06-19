@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "Louis George Cafe";
-    src: url("../public/Louis\ George\ Cafe.ttf");
+  font-family: "Louis George Cafe";
+  src: url("../public/Louis\ George\ Cafe.ttf");
 }

@@ -1,36 +1,38 @@
 //Header
 //Sign Up Form
 //link to login component (send to parent)
-import axios from 'axios';
-import React, {useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import parse from 'html-react-parser';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import parse from "html-react-parser";
 
-export default function SignUp(){
-    const [fullName, setFullName] = useState();
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
-    const [readingFact, setReadingFact] = useState("Dyslexia is though to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word. ");
+export default function SignUp() {
+  const [fullName, setFullName] = useState();
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [readingFact, setReadingFact] = useState(
+    "Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word. "
+  );
 
-    useEffect(() => {
-        const fetchConvertedText = async () => {
-            try{
-                const { data } = await axios('/api/convert', {
-                    method: "POST",
-                    data: {
-                        fixation: 1,
-                        saccade: 10,
-                        content: `Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`
-                    }
-                })
-                const parsed = parse(data);
-                setReadingFact(parsed)
-            } catch (err){
-                console.log(err)
-            }
-        }
-        fetchConvertedText();
-    }, [])
+  useEffect(() => {
+    const fetchConvertedText = async () => {
+      try {
+        const { data } = await axios("/api/convert", {
+          method: "POST",
+          data: {
+            fixation: 1,
+            saccade: 10,
+            content: `Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`,
+          },
+        });
+        const parsed = parse(data);
+        setReadingFact(parsed);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchConvertedText();
+  }, []);
 
 
     //on signup 

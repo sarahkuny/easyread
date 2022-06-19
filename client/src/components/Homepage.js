@@ -47,7 +47,6 @@ export default function Homepage() {
                       <Link to="/signUp">
                         <u>Sign Up</u>
                       </Link>{" "}
-                      
                     </b>
                   </i>
                 </p>
