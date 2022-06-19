@@ -16,12 +16,12 @@ export default function About() {
         linkOne="/converter"
         linkTwo="/"
       />
-      <div className="flex flex-auto bg-zinc-900 h-screen">
-        <div className=" bg-zinc-900 mx-64 flex flex-col text-white text-center">
-          <h2 className="w-50 text-center pt-2 text-2xl font-bold">
+      <div className="flex flex-auto bg-zinc-900 h-full">
+        <div className=" bg-zinc-900 mx-64 flex flex-col text-white  items-center">
+          <h2 className="w-50  pt-2 text-2xl font-bold">
             Who are we?
           </h2>
-          <p className="text-center pt-2 text-xl">
+          <p className=" pt-2 text-xl">
             Reading is an enjoyable pastime for many, but for some, it can be an
             unpleasant or even frustrating experience. Our goal with easy
             <b>Read</b> is to help aid those with learning difficulties, as well
@@ -31,7 +31,7 @@ export default function About() {
           <h2 className="w-50 text-center pt-2 text-2xl font-bold">
             What is Bionic Reading?
           </h2>
-          <p className="text-center pt-2 text-xl">
+          <p className=" pt-2 text-xl mb-3">
             easy<b>Read</b> helps improve its readers' comprehension and focus
             by using the Bionic Reading method, which creates artificial
             fixation points within the coverted text. Initial letters of each
@@ -44,6 +44,7 @@ export default function About() {
             //test image url
             src={convertedText}
             alt="TEST IMAGE"
+            className="h-2/6"
           />
           <button className=" bg-white text-black py-2 px-2 rounded-lg my-6 w-60 hover:bg-sky-300 text-2xl">
             <a
