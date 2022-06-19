@@ -45,7 +45,7 @@ export default function Login(){
                 data: credentials
             });
             localStorage.setItem("token", data);
-            navigate('/');
+            navigate('/convert');
         } catch (err){
             console.log(err)
         }
