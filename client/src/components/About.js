@@ -1,11 +1,10 @@
-//Homepage Header
-//About section
 //text explaining website
 //link to resources/research
 //link to about bionic reading
 //example image of converted text
-import React, { useState } from "react";
+import React from "react";
 import Header from "./Header";
+import { Link } from "react-router-dom";
 
 export default function About() {
   return (
@@ -16,8 +15,8 @@ export default function About() {
         linkOne="/converter"
         linkTwo="/"
       />
-      <div className="flex flex-auto bg-zinc-900 h-screen mx-64">
-        <div className=" bg-zinc-900 flex flex-col text-white text-center mx-64">
+      <div className="flex flex-auto bg-zinc-900 h-screen">
+        <div className=" bg-zinc-900 mx-64 flex flex-col text-white text-center">
           <h2 className="w-50 text-center pt-2 text-2xl font-bold">
             Who are we?
           </h2>
@@ -28,7 +27,6 @@ export default function About() {
             as teachers, students, anyone who may benefit reading in a
             non-traditional way.
           </p>
-
           <h2 className="w-50 text-center pt-2 text-2xl font-bold">
             What is Bionic Reading?
           </h2>
@@ -41,17 +39,26 @@ export default function About() {
             creating a more shallow form of reading. As a result, readers are
             able to experience a deeper understanding of the text.
           </p>
-          {/* <img src="converted-text-example.png" alt="converted text" /> */}
-          <h2 className="w-50 text-center pt-2 text-2xl font-bold">
-            Resources
-          </h2>
-          <ul class="list-none">
-            {/* <li>
+          {/* <img
+            //test image url
+            src="../src/assets/converted-text-example.png"
+            alt="TEST IMAGE"
+          /> */}
+          <button className=" bg-white text-black py-2 px-2 rounded-lg my-6 w-60 hover:bg-sky-300 text-2xl">
+            <a
+              href="https://bionic-reading.com/about/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Learn More
+            </a>
+          </button>
+
+          {/* <li>
                     <link href="https://bionic-reading.com/about/">
                       About Bionic Reading
                     </link>
                   </li> */}
-          </ul>
         </div>
       </div>
     </>
