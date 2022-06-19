@@ -14,12 +14,14 @@ import ReactTooltip from 'react-tooltip';
 
 
 export default function Converter(){
-    const [fontSize, setFontSize] = useState(14);
-    const [fontColor, setFontColor] = useState("#000000");
-    const [bgColor, setBgColor] = useState("#FFFDD0");
-    const [fixation, setFixation] = useState(1);
-    const [saccade, setSaccade] = useState(10);
-    const [lineSpacing, setLineSpacing] = useState(1.5);
+    const [settings, setSettings] = useState({
+        fontSize: 14,
+        fontColor: "#000000",
+        backgroundColor: "#FFFDD0",
+        lineSpacing: 1.5,
+        fixation: 1,
+        saccade: 10
+    })
     const [displayText, setDisplayText] = useState();
 
     const fetchConvertedText = async () => {
@@ -37,6 +39,12 @@ export default function Converter(){
         } catch (err){
             console.log(err)
         }
+    }
+
+    const handleInputChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setSettings({...settings, [name]: value})
     }
 
     return(
@@ -57,24 +65,30 @@ export default function Converter(){
                     <div>
                         <label className="m-2 text-white">Font Color</label>
                         <input 
+                            onChange={handleInputChange}
                             className="w-10 outline-none border-transparent text-black"
-                            value={fontColor}
+                            name="fontColor"
+                            value={settings.fontColor}
                             type="color"
                         />
                     </div>
                     <div className="">
                         <label className="m-2 text-white">Background Color</label>
                         <input 
+                            onChange={handleInputChange}
                             className="w-10"
-                            value={bgColor}
+                            name="backgroundColor"
+                            value={settings.backgroundColor}
                             type="color" 
                         />
                     </div>
                     <div>
                         <label className="m-2 text-white">Font Size</label>
                         <input 
+                            onChange={handleInputChange}
                             className="w-10"
-                            value={fontSize}
+                            name="fontSize"
+                            value={settings.fontSize}
                             min="1"
                             type="number"
                             />
@@ -82,8 +96,10 @@ export default function Converter(){
                     <div>
                         <label className="m-2 text-white">Line Spacing</label>
                         <input 
+                            onChange={handleInputChange}
                             className="w-10"
-                            value={lineSpacing}
+                            name="lineSpacing"
+                            value={settings.lineSpacing}
                             min="1"
                             type="number"
                             />
@@ -94,19 +110,23 @@ export default function Converter(){
                     </a>
                     <ReactTooltip place="top" type="dark" effect="float"/>
                             <input 
-                            className="w-10"
-                            value={fixation}
-                            type="number"
-                            min="1"
-                            max="5"
+                                onChange={handleInputChange}
+                                className="w-10"
+                                name="fixation"
+                                value={settings.fixation}
+                                type="number"
+                                min="1"
+                                max="5"
                             />
                         
                     </div>
                     <div>
                         <label className="m-2 text-white">Saccade</label>
                         <input 
+                            onChange={handleInputChange}
                             className="w-10"
-                            value={saccade}
+                            name="saccade"
+                            value={settings.saccade}
                             type="number"
                         />
                     </div>
