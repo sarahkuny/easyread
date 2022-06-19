@@ -6,7 +6,6 @@
 //example image of converted text
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import parse from "html-react-parser";
 
 export default function About() {
   return (
