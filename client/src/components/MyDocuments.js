@@ -15,8 +15,21 @@ export default function MyDocuments() {
         linkOne="/converter"
         linkTwo="/"
       />
-
-      <div className="bg-black h-screen bas"></div>
+      <div>
+        <div>
+          <div>
+            <h2>Document Name</h2>
+            <div className="border">
+              <ol>Document Title</ol>
+              <li>
+                EXAMPLE DOCUMENT
+                <button className="border">Share</button>
+                <button className="border">Delete</button>
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
