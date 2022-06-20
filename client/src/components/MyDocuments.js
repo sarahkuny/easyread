@@ -7,6 +7,14 @@ import Header from "./Header";
 import { Link } from "react-router-dom";
 
 export default function MyDocuments() {
+  const handleShare = (event) => {
+    console.log("share button clicked!!");
+  };
+
+  const handleDelete = (event) => {
+    console.log("delete button clicked!!");
+  };
+
   return (
     <>
       <Header
@@ -22,18 +30,22 @@ export default function MyDocuments() {
           </div>
           <div className="m-3 p-3 border flex flex-col">
             <h1 className="text-xl ">Document Title</h1>
-            <div className=" text-l flex w-full list-decimal   w-full flex justify-between">
-                <p className="px-4 py-2 flex  items-center">
-                  DOC 1 </p>
-                  <div>
-                  <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
-                    Share
-                  </button>
-                  <button className="rounded-lg items-center hover:bg-sky-300  bg-black text-white text-l py-1 px-2 m-2">
-                    Delete
-                  </button>
-                  </div>
-                
+            <div className=" text-l flex w-full list-decimal  justify-between">
+              <p className="px-4 py-2 flex  items-center">DOC 1 </p>
+              <div>
+                <button
+                  onClick={handleShare}
+                  className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
+                >
+                  Share
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="rounded-lg items-center hover:bg-sky-300  bg-black text-white text-l py-1 px-2 m-2"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         </div>
