@@ -77,7 +77,7 @@ export default function Converter(){
                 <form className="bg-white w-full flex justify-evenly py-2 border">
                     <label className="w-1/6 py-2">Attach Document</label>
                     <input className="w-3/6 border rounded-md border-black"></input>
-                    <button onClick={fetchConvertedText()} className="bg-black rounded-md text-white px-4 py-2">Convert</button>
+                    <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2">Convert</button>
                 </form>
 
                 {/* Settings */}

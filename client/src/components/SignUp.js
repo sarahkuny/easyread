@@ -3,14 +3,41 @@
 //link to login component (send to parent)
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import parse from "html-react-parser";
-import img from "../assets/bionic-reading-signup.png";
+import img from "../assets/bionic-reading-signup.png"; 
 
 export default function SignUp() {
-  const [fullName, setFullName] = useState();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+    const [credentials, setCredentials] = useState({ first_name:"", last_name:"", username:"", password: ""});
+    const navigate = useNavigate();
+
+    const handleInputChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+
+        setCredentials({...credentials, [name]:value})
+    }
+
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+        const username = credentials.username;
+        const password = credentials.password;
+        try{
+            await axios("/api/users", {
+                method: "POST",
+                data: credentials
+            });
+            const { data } = await axios("/api/users/login", {
+                method: "POST",
+                data: {username: username, password: password}
+            });
+            localStorage.setItem("token", data);
+            navigate('/convert');
+        } catch (err){
+            console.log(err)
+        }
+    }
+
 //   const [readingFact, setReadingFact] = useState(
 //     "Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word. "
 //   );
@@ -51,16 +78,29 @@ export default function SignUp() {
                 </div>
                 <div className="shadow-lg p-5 m-auto bg-slate-100 rounded-md flex flex-col justify-between content-center max-h-380 min-h-content">
                     <h3 className="font-bold">Fill in your personal details below to create your account.</h3>
-                    <form className="flex flex-col">
-                        {/* Name */}
+                    <form onSubmit={handleSignUp} className="flex flex-col">
+                        {/* First Name */}
                         <div className="flex flex-col p-3">
-                            <label className="text-s">Full Name</label>
+                            <label className="text-s">First Name</label>
                             <input 
+                                onChange={handleInputChange}
                                 type="text"
-                                id="full_name"
-                                name="full_name"
-                                value={fullName}
-                                className="rounded-md"
+                                id="first_name"
+                                name="first_name"
+                                value={credentials.first_name}
+                                className="rounded-md px-2"
+                                required />
+                        </div>
+                        {/* Last Name */}
+                        <div className="flex flex-col p-3">
+                            <label className="text-s">Last Name</label>
+                            <input 
+                                onChange={handleInputChange}
+                                type="text"
+                                id="last_name"
+                                name="last_name"
+                                value={credentials.last_name}
+                                className="rounded-md px-2"
                                 required />
                         </div>
                         
@@ -68,22 +108,24 @@ export default function SignUp() {
                         <div className="flex flex-col p-3">
                             <label className="text-s">Username</label>
                             <input 
+                                onChange={handleInputChange}
                                 type="text"
                                 id="username"
                                 name="username"
-                                value={username}
-                                className="rounded-md"
+                                value={credentials.username}
+                                className="rounded-md px-2"
                                 required />
                         </div>
                         {/* Password input */}
                         <div className="flex flex-col p-3">
                             <label className="text-s">Password</label>
                             <input 
+                                onChange={handleInputChange}
                                 type="password"
                                 id="password"
                                 name="password"
-                                value={password}
-                                className="rounded-md"
+                                value={credentials.password}
+                                className="rounded-md px-2"
                                 required />
                         </div> 
                         <button className="bg-black text-white text-xl p-2 rounded-md">Create Account</button>

@@ -38,7 +38,7 @@ export default function Login(){
         setCredentials({...credentials, [name]: value })
     }
 
-    const login = async (e) =>{
+    const handleLogin = async (e) =>{
         e.preventDefault();
         try{
             const { data } = await axios("/api/users/login", {
@@ -63,7 +63,7 @@ export default function Login(){
                 </div>
                 <div className="shadow-lg p-5 m-auto bg-slate-100 rounded-md flex flex-col justify-between content-center max-h-380 min-h-content">
                     <h3 className="font-bold">Fill in your personal details below to log in to your account.</h3>
-                    <form onSubmit={login} className="flex flex-col">
+                    <form onSubmit={handleLogin} className="flex flex-col">
                         {/* Username input */}
                         <div className="flex flex-col p-3">
                             <label className="text-s">Username</label>
