@@ -5,7 +5,6 @@
 import React from "react";
 import Header from "./Header";
 import { Link } from "react-router-dom";
-import convertedText from "../assets/converted-text-example.png";
 
 export default function About() {
   return (

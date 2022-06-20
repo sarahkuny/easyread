@@ -15,32 +15,28 @@ export default function MyDocuments() {
         linkOne="/converter"
         linkTwo="/"
       />
-      <body className="w-auto	 bg-slate-50 m-auto h-screen shadow-2xl flex justify-center items-center">
+      <body className="w-auto bg-slate-50 m-auto h-screen shadow-2xl flex justify-center items-center">
         <div className="flex-col h-full m-auto shadow-2xl w-5/6	">
-          <div className="bg-slate-900 text-white font-bold flex justify-start p-4 text-xl">
+          <div className="bg-slate-900 text-white font-bold flex justify-start p-4 text-xl rounded-t">
             Document Name
           </div>
           <div className="m-3 p-3 border">
-            <div className="text-xl">Document Title</div>
-            <div className="m-3 p-3 flex items-center justify-start text-l">
-              <ol className="list-decimal	">
-                <li>DOC 1</li>
-                <li>DOC 1</li>
-                <li>DOC 3</li>
+            <div className="text-xl ">Document Title</div>
+            <div className="m-3 p-3 text-l">
+              <ol className="list-decimal divide-y-2 divide-gray-300">
+                <li className="px-4 py-2 flex  items-center">
+                  DOC 1
+                  <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
+                    Share
+                  </button>
+                  <button className="rounded-lg items-center hover:bg-sky-300  bg-black text-white text-l py-1 px-2 m-2">
+                    Delete
+                  </button>
+                </li>
               </ol>
             </div>
           </div>
         </div>
-
-        {/* <button className="items-center py-2 px-2 text-black  rounded-lg my-6 w-60 hover:bg-sky-300 text-2xl">
-          <a
-            href="https://bionic-reading.com/about/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Learn More
-          </a>
-        </button> */}
       </body>
     </>
   );
