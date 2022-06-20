@@ -4,6 +4,7 @@
 import axios from 'axios';
 import React, {useState, useEffect,  } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import img from "../assets/bionic-reading-signup.png";
 
 
 export default function Login(){
@@ -58,7 +59,7 @@ export default function Login(){
             <div className="bg-zinc-900">     
             <div className="flex flex-col md:flex-row space-between lg:w-5/6 m-auto h-screen bg-zinc-900">
                 <div className="w-96 h-3/6 m-auto flex flex-col justify-center text-white text-2xl">
-                    <p>{readingFact}</p>
+                <img src={img} alt="Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word." />
                 </div>
                 <div className="shadow-lg p-5 m-auto bg-slate-100 rounded-md flex flex-col justify-between content-center max-h-380 min-h-content">
                     <h3 className="font-bold">Fill in your personal details below to log in to your account.</h3>

@@ -5,34 +5,36 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
+import img from "../assets/bionic-reading-signup.png";
 
 export default function SignUp() {
   const [fullName, setFullName] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [readingFact, setReadingFact] = useState(
-    "Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word. "
-  );
+//   const [readingFact, setReadingFact] = useState(
+//     "Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word. "
+//   );
 
-  useEffect(() => {
-    const fetchConvertedText = async () => {
-      try {
-        const { data } = await axios("/api/convert", {
-          method: "POST",
-          data: {
-            fixation: 1,
-            saccade: 10,
-            content: `Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`,
-          },
-        });
-        const parsed = parse(data);
-        setReadingFact(parsed);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchConvertedText();
-  }, []);
+//   useEffect(() => {
+//     const fetchConvertedText = async () => {
+//       try {
+//         const { data } = await axios("/api/convert", {
+//           method: "POST",
+//           data: {
+//             fixation: 1,
+//             saccade: 10,
+//             content: `Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`,
+//           },
+//         });
+//         const parsed = parse(data);
+//         console.log(parsed);
+//         setReadingFact(parsed);
+//       } catch (err) {
+//         console.log(err);
+//       }
+//     };
+//     fetchConvertedText();
+//   }, []);
 
 
     //on signup 
@@ -45,7 +47,7 @@ export default function SignUp() {
             <div className="bg-zinc-900">     
             <div className="flex flex-col md:flex-row space-between lg:w-5/6 m-auto h-screen bg-zinc-900">
                 <div className="w-96 h-3/6 m-auto flex flex-col justify-center text-white text-2xl">
-                    <p>{readingFact}</p>
+                    <img src={img} alt="Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word." />
                 </div>
                 <div className="shadow-lg p-5 m-auto bg-slate-100 rounded-md flex flex-col justify-between content-center max-h-380 min-h-content">
                     <h3 className="font-bold">Fill in your personal details below to create your account.</h3>
