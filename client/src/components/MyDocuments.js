@@ -20,20 +20,20 @@ export default function MyDocuments() {
           <div className="bg-slate-900 text-white font-bold flex justify-start p-4 text-xl rounded-t">
             Document Name
           </div>
-          <div className="m-3 p-3 border">
-            <div className="text-xl ">Document Title</div>
-            <div className="m-3 p-3 text-l">
-              <ol className="list-decimal divide-y-2 divide-gray-300">
-                <li className="px-4 py-2 flex  items-center">
-                  DOC 1
+          <div className="m-3 p-3 border flex flex-col">
+            <h1 className="text-xl ">Document Title</h1>
+            <div className=" text-l flex w-full list-decimal   w-full flex justify-between">
+                <p className="px-4 py-2 flex  items-center">
+                  DOC 1 </p>
+                  <div>
                   <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
                     Share
                   </button>
                   <button className="rounded-lg items-center hover:bg-sky-300  bg-black text-white text-l py-1 px-2 m-2">
                     Delete
                   </button>
-                </li>
-              </ol>
+                  </div>
+                
             </div>
           </div>
         </div>

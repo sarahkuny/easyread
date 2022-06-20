@@ -12,7 +12,7 @@ export default function About() {
       <Header
         buttonOne="Converter"
         buttonTwo="Sign Out"
-        linkOne="/converter"
+        linkOne="/convert"
         linkTwo="/"
       />
       <div class="bg-gradient-to-br from-zinc-900 via-slate-900 to-sky-500 min-h-screen flex items-center justify-center px-16">
