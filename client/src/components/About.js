@@ -29,7 +29,7 @@ export default function About() {
             </h2>
             <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8 text-center">
               <p className="pt-2 text-xl">
-                x Reading is an enjoyable pastime for many, but for some, it can
+                Reading is an enjoyable pastime for many, but for some, it can
                 be an unpleasant or even frustrating experience. Our goal with
                 easy
                 <b>Read</b> is to help aid those with learning difficulties, as
@@ -55,7 +55,7 @@ export default function About() {
                 of the text.
               </p>
             </div>
-            <h2 className="w-50  pt-6 text-2xl font-bold text-white text-center">
+            <h2 className="w-50  pt-6 text-xl font-bold text-white text-center">
               What does converted text look like?
             </h2>
             <div
