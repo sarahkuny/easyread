@@ -5,7 +5,6 @@
 import React from "react";
 import Header from "./Header";
 import { Link } from "react-router-dom";
-import convertedText from "../assets/converted-text-example.png";
 
 export default function About() {
   return (
@@ -55,7 +54,7 @@ export default function About() {
                 of the text.
               </p>
             </div>
-            <h2 className="w-50  pt-6 text-2xl font-bold text-white text-center">
+            <h2 className="w-50  pt-6 text-xl font-bold text-white text-center">
               What does converted text look like?
             </h2>
             <div
