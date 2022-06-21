@@ -17,7 +17,8 @@ export default function Converter(){
     const [settings, setSettings] = useState({
     });
     const [fileText, setFileText] = useState("");
-    const [displayText, setDisplayText] = useState();
+    const [displayText, setDisplayText] = useState("");
+    const [documentName, setDocumentName] = useState("");
 
     //load user settings upon page loading
     // useEffect(() => {
@@ -48,11 +49,10 @@ export default function Converter(){
 
 
 
-    
+{/*Click Events*/}
 
     const fetchConvertedText = async (e) => {
         e.preventDefault();
-        
         try{
             const { data } = await axios('/api/convert', {
                 method: "POST",
@@ -70,6 +70,30 @@ export default function Converter(){
         }
     }
 
+    const saveDocument = async (e) => {
+        e.preventDefault();
+        //if no text uploaded, set error
+        console.log(documentName);
+        console.log(fileText)
+        try{
+            let token = localStorage.getItem("token");
+            let response = await axios('/api/media',{
+                method: "POST",
+                headers: {
+                    authorization: `Bearer ${token}`
+                },
+                data: {
+                    name: `${documentName}`,
+                    content: `${fileText}`
+                }
+            });
+            setDocumentName("");
+            //add success message
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
 {/*Handle Changes*/}
 
     const handleInputChange = (e) => {
@@ -83,15 +107,13 @@ export default function Converter(){
         const reader = new FileReader();
         reader.onload = function(e) {
             setFileText(e.target.result);
-            console.log(e.target.result)
         };
         reader.readAsText(file);
     }
 
-    const handleDocumentTitleChange = (e) => {
-        const title = e.target.value;
-        console.log(title)
-
+    const handleDocumentNameChange = (e) => {
+        const name = e.target.value;
+        setDocumentName(name)
     }
 
     return(
@@ -189,10 +211,14 @@ export default function Converter(){
                     <p className='my-5'>{displayText}</p>
                 </div>
                 {/* Save Document Form */}
-                <form className="bg-white w-full flex justify-center py-2 border">
-                    <label className="py-2 ">Document name  </label>
-                        <input onChange={handleDocumentTitleChange} className="mx-4 w-3/6 border rounded-md border-black"/>
-                   
+                <form onSubmit={saveDocument} className="bg-white w-full flex justify-center py-2 border">
+                    <label className="py-2 ">Document Title</label>
+                        <input 
+                            onChange={handleDocumentNameChange} 
+                            className="mx-4 px-2 w-3/6 border rounded-md border-black"
+                            value={documentName}
+                            required />
+
                     <button className="bg-black rounded-md text-white mx-5 p-2">Save Document</button>
                 </form>
                 <div className="bg-zinc-900 text-white rounded-md">
