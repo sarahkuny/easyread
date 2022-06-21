@@ -26,21 +26,21 @@ export default function Converter(){
 
     
 
-    // const getSettings = async () => {
-    //     try{
-    //         let token = localStorage.getItem("token");
-    //         const {data} = await axios('/api/defaultSettings',{
-    //             method: "GET",
-    //             headers: {
-    //                 authorization: `Bearer ${token}`
-    //             },
-    //         })
-    //     setSettings(data);
+    const getSettings = async () => {
+        try{
+            let token = localStorage.getItem("token");
+            const {data} = await axios('/api/defaultSettings',{
+                method: "GET",
+                headers: {
+                    authorization: `Bearer ${token}`
+                },
+            })
+        setSettings(data);
         
-    //     } catch (err){
-    //         console.log(err)
-    //     }
-    // }
+        } catch (err){
+            console.log(err)
+        }
+    }
 
     // const putSettings = async () => {
 
@@ -94,8 +94,8 @@ export default function Converter(){
             <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
                {/* upload form */}
                 <form className="bg-white w-full flex justify-center py-2 border">
-                    <label className=" p-2">Attach Document
-                        <input onChange={handleFileChange} className="border rounded-md border-black mx-2" type="file"/>
+                    <label className=" p-2">Attach Document (must be .txt)
+                        <input onChange={handleFileChange} accept=".txt" className="border rounded-md border-black mx-2" type="file"/>
                     </label>
                     <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2">Convert</button>
                 </form>
