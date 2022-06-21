@@ -2,9 +2,12 @@
 //Documents
 //each row: document title, share (email popup), delete
 
+import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Header from "./Header";
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
+import Header from "./Header";
+import ReactTooltip from "react-tooltip";
 
 export default function MyDocuments() {
   const [documents, setDocuments] = useState([]);
@@ -13,16 +16,19 @@ export default function MyDocuments() {
     getAllDocuments();
   }, []);
 
-  const getAllDocuments = () => {
-    fetch("/api/media")
-      //GET all 'users' from users table from db() declared in users.js
-      .then((response) => response.json())
-      .then((allDocuments) => {
-        setDocuments(documents); //add all users to the setUsers state so they can render in the dropdown
-      })
-      .catch((error) => {
-        console.log(error);
+  const getAllDocuments = async () => {
+    try {
+      let token = localStorage.getItem("token");
+      const { data } = await axios("/api/media", {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
       });
+      setDocuments(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleShare = (event) => {
@@ -51,7 +57,7 @@ export default function MyDocuments() {
             <div className=" text-l flex w-full list-decimal  justify-between">
               <p className="px-4 py-2 flex  items-center">
                 {documents.map((document) => {
-                  document.name;
+                  return document.name;
                 })}
               </p>
 
