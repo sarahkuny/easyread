@@ -88,6 +88,12 @@ export default function Converter(){
         reader.readAsText(file);
     }
 
+    const handleDocumentTitleChange = (e) => {
+        const title = e.target.value;
+        console.log(title)
+
+    }
+
     return(
         <>
             <Header buttonOne="My Documents" buttonTwo="Sign Out" linkOne="/documents" linkTwo="/" />
@@ -183,10 +189,11 @@ export default function Converter(){
                     <p className='my-5'>{displayText}</p>
                 </div>
                 {/* Save Document Form */}
-                <form className="bg-white w-full flex justify-evenly py-2 border">
-                    <label className="w-1/6 py-2">Document Name</label>
-                    <input className="w-3/6 border rounded-md border-black"></input>
-                    <button className="bg-black rounded-md text-white px-4 py-2">Save Document</button>
+                <form className="bg-white w-full flex justify-center py-2 border">
+                    <label className="py-2 ">Document name  </label>
+                        <input onChange={handleDocumentTitleChange} className="mx-4 w-3/6 border rounded-md border-black"/>
+                   
+                    <button className="bg-black rounded-md text-white mx-5 p-2">Save Document</button>
                 </form>
                 <div className="bg-zinc-900 text-white rounded-md">
                     <details>
