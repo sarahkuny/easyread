@@ -4,10 +4,8 @@
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import parse from "html-react-parser";
+
 import Header from "./Header";
-import ReactTooltip from "react-tooltip";
 
 export default function MyDocuments() {
   const [documents, setDocuments] = useState([]);
@@ -55,13 +53,30 @@ export default function MyDocuments() {
           <div className="m-3 p-3 border flex flex-col">
             <h1 className="text-xl ">Document Title</h1>
             <div className=" text-l flex w-full list-decimal  justify-between">
-              <p className="px-4 py-2 flex  items-center">
+              <ul className="px-4 py-2  items-center list-decimal">
                 {documents.map((document) => {
-                  return document.name;
-                })}
-              </p>
+                  return (
+                    <li key={document.id}>
+                      <span>{document.name} </span>
 
-              <div>
+                      <button
+                        onClick={handleShare}
+                        className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
+                      >
+                        Share
+                      </button>
+                      <button
+                        onClick={handleDelete}
+                        className="rounded-lg items-center hover:bg-sky-300  bg-black text-white text-l py-1 px-2 m-2"
+                      >
+                        Delete
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              {/* <div>
                 <button
                   onClick={handleShare}
                   className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
@@ -75,8 +90,8 @@ export default function MyDocuments() {
                   Delete
                 </button>
               </div>
-            </div>
-            {/* <div className=" text-l flex w-full list-decimal  justify-between">
+            </div> */}
+              {/* <div className=" text-l flex w-full list-decimal  justify-between">
               <p className="px-4 py-2 flex  items-center">DOC 1 </p>
 
               <div>
@@ -94,6 +109,7 @@ export default function MyDocuments() {
                 </button>
               </div>
             </div> */}
+            </div>
           </div>
         </div>
       </body>
