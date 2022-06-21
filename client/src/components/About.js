@@ -26,21 +26,38 @@ export default function About() {
             >
               Who are we?
             </h2>
-            <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8 text-center">
+            <div class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center">
               <p className="pt-2 text-xl">
                 Reading is an enjoyable pastime for many, but for some, it can
                 be an unpleasant or even frustrating experience. Our goal with
-                easy
-                <b>Read</b> is to help aid those with learning difficulties, as
-                well as teachers, students, anyone who may benefit reading in a
-                non-traditional way.
+                easy<b>Read</b> is to help aid those with learning difficulties,
+                as well as teachers, students, anyone who may benefit reading in
+                a non-traditional way.
+              </p>
+            </div>
+            <h2
+              className="text-2xl
+            
+            
+            w-50 pt-6 font-bold text-white text-center"
+            >
+              How does it work?
+            </h2>
+            <div class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center">
+              <p className="pt-2 text-xl">
+                Users are able to convert and customize any text, in order to
+                best fit their needs. Our text converter tool includes settings
+                such as font color and size, background color, line spacing, and
+                and 'Bionic Reading'. Users are also able to saving their
+                preferred settings, making all future text conversions more
+                seamless and effortless.
               </p>
             </div>
             <h2 className="w-50  pt-6 text-2xl font-bold text-white text-center">
               What is Bionic Reading?
             </h2>
             <div
-              class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8 text-center
+              class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center
             "
             >
               <p className=" pt-2 text-xl mb-3">
@@ -54,11 +71,11 @@ export default function About() {
                 of the text.
               </p>
             </div>
-            <h2 className="w-50  pt-6 text-xl font-bold text-white text-center">
+            <h2 className="w-50  pt-6 text-2xl font-bold text-white text-center ">
               What does converted text look like?
             </h2>
             <div
-              class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8 text-center
+              class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center
             "
             >
               <p className=" pt-2 text-xl mb-3">
@@ -69,7 +86,7 @@ export default function About() {
                 od. <b>Tr</b>y <b>i</b>t <b>ou</b>t <b>fo</b>r <b>yourse</b>lf{" "}
                 <b>an</b>d <b>experien</b>ce <b>bett</b>er <b>readi</b>ng{" "}
                 <b>foc</b>
-                us <b>an</b>d <b>comprehens</b>ion."
+                us <b>an</b>d <b>comprehens</b>ion."{" "}
               </p>
             </div>
             <div className="flex items-center justify-center">
