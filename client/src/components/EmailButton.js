@@ -1,0 +1,132 @@
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import emailjs from "@emailjs/browser";
+
+export default function EmailButton() {
+  const [showModal, setShowModal] = useState(false);
+  const [recipientName, setRecipientName] = useState();
+  const [recipientEmail, setRecipientEmail] = useState();
+  const [user, setUser] = useState();
+  const [convertedDocument, setConvertedDocument] = useState();
+
+  const handleRecipientName = (event) => {
+    setRecipientName(event.target.value);
+  };
+  const handleRecipientEmail = (event) => {
+    setRecipientEmail(event.target.value);
+    console.log(recipientEmail);
+  };
+
+  const handleSendEmail = async () => {
+    setShowModal(false);
+
+    // fetch name of user who is sending the email
+    // const getUser = async () => {
+    try {
+      let token = localStorage.getItem("token");
+      const { data } = await axios("/api/users/", {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(data);
+    } catch (err) {
+      console.log(err);
+    }
+    // };
+
+    // Fetch converted document ??from media
+
+    // create template params object for the email
+    const emailObj = {
+      recipientName: recipientName,
+      recipientEmail: recipientEmail,
+      user: user,
+      convertedDocument: convertedDocument,
+    };
+
+    //sending the email
+
+    emailjs.send("service_au002tq", "YOUR_TEMPLATE_ID", emailObj).then(
+      function (response) {
+        console.log("SUCCESS!", response.status, response.text);
+      },
+      function (error) {
+        console.log("FAILED...", error);
+      }
+    );
+  };
+  return (
+    <>
+      <button
+        className="bg-black rounded-lg items-center text-white hover:bg-sky-300 text-l py-1 px-2 m-2"
+        type="button"
+        onClick={() => setShowModal(true)}
+      >
+        Share
+      </button>
+      {showModal ? (
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <h3 className="text-3xl font-semibold">
+                    Share your document
+                  </h3>
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div className="relative p-6 flex-auto">
+                  <label>Recipient's Name</label>
+                  <input
+                    type="text"
+                    className="outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 mx-3 my-3"
+                    onChange={handleRecipientName}
+                    value={recipientName}
+                  />
+                  <br></br>
+                  <label>Recipient's Email</label>
+                  <input
+                    type="text"
+                    className="outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 mx-3 my-3"
+                    onChange={handleRecipientEmail}
+                    value={recipientEmail}
+                  />
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="bg-emerald-500 text-black active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={handleSendEmail}
+                  >
+                    Send
+                  </button>{" "}
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
+    </>
+  );
+}
