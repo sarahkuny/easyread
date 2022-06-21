@@ -20,13 +20,14 @@ router.post('/', async function (req, res, next){
     encodedParams.append("request_type", "html");
     encodedParams.append("fixation", `${fixation}`);
     encodedParams.append("saccade", `${saccade}`);
+    const apiKey = process.env.API_KEY;
     
     const options = {
       method: 'POST',
       url: 'https://bionic-reading1.p.rapidapi.com/convert',
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': '54bba92646mshaf2254492495724p1a13e9jsna4df1760711e',
+        'X-RapidAPI-Key': `${apiKey}`,
         'X-RapidAPI-Host': 'bionic-reading1.p.rapidapi.com'
       },
       data: encodedParams
