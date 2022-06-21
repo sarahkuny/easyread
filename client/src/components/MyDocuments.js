@@ -12,7 +12,7 @@ export default function MyDocuments() {
       <Header
         buttonOne="Converter"
         buttonTwo="Sign Out"
-        linkOne="/converter"
+        linkOne="/convert"
         linkTwo="/"
       />
       <body className="w-auto bg-slate-50 m-auto h-screen shadow-2xl flex justify-center items-center">
