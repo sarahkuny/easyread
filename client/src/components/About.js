@@ -26,7 +26,7 @@ export default function About() {
             >
               Who are we?
             </h2>
-            <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8 text-center">
+            <div class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center">
               <p className="pt-2 text-xl">
                 Reading is an enjoyable pastime for many, but for some, it can
                 be an unpleasant or even frustrating experience. Our goal with
@@ -43,7 +43,7 @@ export default function About() {
             >
               How does it work?
             </h2>
-            <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8 text-center">
+            <div class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center">
               <p className="pt-2 text-xl">
                 Users are able to convert and customize any text, in order to
                 best fit their needs. Our text converter tool includes settings
@@ -57,7 +57,7 @@ export default function About() {
               What is Bionic Reading?
             </h2>
             <div
-              class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8 text-center
+              class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center
             "
             >
               <p className=" pt-2 text-xl mb-3">
@@ -75,7 +75,7 @@ export default function About() {
               What does converted text look like?
             </h2>
             <div
-              class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8 text-center
+              class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center
             "
             >
               <p className=" pt-2 text-xl mb-3">
