@@ -79,11 +79,11 @@ export default function Converter(){
     }
 
     const handleFileChange = (e) =>{
-        console.log("file change")
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.onload = function(e) {
-            setFileText(e.target.result)
+            setFileText(e.target.result);
+            console.log(e.target.result)
         };
         reader.readAsText(file);
     }
@@ -180,7 +180,7 @@ export default function Converter(){
 
                 {/* converted text */}
                 <div className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll">
-                    {displayText}
+                    <p className='my-5'>{displayText}</p>
                 </div>
                 {/* Save Document Form */}
                 <form className="bg-white w-full flex justify-evenly py-2 border">

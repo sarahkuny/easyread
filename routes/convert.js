@@ -14,8 +14,16 @@ router.get('/', function (req, res, next){
 
 router.post('/', async function (req, res, next){
     const { content, fixation, saccade } = req.body;
+    let results = "";
+    arrayContent = content.split(" ");
+    
+    while(arrayContent.length){
+      let chunk = arrayContent.splice(0, 400);
+      let request = chunk.join(" ");
+    
+
     const encodedParams = new URLSearchParams();
-    encodedParams.append("content", `${content}`);
+    encodedParams.append("content", `${request}`);
     encodedParams.append("response_type", "html");
     encodedParams.append("request_type", "html");
     encodedParams.append("fixation", `${fixation}`);
@@ -35,13 +43,15 @@ router.post('/', async function (req, res, next){
     
     try{
       let response = await axios.request(options);
-      res.send(response.data);
+      results+=(response.data);
     }
     
     catch (error) {
         console.error(error);
-    };
+    }
+  };
     
+    res.send(results)
 
 });
 
