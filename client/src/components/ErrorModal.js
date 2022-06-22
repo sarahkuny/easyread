@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React, {useState, useEffect } from 'react';
+
+import React from 'react';
 
 export default function ErrorModal({closeError, title, message}) {
     
@@ -32,7 +32,7 @@ export default function ErrorModal({closeError, title, message}) {
                     <div className="items-center px-4 py-3">
                         <button
                             id="ok-btn"
-                            className="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-3/6 shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-green-300"
+                            className="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-3/6 shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
                             onClick={closeError}>
                             OK
                         </button>

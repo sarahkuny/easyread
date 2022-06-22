@@ -12,21 +12,28 @@ import parse from 'html-react-parser';
 import Header from './Header';
 import ReactTooltip from 'react-tooltip';
 import LoadingModal from './LoadingModal';
-
+import SuccessModal from './SuccessModal';
+import ErrorModal from './ErrorModal';
 
 export default function Converter(){
-    const [settings, setSettings] = useState({
-    });
+    const [settings, setSettings] = useState({font_size: 16,
+                                              font_color: "#000000",
+                                              background_color: "#FFFDD0",
+                                              line_spacing: 1.5});
+    const [styledSettings, setStyledSettings] = (`className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll"`);
     const [fileText, setFileText] = useState("");
-    const [displayText, setDisplayText] = useState("");
+    const [convertedText, setConvertedText] = useState();
     const [documentName, setDocumentName] = useState("");
     const [loading, setLoading] = useState(false);
-
-    //load user settings upon page loading
-    // useEffect(() => {
-    //      getSettings();
-    // }, [])
-
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [toggle, setToggle] = useState(false);
+    
+//load user settings upon page loading
+    useEffect(() => {
+         getSettings();
+    }, [])
     
 
     const getSettings = async () => {
@@ -52,7 +59,6 @@ export default function Converter(){
 
 
 {/*Click Events*/}
-
     const fetchConvertedText = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -67,20 +73,26 @@ export default function Converter(){
             })
             console.log(data);
             const parsed = parse(data);
-            setDisplayText(parsed)
+            setConvertedText(parsed);
             setLoading(false);
         } catch (err){
-            console.log(err)
+            setLoading(false);
+            setErrorMessage({title: "Cannot Convert Document",
+                             message: "Please make sure you've attached a document or try again later."});
+            setError(true);
         }
     }
 
     const saveDocument = async (e) => {
         e.preventDefault();
         //if no text uploaded, set error
-        console.log(documentName);
-        console.log(fileText)
+        let token = localStorage.getItem("token");
+        if (!token){
+            setErrorMessage({title: "Cannot Save Document",
+                             message: "You must be logged in to save documents."})
+            setError(true);
+        }
         try{
-            let token = localStorage.getItem("token");
             let response = await axios('/api/media',{
                 method: "POST",
                 headers: {
@@ -92,14 +104,18 @@ export default function Converter(){
                 }
             });
             setDocumentName("");
-            //add success message
+            setSuccess(true)
         } catch(err) {
             console.log(err)
         }
     }
 
-{/*Handle Changes*/}
+    const toggleText = (e) =>{
+        e.preventDefault();
+        setToggle(!toggle)
+    }
 
+{/*Handle Changes*/}
     const handleInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -123,15 +139,17 @@ export default function Converter(){
     return(
         <>
             <Header buttonOne="My Documents" buttonTwo="Sign Out" linkOne="/documents" linkTwo="/" />
-           
             {loading ? <LoadingModal /> : ""}
             <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
+            {error ? <ErrorModal closeError={() => setError(false)} message={errorMessage.message} title={errorMessage.title} />: ""}
+            {success  ? <SuccessModal closeMessage={() => setSuccess(false)} title="Success!" message="Document saved successfully."/> : ""}
                {/* upload form */}
                 <form className="bg-white w-full flex justify-center py-2 border">
                     <label className=" p-2">Attach Document (must be .txt)
-                        <input onChange={handleFileChange} accept=".txt" className="border rounded-md border-black mx-2" type="file"/>
+                        <input onChange={handleFileChange} accept=".txt" className="border rounded-md border-black mx-2" type="file" require/>
                     </label>
                     <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2 hover:bg-sky-500">Convert</button>
+                    <button onClick={toggleText} className="bg-black rounded-md text-white px-4 py-2 mx-2 hover:bg-sky-500">{toggle ? "Turn on Bionic Reading" : "Turn off Bionic Reading"}</button>
                 </form>
                 
                 {/* Settings */}
@@ -163,7 +181,7 @@ export default function Converter(){
                         <label className="m-2 text-white">Font Size
                             <input 
                                 onChange={handleInputChange}
-                                className="w-10 ml-2"
+                                className="w-10 ml-2 text-black"
                                 name="font_size"
                                 value={settings.font_size}
                                 min="1"
@@ -175,7 +193,7 @@ export default function Converter(){
                         <label className="m-2 text-white">Line Spacing
                             <input 
                                 onChange={handleInputChange}
-                                className="w-10 m-2"
+                                className="w-10 m-2 text-black"
                                 name="line_spacing"
                                 value={settings.line_spacing}
                                 min="1"
@@ -183,38 +201,12 @@ export default function Converter(){
                                 />
                         </label>
                     </div>
-                    <div>
-                    <a data-tip="Choose a value between 1 - 5.">
-                        <label className="m-2 text-white">Fixation
-                    <ReactTooltip place="top" type="dark" effect="float"/>
-                            <input 
-                                onChange={handleInputChange}
-                                className="w-10 ml-2"
-                                name="fixation"
-                                value={settings.fixation}
-                                type="number"
-                                min="1"
-                                max="5"
-                            />
-                        </label>
-                    </a>
-                    </div>
-                    <div>
-                        <label className="m-2 text-white">Saccade
-                            <input 
-                                onChange={handleInputChange}
-                                className="w-10"
-                                name="saccade"
-                                value={settings.saccade}
-                                type="number"
-                            />
-                        </label>
-                    </div>
+                    
                 </div>
 
                 {/* converted text */}
-                <div className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll">
-                    <p className='my-5'>{displayText}</p>
+                <div {...styledSettings}>
+                    <p>{toggle ? fileText : convertedText}</p>
                 </div>
                 {/* Save Document Form */}
                 <form onSubmit={saveDocument} className="bg-white w-full flex justify-center py-2 border">
