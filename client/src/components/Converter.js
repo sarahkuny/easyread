@@ -20,6 +20,7 @@ export default function Converter(){
                                               font_color: "#000000",
                                               background_color: "#FFFDD0",
                                               line_spacing: 1.5});
+    const [styledSettings, setStyledSettings] = (`className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll"`);
     const [fileText, setFileText] = useState("");
     const [convertedText, setConvertedText] = useState();
     const [documentName, setDocumentName] = useState("");
@@ -28,7 +29,6 @@ export default function Converter(){
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [toggle, setToggle] = useState(false);
-    const [convertAvailable, setConvertAvailable] = useState(true);
     
 //load user settings upon page loading
     useEffect(() => {
@@ -75,7 +75,6 @@ export default function Converter(){
             const parsed = parse(data);
             setConvertedText(parsed);
             setLoading(false);
-            setConvertAvailable(false);
         } catch (err){
             setLoading(false);
             setErrorMessage({title: "Cannot Convert Document",
@@ -206,8 +205,8 @@ export default function Converter(){
                 </div>
 
                 {/* converted text */}
-                <div className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll">
-                    <p className='my-5'>{toggle ? fileText : convertedText}</p>
+                <div {...styledSettings}>
+                    <p>{toggle ? fileText : convertedText}</p>
                 </div>
                 {/* Save Document Form */}
                 <form onSubmit={saveDocument} className="bg-white w-full flex justify-center py-2 border">
