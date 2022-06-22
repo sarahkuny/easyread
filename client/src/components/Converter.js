@@ -12,7 +12,7 @@ import parse from 'html-react-parser';
 import Header from './Header';
 import ReactTooltip from 'react-tooltip';
 import LoadingModal from './LoadingModal';
-
+import SuccessModal from './SuccessModal';
 
 export default function Converter(){
     const [settings, setSettings] = useState({
@@ -21,7 +21,7 @@ export default function Converter(){
     const [displayText, setDisplayText] = useState("");
     const [documentName, setDocumentName] = useState("");
     const [loading, setLoading] = useState(false);
-
+    const [success, setSuccess] = useState(false);
     //load user settings upon page loading
     // useEffect(() => {
     //      getSettings();
@@ -92,7 +92,7 @@ export default function Converter(){
                 }
             });
             setDocumentName("");
-            //add success message
+            setSuccess(true)
         } catch(err) {
             console.log(err)
         }
@@ -123,9 +123,10 @@ export default function Converter(){
     return(
         <>
             <Header buttonOne="My Documents" buttonTwo="Sign Out" linkOne="/documents" linkTwo="/" />
-           
             {loading ? <LoadingModal /> : ""}
             <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
+
+            {success  ? <SuccessModal closeMessage={() => setSuccess(false)} title="Success!" message="Document saved successfully."/> : ""}
                {/* upload form */}
                 <form className="bg-white w-full flex justify-center py-2 border">
                     <label className=" p-2">Attach Document (must be .txt)
