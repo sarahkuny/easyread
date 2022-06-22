@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import parse from 'html-react-parser';
 import Header from './Header';
 import ReactTooltip from 'react-tooltip';
+import LoadingModal from './LoadingModal';
 
 
 export default function Converter(){
@@ -19,6 +20,7 @@ export default function Converter(){
     const [fileText, setFileText] = useState("");
     const [displayText, setDisplayText] = useState("");
     const [documentName, setDocumentName] = useState("");
+    const [loading, setLoading] = useState(false);
 
     //load user settings upon page loading
     // useEffect(() => {
@@ -53,6 +55,7 @@ export default function Converter(){
 
     const fetchConvertedText = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try{
             const { data } = await axios('/api/convert', {
                 method: "POST",
@@ -65,6 +68,7 @@ export default function Converter(){
             console.log(data);
             const parsed = parse(data);
             setDisplayText(parsed)
+            setLoading(false);
         } catch (err){
             console.log(err)
         }
@@ -119,15 +123,17 @@ export default function Converter(){
     return(
         <>
             <Header buttonOne="My Documents" buttonTwo="Sign Out" linkOne="/documents" linkTwo="/" />
+           
+            {loading ? <LoadingModal /> : ""}
             <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
                {/* upload form */}
                 <form className="bg-white w-full flex justify-center py-2 border">
                     <label className=" p-2">Attach Document (must be .txt)
                         <input onChange={handleFileChange} accept=".txt" className="border rounded-md border-black mx-2" type="file"/>
                     </label>
-                    <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2">Convert</button>
+                    <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2 hover:bg-sky-500">Convert</button>
                 </form>
-
+                
                 {/* Settings */}
                 <div className="w-full h-12 flex bg-black rounded-md justify-evenly items-center px-2">
                     <h4 className="font-bold text-1xl text-white">Settings</h4>
@@ -219,7 +225,7 @@ export default function Converter(){
                             value={documentName}
                             required />
 
-                    <button className="bg-black rounded-md text-white mx-5 p-2">Save Document</button>
+                    <button className="bg-black rounded-md text-white mx-5 p-2 hover:bg-sky-500">Save Document</button>
                 </form>
                 <div className="bg-zinc-900 text-white rounded-md">
                     <details>
