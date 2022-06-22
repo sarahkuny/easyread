@@ -6,15 +6,17 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import parse from "html-react-parser";
 import img from "../assets/bionic-reading-signup.png"; 
+import ErrorModal from "./ErrorModal";
 
 export default function SignUp() {
     const [credentials, setCredentials] = useState({ first_name:"", last_name:"", username:"", password: ""});
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("")
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-
         setCredentials({...credentials, [name]:value})
     }
 
@@ -34,42 +36,17 @@ export default function SignUp() {
             localStorage.setItem("token", data);
             navigate('/convert');
         } catch (err){
-            console.log(err)
-        }
+            setErrorMessage(err);
+            setError(true);
+            
     }
-
-//   const [readingFact, setReadingFact] = useState(
-//     "Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word. "
-//   );
-
-//   useEffect(() => {
-//     const fetchConvertedText = async () => {
-//       try {
-//         const { data } = await axios("/api/convert", {
-//           method: "POST",
-//           data: {
-//             fixation: 1,
-//             saccade: 10,
-//             content: `Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`,
-//           },
-//         });
-//         const parsed = parse(data);
-//         console.log(parsed);
-//         setReadingFact(parsed);
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     };
-//     fetchConvertedText();
-//   }, []);
-
-
-    //on signup 
-    //add user to users
-    //add default settings to settings
+}
     
     return (
         <>
+            {error ? <ErrorModal  closeError={() => setError(false)} 
+                                  title="Account Creation Failed" 
+                                  message="Please choose a different username." /> : ""}
             <Link to="/"><h1 className="text-5xl ml-3 my-6 font-louisgeorge">easy<b>Read</b></h1></Link>
             <div className="bg-zinc-900">     
             <div className="flex flex-col md:flex-row space-between lg:w-5/6 m-auto h-screen bg-zinc-900">
