@@ -44,9 +44,7 @@ export default function MyDocuments() {
     }
   };
 
-  const handleDelete = (e) => {
-    console.log("delete button clicked!!");
-    let id = e.target.id;
+  const handleDelete = () => {
     deleteDocument();
   };
   return (
@@ -90,8 +88,7 @@ export default function MyDocuments() {
                             </svg>
                           </button>
                           <button
-                            id={document.id}
-                            onClick={handleDelete}
+                            onClick={() => handleDelete(document.id)}
                             className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
                           >
                             <svg
