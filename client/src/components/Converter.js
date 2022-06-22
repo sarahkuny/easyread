@@ -16,36 +16,37 @@ import SuccessModal from './SuccessModal';
 import ErrorModal from './ErrorModal';
 
 export default function Converter(){
-    const [settings, setSettings] = useState({
-    });
+    const [settings, setSettings] = useState({});
     const [fileText, setFileText] = useState("");
-    const [displayText, setDisplayText] = useState("");
+    const [convertedText, setConvertedText] = useState();
     const [documentName, setDocumentName] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [toggle, setToggle] = useState(false)
+    
     //load user settings upon page loading
     // useEffect(() => {
     //      getSettings();
     // }, [])
-
     
 
-    const getSettings = async () => {
-        try{
-            let token = localStorage.getItem("token");
-            const {data} = await axios('/api/defaultSettings',{
-                method: "GET",
-                headers: {
-                    authorization: `Bearer ${token}`
-                },
-            })
-        setSettings(data);
+    // const getSettings = async () => {
+    //     try{
+    //         let token = localStorage.getItem("token");
+    //         const {data} = await axios('/api/defaultSettings',{
+    //             method: "GET",
+    //             headers: {
+    //                 authorization: `Bearer ${token}`
+    //             },
+    //         })
+    //     setSettings(data);
         
-        } catch (err){
-            console.log(err)
-        }
-    }
+    //     } catch (err){
+    //         console.log(err)
+    //     }
+    // }
 
     // const putSettings = async () => {
 
@@ -54,7 +55,7 @@ export default function Converter(){
 
 
 {/*Click Events*/}
-
+    
     const fetchConvertedText = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -69,10 +70,13 @@ export default function Converter(){
             })
             console.log(data);
             const parsed = parse(data);
-            setDisplayText(parsed)
+            setConvertedText(parsed);
             setLoading(false);
         } catch (err){
-            console.log(err)
+            setLoading(false);
+            setErrorMessage({title: "Cannot Convert Document",
+                             message: "Please try again later."});
+            setError(true);
         }
     }
 
@@ -81,6 +85,8 @@ export default function Converter(){
         //if no text uploaded, set error
         let token = localStorage.getItem("token");
         if (!token){
+            setErrorMessage({title: "Cannot Save Document",
+                             message: "You must be logged in to save documents."})
             setError(true);
         }
         try{
@@ -101,6 +107,11 @@ export default function Converter(){
         }
     }
 
+
+    const toggleText = (e) =>{
+        e.preventDefault();
+        setToggle(!toggle)
+    }
 {/*Handle Changes*/}
 
     const handleInputChange = (e) => {
@@ -128,7 +139,7 @@ export default function Converter(){
             <Header buttonOne="My Documents" buttonTwo="Sign Out" linkOne="/documents" linkTwo="/" />
             {loading ? <LoadingModal /> : ""}
             <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
-            {error ? <ErrorModal closeError={() => setError(false)} message="You must be logged in to save documents." title="Cannot Save Document" />: ""}
+            {error ? <ErrorModal closeError={() => setError(false)} message={errorMessage.message} title={errorMessage.title} />: ""}
             {success  ? <SuccessModal closeMessage={() => setSuccess(false)} title="Success!" message="Document saved successfully."/> : ""}
                {/* upload form */}
                 <form className="bg-white w-full flex justify-center py-2 border">
@@ -136,6 +147,7 @@ export default function Converter(){
                         <input onChange={handleFileChange} accept=".txt" className="border rounded-md border-black mx-2" type="file"/>
                     </label>
                     <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2 hover:bg-sky-500">Convert</button>
+                    <button onClick={toggleText} className="bg-black rounded-md text-white px-4 py-2 mx-2 hover:bg-sky-500">{toggle ? "Turn on Bionic Reading" : "Turn off Bionic Reading"}</button>
                 </form>
                 
                 {/* Settings */}
@@ -218,7 +230,7 @@ export default function Converter(){
 
                 {/* converted text */}
                 <div className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll">
-                    <p className='my-5'>{displayText}</p>
+                    <p className='my-5'>{toggle ? fileText : convertedText}</p>
                 </div>
                 {/* Save Document Form */}
                 <form onSubmit={saveDocument} className="bg-white w-full flex justify-center py-2 border">
