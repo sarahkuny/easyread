@@ -50,7 +50,7 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { name, content } = req.body;
     const username = req.username;
-   
+
     const { data } = await db(
       `SELECT id FROM users WHERE username="${username}";`
     );
