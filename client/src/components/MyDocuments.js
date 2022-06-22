@@ -84,7 +84,7 @@ export default function MyDocuments() {
                   {documents.map((document) => {
                     return (
                       <tr className="odd:bg-white even:bg-sky-100 text-black">
-                        <td>{document.name}</td>
+                        <td className="py-2 px-3">{document.name}</td>
 
                         <td className="p-3 text-right pr-14">
                           <button
