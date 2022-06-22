@@ -11,7 +11,6 @@ import ErrorModal from "./ErrorModal";
 export default function SignUp() {
     const [credentials, setCredentials] = useState({ first_name:"", last_name:"", username:"", password: ""});
     const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("")
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
@@ -36,7 +35,6 @@ export default function SignUp() {
             localStorage.setItem("token", data);
             navigate('/convert');
         } catch (err){
-            setErrorMessage(err);
             setError(true);
             
     }
