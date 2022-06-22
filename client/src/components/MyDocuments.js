@@ -31,29 +31,37 @@ export default function MyDocuments() {
     }
   };
 
-  const deleteDocument = async () => {
-    let token = localStorage.getItem("token");
-    try {
-      let token = localStorage.getItem("token");
-      const { data } = await axios("/api/media/${documents.id}", {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setDocuments([...documents]);
-    } catch (err) {
-      console.log(err);
-    }
+  // const deleteDocument = async () => {
+  //   let token = localStorage.getItem("token");
+  //   try {
+  //     let token = localStorage.getItem("token");
+  //     const { data } = await axios("/api/media/${documents.id}", {
+  //       method: "DELETE",
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     setDocuments([...documents]);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const handleDelete = (document) => {
+    console.log("delete button clicked!!");
+    //   fetch(`/api/media/${document.id}`, {
+    //     method: "DELETE",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //     .then((res) => res.json()) //first response and needs to be converted to json
+    //     .then((documents) => setDocuments(documents))
+    //     .catch((e) => console.error(e));
   };
 
   const handleShare = (event) => {
     console.log("share button clicked!!");
-  };
-
-  const handleDelete = (event) => {
-    console.log("delete button clicked!!");
-    deleteDocument();
   };
 
   return (
@@ -83,16 +91,8 @@ export default function MyDocuments() {
                 <tbody>
                   {documents.map((document) => {
                     return (
-<<<<<<< HEAD
-                      <tr className="odd:bg-white even:bg-sky-100 text-black ">
-                        <td className="py-2 px-3">{document.name}</td>
-||||||| 376c8cb
-                      <tr className="odd:bg-white even:bg-sky-100 text-black">
-                        <td>{document.name}</td>
-=======
                       <tr className="odd:bg-white even:bg-sky-100 text-black">
                         <td className="py-2 px-3">{document.name}</td>
->>>>>>> 6a26f870068b466601a4bbeb6d98844e272b628c
 
                         <td className="p-3 text-right pr-14 ">
                           <button
