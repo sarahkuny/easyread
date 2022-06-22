@@ -13,6 +13,7 @@ import Header from './Header';
 import ReactTooltip from 'react-tooltip';
 import LoadingModal from './LoadingModal';
 import SuccessModal from './SuccessModal';
+import ErrorModal from './ErrorModal';
 
 export default function Converter(){
     const [settings, setSettings] = useState({
@@ -22,6 +23,7 @@ export default function Converter(){
     const [documentName, setDocumentName] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
     //load user settings upon page loading
     // useEffect(() => {
     //      getSettings();
@@ -77,10 +79,11 @@ export default function Converter(){
     const saveDocument = async (e) => {
         e.preventDefault();
         //if no text uploaded, set error
-        console.log(documentName);
-        console.log(fileText)
+        let token = localStorage.getItem("token");
+        if (!token){
+            setError(true);
+        }
         try{
-            let token = localStorage.getItem("token");
             let response = await axios('/api/media',{
                 method: "POST",
                 headers: {
@@ -125,7 +128,7 @@ export default function Converter(){
             <Header buttonOne="My Documents" buttonTwo="Sign Out" linkOne="/documents" linkTwo="/" />
             {loading ? <LoadingModal /> : ""}
             <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
-
+            {error ? <ErrorModal closeError={() => setError(false)} message="You must be logged in to save documents." title="Cannot Save Document" />: ""}
             {success  ? <SuccessModal closeMessage={() => setSuccess(false)} title="Success!" message="Document saved successfully."/> : ""}
                {/* upload form */}
                 <form className="bg-white w-full flex justify-center py-2 border">
