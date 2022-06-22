@@ -9,7 +9,6 @@ import Header from "./Header";
 
 export default function MyDocuments() {
   const [documents, setDocuments] = useState([]);
-  const [updatedDocumentsList, setUpdatedDocumentsList] = useState([]);
 
   useEffect(() => {
     getAllDocuments();
@@ -18,7 +17,6 @@ export default function MyDocuments() {
   const getAllDocuments = async () => {
     let token = localStorage.getItem("token");
     try {
-      let token = localStorage.getItem("token");
       const { data } = await axios("/api/media", {
         method: "GET",
         headers: {
@@ -31,39 +29,25 @@ export default function MyDocuments() {
     }
   };
 
-  // const deleteDocument = async () => {
-  //   let token = localStorage.getItem("token");
-  //   try {
-  //     let token = localStorage.getItem("token");
-  //     const { data } = await axios("/api/media/${documents.id}", {
-  //       method: "DELETE",
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     setDocuments([...documents]);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const deleteDocument = async () => {
+    let token = localStorage.getItem("token");
+    try {
+      const documents = await axios("/api/media/${documents.id}", {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDocuments(documents);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleDelete = (document) => {
     console.log("delete button clicked!!");
-    //   fetch(`/api/media/${document.id}`, {
-    //     method: "DELETE",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   })
-    //     .then((res) => res.json()) //first response and needs to be converted to json
-    //     .then((documents) => setDocuments(documents))
-    //     .catch((e) => console.error(e));
+    deleteDocument();
   };
-
-  const handleShare = (event) => {
-    console.log("share button clicked!!");
-  };
-
   return (
     <>
       <Header
@@ -95,10 +79,7 @@ export default function MyDocuments() {
                         <td className="py-2 px-3">{document.name}</td>
 
                         <td className="p-3 text-right pr-14 ">
-                          <button
-                            onClick={handleShare}
-                            className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
-                          >
+                          <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="h-6 w-6"
