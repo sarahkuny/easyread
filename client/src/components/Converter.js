@@ -16,7 +16,10 @@ import SuccessModal from './SuccessModal';
 import ErrorModal from './ErrorModal';
 
 export default function Converter(){
-    const [settings, setSettings] = useState({});
+    const [settings, setSettings] = useState({font_size: 16,
+                                              font_color: "#000000",
+                                              background_color: "#FFFDD0",
+                                              line_spacing: 1.5});
     const [fileText, setFileText] = useState("");
     const [convertedText, setConvertedText] = useState();
     const [documentName, setDocumentName] = useState("");
@@ -27,27 +30,27 @@ export default function Converter(){
     const [toggle, setToggle] = useState(false);
     const [convertAvailable, setConvertAvailable] = useState(true);
     
-    //load user settings upon page loading
-    // useEffect(() => {
-    //      getSettings();
-    // }, [])
+//load user settings upon page loading
+    useEffect(() => {
+         getSettings();
+    }, [])
     
 
-    // const getSettings = async () => {
-    //     try{
-    //         let token = localStorage.getItem("token");
-    //         const {data} = await axios('/api/defaultSettings',{
-    //             method: "GET",
-    //             headers: {
-    //                 authorization: `Bearer ${token}`
-    //             },
-    //         })
-    //     setSettings(data);
+    const getSettings = async () => {
+        try{
+            let token = localStorage.getItem("token");
+            const {data} = await axios('/api/defaultSettings',{
+                method: "GET",
+                headers: {
+                    authorization: `Bearer ${token}`
+                },
+            })
+        setSettings(data);
         
-    //     } catch (err){
-    //         console.log(err)
-    //     }
-    // }
+        } catch (err){
+            console.log(err)
+        }
+    }
 
     // const putSettings = async () => {
 
@@ -179,7 +182,7 @@ export default function Converter(){
                         <label className="m-2 text-white">Font Size
                             <input 
                                 onChange={handleInputChange}
-                                className="w-10 ml-2"
+                                className="w-10 ml-2 text-black"
                                 name="font_size"
                                 value={settings.font_size}
                                 min="1"
@@ -191,7 +194,7 @@ export default function Converter(){
                         <label className="m-2 text-white">Line Spacing
                             <input 
                                 onChange={handleInputChange}
-                                className="w-10 m-2"
+                                className="w-10 m-2 text-black"
                                 name="line_spacing"
                                 value={settings.line_spacing}
                                 min="1"
@@ -199,32 +202,7 @@ export default function Converter(){
                                 />
                         </label>
                     </div>
-                    <div>
-                    <a data-tip="Choose a value between 1 - 5.">
-                        <label className="m-2 text-white">Fixation
-                            <input 
-                                onChange={handleInputChange}
-                                className="w-10 ml-2"
-                                name="fixation"
-                                value={settings.fixation}
-                                type="number"
-                                min="1"
-                                max="5"
-                            />
-                        </label>
-                    </a>
-                    </div>
-                    <div>
-                        <label className="m-2 text-white">Saccade
-                            <input 
-                                onChange={handleInputChange}
-                                className="w-10"
-                                name="saccade"
-                                value={settings.saccade}
-                                type="number"
-                            />
-                        </label>
-                    </div>
+                    
                 </div>
 
                 {/* converted text */}
