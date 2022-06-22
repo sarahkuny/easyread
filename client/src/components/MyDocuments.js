@@ -83,8 +83,16 @@ export default function MyDocuments() {
                 <tbody>
                   {documents.map((document) => {
                     return (
+<<<<<<< HEAD
                       <tr className="odd:bg-white even:bg-sky-100 text-black ">
                         <td className="py-2 px-3">{document.name}</td>
+||||||| 376c8cb
+                      <tr className="odd:bg-white even:bg-sky-100 text-black">
+                        <td>{document.name}</td>
+=======
+                      <tr className="odd:bg-white even:bg-sky-100 text-black">
+                        <td className="py-2 px-3">{document.name}</td>
+>>>>>>> 6a26f870068b466601a4bbeb6d98844e272b628c
 
                         <td className="p-3 text-right pr-14 ">
                           <button
