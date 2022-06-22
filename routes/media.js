@@ -48,14 +48,15 @@ router.get("/:owner_id", async function (req, res, next) {
 //POST media
 router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
-    const { name, file_type, blob_url } = req.body;
+    const { name, content } = req.body;
     const username = req.username;
+   
     const { data } = await db(
       `SELECT id FROM users WHERE username="${username}";`
     );
     const owner = data[0];
     await db(
-      `INSERT INTO media (owner_id, name, file_type, blob_url) VALUES (${owner.id}, "${name}", "${file_type}", "${blob_url}");`
+      `INSERT INTO media (owner_id, name, content) VALUES (${owner.id}, "${name}", "${content}");`
     );
     res.status(200).send("media added!");
   } catch (err) {

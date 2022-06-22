@@ -5,31 +5,12 @@ import axios from 'axios';
 import React, {useState, useEffect,  } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import img from "../assets/bionic-reading-signup.png";
-
+import ErrorModal from './ErrorModal';
 
 export default function Login(){
     const [credentials, setCredentials] = useState({ username:"", password: ""});
-    const [readingFact, setReadingFact] = useState("Dyslexia is though to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word. ");
-    let navigate = useNavigate();
-    // useEffect(() => {
-    //     const fetchConvertedText = async () => {
-    //         try{
-    //             const { data } = await axios('/api/convert', {
-    //                 method: "POST",
-    //                 data: {
-    //                     fixation: 1,
-    //                     saccade: 10,
-    //                     content: `Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`
-    //                 }
-    //             })
-    //             const parsed = parse(data);
-    //             setReadingFact(parsed)
-    //         } catch (err){
-    //             console.log(err)
-    //         }
-    //     }
-    //     fetchConvertedText();
-    // }, [])
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
 
 
     const handleInputChange = (e) => {
@@ -48,13 +29,16 @@ export default function Login(){
             localStorage.setItem("token", data);
             navigate('/convert');
         } catch (err){
-            console.log(err)
+            setError(true)
         }
     }
     
 
     return (
         <>
+            {error ? <ErrorModal  closeError={() => setError(false)} 
+                                  title="Account Login Failed" 
+                                  message="Please try a different username or password." /> : ""}
             <Link to="/"><h1 className="text-5xl ml-3 my-6 font-louisgeorge">easy<b>Read</b></h1></Link>
             <div className="bg-zinc-900">     
             <div className="flex flex-col md:flex-row space-between lg:w-5/6 m-auto h-screen bg-zinc-900">
