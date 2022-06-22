@@ -60,7 +60,7 @@ export default function MyDocuments() {
       <Header
         buttonOne="Converter"
         buttonTwo="Sign Out"
-        linkOne="/converter"
+        linkOne="/convert"
         linkTwo="/"
       />
       <div className="bg-slate-50 w-full  h-screen">
