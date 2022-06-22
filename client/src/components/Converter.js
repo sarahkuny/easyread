@@ -24,7 +24,8 @@ export default function Converter(){
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [toggle, setToggle] = useState(false)
+    const [toggle, setToggle] = useState(false);
+    const [convertAvailable, setConvertAvailable] = useState(true);
     
     //load user settings upon page loading
     // useEffect(() => {
@@ -55,7 +56,6 @@ export default function Converter(){
 
 
 {/*Click Events*/}
-    
     const fetchConvertedText = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -72,10 +72,11 @@ export default function Converter(){
             const parsed = parse(data);
             setConvertedText(parsed);
             setLoading(false);
+            setConvertAvailable(false);
         } catch (err){
             setLoading(false);
             setErrorMessage({title: "Cannot Convert Document",
-                             message: "Please try again later."});
+                             message: "Please make sure you've attached a document or try again later."});
             setError(true);
         }
     }
@@ -107,13 +108,12 @@ export default function Converter(){
         }
     }
 
-
     const toggleText = (e) =>{
         e.preventDefault();
         setToggle(!toggle)
     }
-{/*Handle Changes*/}
 
+{/*Handle Changes*/}
     const handleInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -144,7 +144,7 @@ export default function Converter(){
                {/* upload form */}
                 <form className="bg-white w-full flex justify-center py-2 border">
                     <label className=" p-2">Attach Document (must be .txt)
-                        <input onChange={handleFileChange} accept=".txt" className="border rounded-md border-black mx-2" type="file"/>
+                        <input onChange={handleFileChange} accept=".txt" className="border rounded-md border-black mx-2" type="file" require/>
                     </label>
                     <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2 hover:bg-sky-500">Convert</button>
                     <button onClick={toggleText} className="bg-black rounded-md text-white px-4 py-2 mx-2 hover:bg-sky-500">{toggle ? "Turn on Bionic Reading" : "Turn off Bionic Reading"}</button>
@@ -202,7 +202,6 @@ export default function Converter(){
                     <div>
                     <a data-tip="Choose a value between 1 - 5.">
                         <label className="m-2 text-white">Fixation
-                    <ReactTooltip place="top" type="dark" effect="float"/>
                             <input 
                                 onChange={handleInputChange}
                                 className="w-10 ml-2"
