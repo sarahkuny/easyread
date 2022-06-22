@@ -83,13 +83,13 @@ export default function MyDocuments() {
                 <tbody>
                   {documents.map((document) => {
                     return (
-                      <tr className="odd:bg-white even:bg-sky-100 text-black">
-                        <td>{document.name}</td>
+                      <tr className="odd:bg-white even:bg-sky-100 text-black ">
+                        <td className="py-2 px-3">{document.name}</td>
 
-                        <td className="p-3 text-right pr-14">
+                        <td className="p-3 text-right pr-14 ">
                           <button
                             onClick={handleShare}
-                            className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
+                            className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
