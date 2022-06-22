@@ -34,6 +34,7 @@ export default function MyDocuments() {
   const deleteDocument = async () => {
     let token = localStorage.getItem("token");
     try {
+      let token = localStorage.getItem("token");
       const { data } = await axios("/api/media/${documents.id}", {
         method: "DELETE",
         headers: {
@@ -118,13 +119,63 @@ export default function MyDocuments() {
                       </button>
                     </td>
                   </tr>
-                  {/* row 2 -NOT CORRECT */}
+                  {/* row 2 */}
+                  <tr className="odd:bg-white even:bg-sky-100 text-black">
+                    <td className="p-3 px-3 text-left">DOCUMENT TEST 2</td>
+                    <td className="p-3 text-right pr-14">
+                      <button
+                        onClick={handleShare}
+                        className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={handleDelete}
+                        className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                  {/* end of row 2 */}
+                  {/* row 3 -NOT CORRECT */}
                   <tr className="odd:bg-white even:bg-sky-100 text-black">
                     {documents.map((document) => {
-                      <td></td>;
                       return (
-                        <li key={document.id}>
-                          <td> {document.name}</td>
+                        <div>
+                          <td>{document.name}</td>
+                          <button
+                            onClick={handleShare}
+                            className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
+                          >
+                            Share
+                          </button>
+                          <button
+                            onClick={handleDelete}
+                            className="rounded-lg items-center hover:bg-sky-300  bg-black text-white text-l py-1 px-2 m-2"
+                          >
+                            Delete
+                          </button>
                           <td>
                             <button
                               onClick={handleShare}
@@ -139,10 +190,11 @@ export default function MyDocuments() {
                               Delete
                             </button>
                           </td>
-                        </li>
+                        </div>
                       );
                     })}
                   </tr>
+                  {/* end of row 3 */}
                 </tbody>
               </table>
             </div>

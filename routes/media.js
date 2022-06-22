@@ -65,11 +65,13 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 
 //DELETE media by media id
 router.delete("/:id", userShouldBeLoggedIn, async function (req, res, next) {
+  // router.delete("/:id", userShouldBeLoggedIn, async function (req, res, next) {
+
   try {
     await db(`DELETE FROM shared WHERE media_id=${req.params.id};`);
     await db(`DELETE FROM media WHERE id=${req.params.id};`);
     const { data } = await db(`SELECT * FROM media;`);
-    res.status(200).send(data);
+    res.status(200).send("media deleted");
   } catch (err) {
     res.status(500).send(err);
   }
