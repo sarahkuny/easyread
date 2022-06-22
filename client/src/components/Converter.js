@@ -11,13 +11,16 @@ import { Link } from 'react-router-dom'
 import parse from 'html-react-parser';
 import Header from './Header';
 import ReactTooltip from 'react-tooltip';
+import LoadingModal from './LoadingModal';
 
 
 export default function Converter(){
     const [settings, setSettings] = useState({
     });
     const [fileText, setFileText] = useState("");
-    const [displayText, setDisplayText] = useState();
+    const [displayText, setDisplayText] = useState("");
+    const [documentName, setDocumentName] = useState("");
+    const [loading, setLoading] = useState(false);
 
     //load user settings upon page loading
     // useEffect(() => {
@@ -26,21 +29,21 @@ export default function Converter(){
 
     
 
-    // const getSettings = async () => {
-    //     try{
-    //         let token = localStorage.getItem("token");
-    //         const {data} = await axios('/api/defaultSettings',{
-    //             method: "GET",
-    //             headers: {
-    //                 authorization: `Bearer ${token}`
-    //             },
-    //         })
-    //     setSettings(data);
+    const getSettings = async () => {
+        try{
+            let token = localStorage.getItem("token");
+            const {data} = await axios('/api/defaultSettings',{
+                method: "GET",
+                headers: {
+                    authorization: `Bearer ${token}`
+                },
+            })
+        setSettings(data);
         
-    //     } catch (err){
-    //         console.log(err)
-    //     }
-    // }
+        } catch (err){
+            console.log(err)
+        }
+    }
 
     // const putSettings = async () => {
 
@@ -48,11 +51,11 @@ export default function Converter(){
 
 
 
-    
+{/*Click Events*/}
 
     const fetchConvertedText = async (e) => {
         e.preventDefault();
-        
+        setLoading(true);
         try{
             const { data } = await axios('/api/convert', {
                 method: "POST",
@@ -65,7 +68,32 @@ export default function Converter(){
             console.log(data);
             const parsed = parse(data);
             setDisplayText(parsed)
+            setLoading(false);
         } catch (err){
+            console.log(err)
+        }
+    }
+
+    const saveDocument = async (e) => {
+        e.preventDefault();
+        //if no text uploaded, set error
+        console.log(documentName);
+        console.log(fileText)
+        try{
+            let token = localStorage.getItem("token");
+            let response = await axios('/api/media',{
+                method: "POST",
+                headers: {
+                    authorization: `Bearer ${token}`
+                },
+                data: {
+                    name: `${documentName}`,
+                    content: `${fileText}`
+                }
+            });
+            setDocumentName("");
+            //add success message
+        } catch(err) {
             console.log(err)
         }
     }
@@ -79,27 +107,33 @@ export default function Converter(){
     }
 
     const handleFileChange = (e) =>{
-        console.log("file change")
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.onload = function(e) {
-            setFileText(e.target.result)
+            setFileText(e.target.result);
         };
         reader.readAsText(file);
+    }
+
+    const handleDocumentNameChange = (e) => {
+        const name = e.target.value;
+        setDocumentName(name)
     }
 
     return(
         <>
             <Header buttonOne="My Documents" buttonTwo="Sign Out" linkOne="/documents" linkTwo="/" />
+           
+            {loading ? <LoadingModal /> : ""}
             <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
                {/* upload form */}
                 <form className="bg-white w-full flex justify-center py-2 border">
-                    <label className=" p-2">Attach Document
-                        <input onChange={handleFileChange} className="border rounded-md border-black mx-2" type="file"/>
+                    <label className=" p-2">Attach Document (must be .txt)
+                        <input onChange={handleFileChange} accept=".txt" className="border rounded-md border-black mx-2" type="file"/>
                     </label>
-                    <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2">Convert</button>
+                    <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2 hover:bg-sky-500">Convert</button>
                 </form>
-
+                
                 {/* Settings */}
                 <div className="w-full h-12 flex bg-black rounded-md justify-evenly items-center px-2">
                     <h4 className="font-bold text-1xl text-white">Settings</h4>
@@ -180,13 +214,18 @@ export default function Converter(){
 
                 {/* converted text */}
                 <div className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll">
-                    {displayText}
+                    <p className='my-5'>{displayText}</p>
                 </div>
                 {/* Save Document Form */}
-                <form className="bg-white w-full flex justify-evenly py-2 border">
-                    <label className="w-1/6 py-2">Document Name</label>
-                    <input className="w-3/6 border rounded-md border-black"></input>
-                    <button className="bg-black rounded-md text-white px-4 py-2">Save Document</button>
+                <form onSubmit={saveDocument} className="bg-white w-full flex justify-center py-2 border">
+                    <label className="py-2 ">Document Title</label>
+                        <input 
+                            onChange={handleDocumentNameChange} 
+                            className="mx-4 px-2 w-3/6 border rounded-md border-black"
+                            value={documentName}
+                            required />
+
+                    <button className="bg-black rounded-md text-white mx-5 p-2 hover:bg-sky-500">Save Document</button>
                 </form>
                 <div className="bg-zinc-900 text-white rounded-md">
                     <details>

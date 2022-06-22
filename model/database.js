@@ -35,7 +35,7 @@ con.connect(function (err) {
   });
 
   let sqlMedia =
-    "DROP TABLE if exists media; CREATE TABLE media(id INT NOT NULL AUTO_INCREMENT, owner_id INT not null, name VARCHAR(40) not null, file_type VARCHAR(40) not null, blob_url VARCHAR(255) not null, PRIMARY KEY (id), FOREIGN KEY (owner_id) REFERENCES users(id));";
+    "DROP TABLE if exists media; CREATE TABLE media(id INT NOT NULL AUTO_INCREMENT, owner_id INT not null, name VARCHAR(255) not null, content MEDIUMTEXT not null, PRIMARY KEY (id), FOREIGN KEY (owner_id) REFERENCES users(id));";
 
   con.query(sqlMedia, function (err, result) {
     if (err) throw err;
