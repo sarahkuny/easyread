@@ -11,17 +11,21 @@ import { Link } from 'react-router-dom'
 import parse from 'html-react-parser';
 import Header from './Header';
 import ReactTooltip from 'react-tooltip';
+import LoadingModal from './LoadingModal';
 
 
 export default function Converter(){
     const [settings, setSettings] = useState({
-    })
-    const [displayText, setDisplayText] = useState();
+    });
+    const [fileText, setFileText] = useState("");
+    const [displayText, setDisplayText] = useState("");
+    const [documentName, setDocumentName] = useState("");
+    const [loading, setLoading] = useState(false);
 
     //load user settings upon page loading
-    useEffect(() => {
-         getSettings();
-    }, [])
+    // useEffect(() => {
+    //      getSettings();
+    // }, [])
 
     
 
@@ -41,26 +45,60 @@ export default function Converter(){
         }
     }
 
-    const putSettings = async () => {
+    // const putSettings = async () => {
 
-    }
+    // }
 
-    const fetchConvertedText = async () => {
+
+
+{/*Click Events*/}
+
+    const fetchConvertedText = async (e) => {
+        e.preventDefault();
+        setLoading(true);
         try{
             const { data } = await axios('/api/convert', {
                 method: "POST",
                 data: {
                     fixation: 1,
                     saccade: 10,
-                    content: `Dyslexia is thought to affect 1 in 5 people. Bionic Reading makes text accessible for all. The eye is guided through text by emphasizing the most concise parts of the word.`
+                    content: `${fileText}`
                 }
             })
+            console.log(data);
             const parsed = parse(data);
             setDisplayText(parsed)
+            setLoading(false);
         } catch (err){
             console.log(err)
         }
     }
+
+    const saveDocument = async (e) => {
+        e.preventDefault();
+        //if no text uploaded, set error
+        console.log(documentName);
+        console.log(fileText)
+        try{
+            let token = localStorage.getItem("token");
+            let response = await axios('/api/media',{
+                method: "POST",
+                headers: {
+                    authorization: `Bearer ${token}`
+                },
+                data: {
+                    name: `${documentName}`,
+                    content: `${fileText}`
+                }
+            });
+            setDocumentName("");
+            //add success message
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
+{/*Handle Changes*/}
 
     const handleInputChange = (e) => {
         const name = e.target.name;
@@ -68,100 +106,126 @@ export default function Converter(){
         setSettings({...settings, [name]: value})
     }
 
+    const handleFileChange = (e) =>{
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            setFileText(e.target.result);
+        };
+        reader.readAsText(file);
+    }
+
+    const handleDocumentNameChange = (e) => {
+        const name = e.target.value;
+        setDocumentName(name)
+    }
+
     return(
         <>
-        
             <Header buttonOne="My Documents" buttonTwo="Sign Out" linkOne="/documents" linkTwo="/" />
+           
+            {loading ? <LoadingModal /> : ""}
             <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
                {/* upload form */}
-                <form className="bg-white w-full flex justify-evenly py-2 border">
-                    <label className="w-1/6 py-2">Attach Document</label>
-                    <input className="w-3/6 border rounded-md border-black"></input>
-                    <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2">Convert</button>
+                <form className="bg-white w-full flex justify-center py-2 border">
+                    <label className=" p-2">Attach Document (must be .txt)
+                        <input onChange={handleFileChange} accept=".txt" className="border rounded-md border-black mx-2" type="file"/>
+                    </label>
+                    <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2 hover:bg-sky-500">Convert</button>
                 </form>
-
+                
                 {/* Settings */}
                 <div className="w-full h-12 flex bg-black rounded-md justify-evenly items-center px-2">
                     <h4 className="font-bold text-1xl text-white">Settings</h4>
                     <div>
-                        <label className="m-2 text-white">Font Color</label>
-                        <input 
-                            onChange={handleInputChange}
-                            className="w-10 outline-none border-transparent text-black"
-                            name="font_color"
-                            value={settings.font_color}
-                            type="color"
-                        />
+                        <label className="text-white">Font Color
+                            <input 
+                                onChange={handleInputChange}
+                                className="w-10 ml-2"
+                                name="font_color"
+                                value={settings.font_color}
+                                type="color"
+                            />
+                        </label>
                     </div>
                     <div className="">
-                        <label className="m-2 text-white">Background Color</label>
-                        <input 
-                            onChange={handleInputChange}
-                            className="w-10"
-                            name="background_color"
-                            value={settings.background_color}
-                            type="color" 
-                        />
+                        <label className="m-2 text-white">Background Color
+                            <input 
+                                onChange={handleInputChange}
+                                className="w-10 ml-2"
+                                name="background_color"
+                                value={settings.background_color}
+                                type="color" 
+                            />
+                        </label>
                     </div>
                     <div>
-                        <label className="m-2 text-white">Font Size</label>
-                        <input 
-                            onChange={handleInputChange}
-                            className="w-10"
-                            name="font_size"
-                            value={settings.font_size}
-                            min="1"
-                            type="number"
-                            />
+                        <label className="m-2 text-white">Font Size
+                            <input 
+                                onChange={handleInputChange}
+                                className="w-10 ml-2"
+                                name="font_size"
+                                value={settings.font_size}
+                                min="1"
+                                type="number"
+                                />
+                        </label>
                     </div>
                     <div>
-                        <label className="m-2 text-white">Line Spacing</label>
-                        <input 
-                            onChange={handleInputChange}
-                            className="w-10"
-                            name="line_spacing"
-                            value={settings.line_spacing}
-                            min="1"
-                            type="number"
-                            />
+                        <label className="m-2 text-white">Line Spacing
+                            <input 
+                                onChange={handleInputChange}
+                                className="w-10 m-2"
+                                name="line_spacing"
+                                value={settings.line_spacing}
+                                min="1"
+                                type="number"
+                                />
+                        </label>
                     </div>
                     <div>
                     <a data-tip="Choose a value between 1 - 5.">
-                        <label className="m-2 text-white">Fixation</label>
-                    </a>
+                        <label className="m-2 text-white">Fixation
                     <ReactTooltip place="top" type="dark" effect="float"/>
                             <input 
                                 onChange={handleInputChange}
-                                className="w-10"
+                                className="w-10 ml-2"
                                 name="fixation"
                                 value={settings.fixation}
                                 type="number"
                                 min="1"
                                 max="5"
                             />
-                        
+                        </label>
+                    </a>
                     </div>
                     <div>
-                        <label className="m-2 text-white">Saccade</label>
-                        <input 
-                            onChange={handleInputChange}
-                            className="w-10"
-                            name="saccade"
-                            value={settings.saccade}
-                            type="number"
-                        />
+                        <label className="m-2 text-white">Saccade
+                            <input 
+                                onChange={handleInputChange}
+                                className="w-10"
+                                name="saccade"
+                                value={settings.saccade}
+                                type="number"
+                            />
+                        </label>
                     </div>
                 </div>
 
                 {/* converted text */}
                 <div className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll">
-                    {displayText}
+                    <p className='my-5'>{displayText}</p>
                 </div>
                 {/* Save Document Form */}
-                <form className="bg-white w-full flex justify-evenly py-2 border">
-                    <label className="w-1/6 py-2">Document Name</label>
-                    <input className="w-3/6 border rounded-md border-black"></input>
-                    <button className="bg-black rounded-md text-white px-4 py-2">Save Document</button>
+                <form onSubmit={saveDocument} className="bg-white w-full flex justify-center py-2 border">
+                    <label className="py-2 ">Document Title</label>
+                        <input 
+                            onChange={handleDocumentNameChange} 
+                            className="mx-4 px-2 w-3/6 border rounded-md border-black"
+                            value={documentName}
+                            required />
+
+                    <button className="bg-black rounded-md text-white mx-5 p-2 hover:bg-sky-500">Save Document</button>
                 </form>
                 <div className="bg-zinc-900 text-white rounded-md">
                     <details>

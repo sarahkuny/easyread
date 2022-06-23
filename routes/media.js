@@ -48,14 +48,15 @@ router.get("/:owner_id", async function (req, res, next) {
 //POST media
 router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
-    const { name, file_type, blob_url } = req.body;
+    const { name, content } = req.body;
     const username = req.username;
+   
     const { data } = await db(
       `SELECT id FROM users WHERE username="${username}";`
     );
     const owner = data[0];
     await db(
-      `INSERT INTO media (owner_id, name, file_type, blob_url) VALUES (${owner.id}, "${name}", "${file_type}", "${blob_url}");`
+      `INSERT INTO media (owner_id, name, content) VALUES (${owner.id}, "${name}", "${content}");`
     );
     res.status(200).send("media added!");
   } catch (err) {
@@ -65,11 +66,13 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 
 //DELETE media by media id
 router.delete("/:id", userShouldBeLoggedIn, async function (req, res, next) {
+  // router.delete("/:id", userShouldBeLoggedIn, async function (req, res, next) {
+
   try {
     await db(`DELETE FROM shared WHERE media_id=${req.params.id};`);
     await db(`DELETE FROM media WHERE id=${req.params.id};`);
     const { data } = await db(`SELECT * FROM media;`);
-    res.status(200).send(data);
+    res.status(200).send("media deleted");
   } catch (err) {
     res.status(500).send(err);
   }

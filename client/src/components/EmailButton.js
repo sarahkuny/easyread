@@ -9,6 +9,9 @@ export default function EmailButton() {
   const [user, setUser] = useState();
   const [convertedDocument, setConvertedDocument] = useState();
 
+  const handleUserName = (event) => {
+    setUser(event.target.value);
+  };
   const handleRecipientName = (event) => {
     setRecipientName(event.target.value);
   };
@@ -20,23 +23,15 @@ export default function EmailButton() {
   const handleSendEmail = async () => {
     setShowModal(false);
 
-    // fetch name of user who is sending the email
-    // const getUser = async () => {
+    // Fetch converted document
     try {
-      let token = localStorage.getItem("token");
-      const { data } = await axios("/api/users/", {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
+      const { data } = await axios("/api/converter/", {
+        method: "POST",
       });
-      setUser(data);
+      setConvertedDocument(data);
     } catch (err) {
       console.log(err);
     }
-    // };
-
-    // Fetch converted document ??from media
 
     // create template params object for the email
     const emailObj = {
@@ -57,6 +52,7 @@ export default function EmailButton() {
       }
     );
   };
+
   return (
     <>
       <button
@@ -88,18 +84,33 @@ export default function EmailButton() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <label>Recipient's Name</label>
+                  <label className="mx-3" required>
+                    Your Name*
+                  </label>
+                  <br></br>
                   <input
                     type="text"
                     className="outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 mx-3 my-3"
+                    onChange={handleUserName}
+                    value={user}
+                  />
+                  <br></br>
+                  <label className="mx-3">Recipient's Name*</label>
+                  <br></br>
+                  <input
+                    type="text"
+                    className="outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 mx-3 my-3"
+                    required
                     onChange={handleRecipientName}
                     value={recipientName}
                   />
                   <br></br>
-                  <label>Recipient's Email</label>
+                  <label className="mx-3">Recipient's Email*</label>
+                  <br></br>
                   <input
                     type="text"
                     className="outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 mx-3 my-3"
+                    required
                     onChange={handleRecipientEmail}
                     value={recipientEmail}
                   />

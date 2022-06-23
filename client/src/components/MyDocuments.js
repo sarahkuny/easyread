@@ -2,24 +2,76 @@
 //Documents
 //each row: document title, share (email popup), delete
 
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import EmailButton from "./EmailButton";
 
 export default function MyDocuments() {
+  const [documents, setDocuments] = useState([]);
+  const [updatedDocumentsList, setUpdatedDocumentsList] = useState([]);
+
+  useEffect(() => {
+    getAllDocuments();
+  }, []);
+
+  const getAllDocuments = async () => {
+    let token = localStorage.getItem("token");
+    try {
+      let token = localStorage.getItem("token");
+      const { data } = await axios("/api/media", {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setDocuments(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteDocument = async () => {
+    let token = localStorage.getItem("token");
+    try {
+      let token = localStorage.getItem("token");
+      const { data } = await axios("/api/media/${documents.id}", {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDocuments([...documents]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleShare = (event) => {
+    console.log("share button clicked!!");
+  };
+
+  const handleDelete = (event) => {
+    console.log("delete button clicked!!");
+    deleteDocument();
+  };
+
   return (
     <>
       <Header
         buttonOne="Converter"
         buttonTwo="Sign Out"
-        linkOne="/converter"
+        linkOne="/convert"
         linkTwo="/"
       />
-      <body className="w-auto bg-slate-50 m-auto h-screen shadow-2xl flex justify-center items-center">
-        <div className="flex-col h-full m-auto shadow-2xl w-5/6	">
-          <div className="bg-slate-900 text-white font-bold flex justify-start p-4 text-xl rounded-t">
-            Document Name
+      <div className="bg-slate-50 w-full  h-screen">
+        <div className=" bg-slate-50 font-bold  text-xl ">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold 5 p-3 bg-slate-50">
+              Saved Documents
+            </h1>
           </div>
           <div className="m-3 p-3 border flex flex-col">
             <h1 className="text-xl ">Document Title</h1>
@@ -34,7 +86,7 @@ export default function MyDocuments() {
             </div>
           </div>
         </div>
-      </body>
+      </div>
     </>
   );
 }
