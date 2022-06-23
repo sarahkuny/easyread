@@ -4,12 +4,11 @@
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
 import Header from "./Header";
+import { Link } from "react-router-dom";
 
 export default function MyDocuments() {
   const [documents, setDocuments] = useState([]);
-  const [updatedDocumentsList, setUpdatedDocumentsList] = useState([]);
 
   useEffect(() => {
     getAllDocuments();
@@ -18,7 +17,6 @@ export default function MyDocuments() {
   const getAllDocuments = async () => {
     let token = localStorage.getItem("token");
     try {
-      let token = localStorage.getItem("token");
       const { data } = await axios("/api/media", {
         method: "GET",
         headers: {
@@ -34,28 +32,43 @@ export default function MyDocuments() {
   const deleteDocument = async (event) => {
     let token = localStorage.getItem("token");
     try {
-      let token = localStorage.getItem("token");
-      const { data } = await axios("/api/media/${event.target.id}", {
+      const { documents } = await axios("/api/media/${event.target.id)", {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setDocuments([...documents]);
+      setDocuments(documents);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleShare = (event) => {
-    console.log("share button clicked!!");
-  };
-
   const handleDelete = (event) => {
-    console.log("delete button clicked!!");
+    let id = event.target.id;
     deleteDocument(event);
   };
 
+  // pull content from media table
+  // send content to bionic reading api (abstracted function)
+  // get html results
+  // email html results
+  // const getAllDocuments = async () => {
+  //   let token = localStorage.getItem("token");
+  //   try {
+  //     const { data } = await axios("/api/media", {
+  //       method: "GET",
+  //       headers: {
+  //         authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     setDocuments(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // JSX and TAILWIND
   return (
     <>
       <Header
@@ -83,27 +96,19 @@ export default function MyDocuments() {
                 <tbody>
                   {documents.map((document) => {
                     return (
-                      <tr className="odd:bg-white even:bg-sky-100 text-black ">
-                        <td className="py-2 px-3">{document.name}</td>
-
+                      <tr className="odd:bg-white even:bg-sky-100 text-black">
+                        <Link to="/convert">
+                          <td className="py-2 px-3">{document.name}</td>
+                        </Link>
                         <td className="p-3 text-right pr-14 ">
-                          <button
-                            onClick={handleShare}
-                            className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
-                          >
+                          <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              class="h-6 w-6"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              stroke-width="2"
+                              className="h-6 w-6"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
                             >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                              />
+                              <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
                             </svg>
                           </button>
                           <button
