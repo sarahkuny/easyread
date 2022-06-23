@@ -31,7 +31,7 @@ export default function MyDocuments() {
     }
   };
 
-  const deleteDocument = async () => {
+  const deleteDocument = async (event) => {
     let token = localStorage.getItem("token");
     try {
       let token = localStorage.getItem("token");
@@ -53,7 +53,7 @@ export default function MyDocuments() {
 
   const handleDelete = (event) => {
     console.log("delete button clicked!!");
-    deleteDocument();
+    deleteDocument(event);
   };
 
   return (
