@@ -20,7 +20,6 @@ export default function Converter(){
                                               font_color: "#000000",
                                               background_color: "#FFFDD0",
                                               line_spacing: 1.5});
-    const [styledSettings, setStyledSettings] = (`className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll"`);
     const [fileText, setFileText] = useState("");
     const [convertedText, setConvertedText] = useState();
     const [documentName, setDocumentName] = useState("");
@@ -30,10 +29,11 @@ export default function Converter(){
     const [errorMessage, setErrorMessage] = useState("");
     const [toggle, setToggle] = useState(false);
     
+    const [fontSize, setFontSize] = useState(`text-[${settings.font_size}px]`)
 //load user settings upon page loading
-    useEffect(() => {
-         getSettings();
-    }, [])
+    // useEffect(() => {
+    //      getSettings();
+    // }, [])
     
 
     const getSettings = async () => {
@@ -205,8 +205,8 @@ export default function Converter(){
                 </div>
 
                 {/* converted text */}
-                <div {...styledSettings}>
-                    <p>{toggle ? fileText : convertedText}</p>
+                <div className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll" >
+                    <p className={fontSize} >{toggle ? fileText : convertedText}</p>
                 </div>
                 {/* Save Document Form */}
                 <form onSubmit={saveDocument} className="bg-white w-full flex justify-center py-2 border">
@@ -217,7 +217,7 @@ export default function Converter(){
                             value={documentName}
                             required />
 
-                    <button className="bg-black rounded-md text-white mx-5 p-2 hover:bg-sky-500">Save Document</button>
+                    <button className="bg-black text-xl rounded-md text-white mx-5 p-2 hover:bg-sky-500">Save Document</button>
                 </form>
                 <div className="bg-zinc-900 text-white rounded-md">
                     <details>
