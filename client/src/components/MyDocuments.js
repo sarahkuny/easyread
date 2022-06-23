@@ -44,7 +44,26 @@ export default function MyDocuments() {
     }
   };
 
-  const handleDelete = () => {
+  // const deleteDocument = (document) => {
+  //   // delete task from database
+  //   // upon success, update tasks
+  //   // upon failure, show error message
+  //   let token = localStorage.getItem("token");
+
+  //   fetch(`/api/media/${document.id}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((res) => res.json()) //first response and needs to be converted to json
+  //     .then((documents) => setDocuments(documents))
+  //     .catch((e) => console.error(e));
+  // };
+
+  const handleDelete = (e) => {
+    let id = e.target.id;
     deleteDocument();
   };
   return (
@@ -75,7 +94,9 @@ export default function MyDocuments() {
                   {documents.map((document) => {
                     return (
                       <tr className="odd:bg-white even:bg-sky-100 text-black">
-                        <td className="py-2 px-3">{document.name}</td>
+                        <td id={document.id} className="py-2 px-3">
+                          {document.name}
+                        </td>
                         <td className="p-3 text-right pr-14 ">
                           <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
                             <svg
@@ -88,7 +109,7 @@ export default function MyDocuments() {
                             </svg>
                           </button>
                           <button
-                            onClick={() => handleDelete(document.id)}
+                            onClick={handleDelete}
                             className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
                           >
                             <svg
