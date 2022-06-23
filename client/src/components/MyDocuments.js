@@ -35,7 +35,7 @@ export default function MyDocuments() {
     let token = localStorage.getItem("token");
     try {
       let token = localStorage.getItem("token");
-      const { data } = await axios("/api/media/${documents.id}", {
+      const { data } = await axios("/api/media/${event.target.id}", {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -107,6 +107,7 @@ export default function MyDocuments() {
                             </svg>
                           </button>
                           <button
+                            id={document.id}
                             onClick={handleDelete}
                             className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
                           >
