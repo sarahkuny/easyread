@@ -56,11 +56,17 @@ export default function EmailButton() {
   return (
     <>
       <button
-        className="bg-black rounded-lg items-center text-white hover:bg-sky-300 text-l py-1 px-2 m-2"
-        type="button"
         onClick={() => setShowModal(true)}
+        className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
       >
-        Share
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+        </svg>
       </button>
       {showModal ? (
         <>
@@ -73,24 +79,10 @@ export default function EmailButton() {
                   <h3 className="text-3xl font-semibold">
                     Share your document
                   </h3>
-                  <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
-                    </svg>
-                    onClick={() => setShowModal(false)}
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"></span>
-                  </button>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <label className="mx-3" required>
-                    Your Name*
-                  </label>
+                  <label className="absolute left-14  ">Your Name*</label>
                   <br></br>
                   <input
                     type="text"
@@ -99,7 +91,7 @@ export default function EmailButton() {
                     value={user}
                   />
                   <br></br>
-                  <label className="mx-3">Recipient's Name*</label>
+                  <label className="absolute left-14">Recipient's Name*</label>
                   <br></br>
                   <input
                     type="text"
@@ -109,7 +101,7 @@ export default function EmailButton() {
                     value={recipientName}
                   />
                   <br></br>
-                  <label className="mx-3">Recipient's Email*</label>
+                  <label className="absolute left-14">Recipient's Email*</label>
                   <br></br>
                   <input
                     type="text"
