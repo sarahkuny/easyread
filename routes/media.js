@@ -7,8 +7,7 @@ const fetchConvertedText = require("../common/fetchConvertedText");
 router.use(express.json());
 
 //GET media
-router.get("/", async function (req, res, next) {
-  // router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
+router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
 
   try {
     const results = await db(`SELECT * FROM media;`);
@@ -22,19 +21,9 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-//GET by owner id
-//example: http://localhost:5005/api/media/1
-/*  {
-        "id": 1,
-        "owner_id": 1,
-        "name": "Test Name",
-        "file_type": "Test File",
-        "blob_url": "www.test.com"
-    }
-*/
 
-router.get("/:owner_id", async function (req, res, next) {
-  // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
+router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
+
 
   try {
     const { data } = await db(
@@ -81,6 +70,7 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //DELETE media by media id
+
 router.delete(
   "/document/:id",
   // userShouldBeLoggedIn,
@@ -95,6 +85,7 @@ router.delete(
     }
 
     console.log("req.params", req.params);
+
   }
 );
 
