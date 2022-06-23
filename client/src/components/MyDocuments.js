@@ -98,7 +98,9 @@ export default function MyDocuments() {
                     return (
                       <tr className="odd:bg-white even:bg-sky-100 text-black">
                         <Link to="/convert">
-                          <td className="py-2 px-3">{document.name}</td>
+                          <td id={document.id} className="py-2 px-3">
+                            {document.name}
+                          </td>
                         </Link>
                         <td className="p-3 text-right pr-14 ">
                           <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
