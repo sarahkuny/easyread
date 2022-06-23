@@ -16,7 +16,7 @@ import SuccessModal from './SuccessModal';
 import ErrorModal from './ErrorModal';
 
 export default function Converter(){
-    const [settings, setSettings] = useState({font_size: "50",
+    const [settings, setSettings] = useState({font_size: "48",
                                               font_color: "#0000FF",
                                               background_color: "#FFF000",
                                               line_spacing: 1.5});
@@ -29,13 +29,12 @@ export default function Converter(){
     const [errorMessage, setErrorMessage] = useState("");
     const [toggle, setToggle] = useState(false);
     
-    const [fontSize, setFontSize] = useState(`text-[${settings.font_size}px]`)
-    const [fontColor, setFontColor] = useState(`text-[${settings.font_color}]`)
-    const [bgColor, setBgColor] = useState(`bg-[${settings.background_color}]`)
+
 //load user settings upon page loading
     // useEffect(() => {
     //      getSettings();
     // }, [])
+    
     
 
     const getSettings = async () => {
@@ -73,7 +72,6 @@ export default function Converter(){
                     content: `${fileText}`
                 }
             })
-            console.log(data);
             const parsed = parse(data);
             setConvertedText(parsed);
             setLoading(false);
@@ -210,7 +208,7 @@ export default function Converter(){
                 <div 
                 className={"w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll" }
                 >
-                    <p className={`${fontColor} ${fontSize} ${bgColor}`}>{toggle ? fileText : convertedText}</p>
+                    <p style={{ backgroundColor: `${settings.background_color}`, color: `${settings.font_color}`, fontSize: `${settings.font_size}px` }}>{toggle ? fileText : convertedText}</p>
                 </div>
                 {/* Save Document Form */}
                 <form onSubmit={saveDocument} className="bg-white w-full flex justify-center py-2 border">
