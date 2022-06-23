@@ -49,7 +49,7 @@ export default function Converter(){
                     authorization: `Bearer ${token}`
                 },
             })
-        setSettings(data);
+        setSettings(data[0]);
         
         } catch (err){
             console.log(err)

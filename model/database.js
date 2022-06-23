@@ -28,7 +28,7 @@ con.connect(function (err) {
   });
   //create default_settings table
   let sqlSettings =
-    "DROP TABLE if exists default_settings; CREATE TABLE default_settings(id INT NOT NULL AUTO_INCREMENT, user_id INT, font_size INT not null, font_color VARCHAR(40) not null, background_color varchar(40) not null, line_spacing INT, fixation INT not null, saccade INT not null, PRIMARY KEY (id), FOREIGN KEY (user_id) REFERENCES users(id));";
+    "DROP TABLE if exists default_settings; CREATE TABLE default_settings(id INT NOT NULL AUTO_INCREMENT, user_id INT, font_size INT not null, font_color VARCHAR(40) not null, background_color varchar(40) not null, line_spacing INT, PRIMARY KEY (id), FOREIGN KEY (user_id) REFERENCES users(id));";
   con.query(sqlSettings, function (err, result) {
     if (err) throw err;
     console.log("Table creation `default_settings` was successful!");
