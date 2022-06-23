@@ -208,7 +208,7 @@ export default function Converter(){
                 <div 
                 className={"w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll" }
                 >
-                    <p style={{ backgroundColor: `${settings.background_color}`, color: `${settings.font_color}`, fontSize: `${settings.font_size}px` }}>{toggle ? fileText : convertedText}</p>
+                    <p style={{ backgroundColor: `${settings.background_color}`, color: `${settings.font_color}`, fontSize: `${settings.font_size}px`, lineHeight: `${settings.line_spacing}` }}>{toggle ? fileText : convertedText}</p>
                 </div>
                 {/* Save Document Form */}
                 <form onSubmit={saveDocument} className="bg-white w-full flex justify-center py-2 border">
