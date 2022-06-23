@@ -49,17 +49,23 @@ router.get("/:owner_id", async function (req, res, next) {
 
 //GET media document by id
 
-router.get("/document/:id", async function (req, res, next) {
-  // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
+router.get(
+  "/document/:id",
+  userShouldBeLoggedIn,
+  async function (req, res, next) {
+    // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
 
-  try {
-    const { data } = await db(`SELECT * FROM media WHERE id=${req.params.id};`);
-    if (!data.length) res.status(404).send("no media exists with this id");
-    else res.status(200).send(data);
-  } catch (err) {
-    res.status(500).send(err);
+    try {
+      const { data } = await db(
+        `SELECT * FROM media WHERE id=${req.params.id};`
+      );
+      if (!data.length) res.status(404).send("no media exists with this id");
+      else res.status(200).send(data);
+    } catch (err) {
+      res.status(500).send(err);
+    }
   }
-});
+);
 
 //POST media
 router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
@@ -83,7 +89,7 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 //DELETE media by media id
 router.delete(
   "/document/:id",
-  // userShouldBeLoggedIn,
+  userShouldBeLoggedIn,
   async function (req, res, next) {
     try {
       // await db(`DELETE FROM shared WHERE media_id=${req.params.id};`);
