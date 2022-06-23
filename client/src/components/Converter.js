@@ -29,7 +29,7 @@ export default function Converter(){
     const [errorMessage, setErrorMessage] = useState("");
     const [toggle, setToggle] = useState(false);
     
-    const [fontSize, setFontSize] = useState("text-[50px]")
+    const [fontSize, setFontSize] = useState(`text-[${settings.font_size}px]`)
 //load user settings upon page loading
     // useEffect(() => {
     //      getSettings();
