@@ -1,4 +1,5 @@
 const axios = require("axios");
+require('dotenv').config();
 
 async function  fetchConvertedText (req){
     const { content, fixation, saccade } = req.body;
