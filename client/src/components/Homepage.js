@@ -22,9 +22,11 @@ export default function Homepage() {
                 possible.
               </p>
               <div className="flex justify-center">
-                <button className="bg-white py-2 px-2 rounded-lg my-6 w-60 hover:bg-sky-300 text-2xl">
-                  <Link to="/about">Learn More</Link>
-                </button>
+                <Link to="/about">
+                  <button className="bg-white py-2 px-2 rounded-lg my-6 w-60 hover:bg-sky-300 text-2xl">
+                    Learn More
+                  </button>
+                </Link>
               </div>{" "}
             </div>
           </div>
@@ -34,11 +36,11 @@ export default function Homepage() {
             <div className="grid grid-cols-1 place-items-center h-screen">
               <div>
                 <div className="flex justify-center">
-                  <button className="bg-white pt-2 pb-2 pl-2 pr-2 rounded-lg mt-6 mb-0 w-60 text-2xl hover:bg-sky-300">
-                    <Link to="/convert">
+                  <Link to="/convert">
+                    <button className="bg-white pt-2 pb-2 pl-2 pr-2 rounded-lg mt-6 mb-0 w-60 text-2xl hover:bg-sky-300">
                       <b>Start reading</b>
-                    </Link>
-                  </button>
+                    </button>
+                  </Link>
                 </div>{" "}
                 <p className="text-white bg-black/25 text-sm text-center rounded-lg px-2 py-2">
                   <i>
