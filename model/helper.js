@@ -15,7 +15,7 @@ module.exports = async function db(query) {
     const con = mysql.createConnection({
       host: DB_HOST || "127.0.0.1",
       user: DB_USER || "root",
-      port: 52000, //docker
+      //port: 52000, //docker
       password: DB_PASS,
       database: DB_NAME || "easyread",
       multipleStatements: true,

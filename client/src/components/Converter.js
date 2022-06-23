@@ -16,9 +16,9 @@ import SuccessModal from './SuccessModal';
 import ErrorModal from './ErrorModal';
 
 export default function Converter(){
-    const [settings, setSettings] = useState({font_size: "48",
-                                              font_color: "#0000FF",
-                                              background_color: "#FFF000",
+    const [settings, setSettings] = useState({font_size: "16",
+                                              font_color: "#000000",
+                                              background_color: "#fdfbdd",
                                               line_spacing: 1.5});
     const [fileText, setFileText] = useState("");
     const [convertedText, setConvertedText] = useState();
@@ -31,9 +31,12 @@ export default function Converter(){
     
 
 //load user settings upon page loading
-    // useEffect(() => {
-    //      getSettings();
-    // }, [])
+    useEffect(() => {
+        let token = localStorage.getItem("token");
+        if (token !== null){
+            getSettings();
+        }
+    }, [])
     
     
 
@@ -106,7 +109,9 @@ export default function Converter(){
             setDocumentName("");
             setSuccess(true)
         } catch(err) {
-            console.log(err)
+            setErrorMessage({title: "Cannot Save Document",
+                             message: "Please check your connection or try again later."})
+            setError(true);
         }
     }
 
