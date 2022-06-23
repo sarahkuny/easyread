@@ -29,25 +29,27 @@ export default function MyDocuments() {
     }
   };
 
-  const deleteDocument = async (event) => {
+  const handleDelete = async (id) => {
+    console.log("id", id);
     let token = localStorage.getItem("token");
     try {
-      const { documents } = await axios("/api/media/${event.target.id)", {
+      const response = await axios(`/api/media/document/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setDocuments(documents);
+      setDocuments(response.data);
+      console.log(documents);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleDelete = (event) => {
-    let id = event.target.id;
-    deleteDocument(event);
-  };
+  // const handleDelete = (id) => {
+  //   let id = event.target.id;
+  //   deleteDocument(event);
+  // };
 
   // pull content from media table
   // send content to bionic reading api (abstracted function)
@@ -97,7 +99,6 @@ export default function MyDocuments() {
                   {documents.map((document) => {
                     return (
                       <tr className="odd:bg-white even:bg-sky-100 text-black">
-<<<<<<< HEAD
                         <Link to="/convert">
                           <td id={document.id} className="py-2 px-3">
                             {document.name}
@@ -112,37 +113,11 @@ export default function MyDocuments() {
                               fill="currentColor"
                             >
                               <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
-||||||| 376c8cb
-                        <td>{document.name}</td>
-
-                        <td className="p-3 text-right pr-14">
-                          <button
-                            onClick={handleShare}
-                            className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-6 w-6"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
-=======
-                        <td className="py-2 px-3">{document.name}</td>
-
-                        <td className="p-3 text-right pr-14">
-                          <button
-                            onClick={handleShare}
-                            className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
->>>>>>> 5b1b8c54396f6cb0a48b04efc4c4a3629fe35828
                             </svg>
                           </button>
                           <button
                             id={document.id}
-                            onClick={handleDelete}
+                            onClick={() => handleDelete(document.id)}
                             className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
                           >
                             <svg
