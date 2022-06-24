@@ -33,12 +33,32 @@ export default function SignUp() {
                 data: {username: username, password: password}
             });
             localStorage.setItem("token", data);
+            await addDefaultSettings();
             navigate('/convert');
         } catch (err){
             setError(true);
-            
+        }
     }
-}
+
+    const addDefaultSettings = async () => {
+        let token = localStorage.getItem("token");
+        try {
+            await axios("/api/defaultSettings", {
+                headers: {
+                    authorization: `Bearer ${token}`
+                },
+                method: "POST",
+                data: {
+                    font_size: "16",
+                    font_color: "#000000",
+                    background_color: "#fdfbdd",
+                    line_spacing: 1.5
+                }
+            })
+        } catch (err) {
+            console.log(error)
+        }
+    }
     
     return (
         <>

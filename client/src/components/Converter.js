@@ -16,9 +16,9 @@ import SuccessModal from './SuccessModal';
 import ErrorModal from './ErrorModal';
 
 export default function Converter(){
-    const [settings, setSettings] = useState({font_size: 16,
+    const [settings, setSettings] = useState({font_size: "16",
                                               font_color: "#000000",
-                                              background_color: "#FFFDD0",
+                                              background_color: "#fdfbdd",
                                               line_spacing: 1.5});
     const [fileText, setFileText] = useState("");
     const [convertedText, setConvertedText] = useState();
@@ -29,11 +29,15 @@ export default function Converter(){
     const [errorMessage, setErrorMessage] = useState("");
     const [toggle, setToggle] = useState(false);
     
-    const [fontSize, setFontSize] = useState(`text-[${settings.font_size}px]`)
+
 //load user settings upon page loading
-    // useEffect(() => {
-    //      getSettings();
-    // }, [])
+    useEffect(() => {
+        let token = localStorage.getItem("token");
+        if (token !== null){
+            getSettings();
+        }
+    }, [])
+    
     
 
     const getSettings = async () => {
@@ -45,7 +49,7 @@ export default function Converter(){
                     authorization: `Bearer ${token}`
                 },
             })
-        setSettings(data);
+        setSettings(data[0]);
         
         } catch (err){
             console.log(err)
@@ -71,7 +75,6 @@ export default function Converter(){
                     content: `${fileText}`
                 }
             })
-            console.log(data);
             const parsed = parse(data);
             setConvertedText(parsed);
             setLoading(false);
@@ -106,7 +109,9 @@ export default function Converter(){
             setDocumentName("");
             setSuccess(true)
         } catch(err) {
-            console.log(err)
+            setErrorMessage({title: "Cannot Save Document",
+                             message: "Please check your connection or try again later."})
+            setError(true);
         }
     }
 
@@ -205,8 +210,10 @@ export default function Converter(){
                 </div>
 
                 {/* converted text */}
-                <div className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll" >
-                    <p className={fontSize} >{toggle ? fileText : convertedText}</p>
+                <div 
+                className={"w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll" }
+                >
+                    <p style={{ backgroundColor: `${settings.background_color}`, color: `${settings.font_color}`, fontSize: `${settings.font_size}px`, lineHeight: `${settings.line_spacing}` }}>{toggle ? fileText : convertedText}</p>
                 </div>
                 {/* Save Document Form */}
                 <form onSubmit={saveDocument} className="bg-white w-full flex justify-center py-2 border">
