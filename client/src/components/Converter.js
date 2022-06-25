@@ -25,7 +25,7 @@ export default function Converter(){
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [toggle, setToggle] = useState(false);
+    const [toggle, setToggle] = useState(true);
 
 //load user settings upon page loading
     useEffect(() => {
@@ -63,7 +63,6 @@ export default function Converter(){
 
 
     const fetchConvertedText = async (e) => {
-        e.preventDefault();
         setLoading(true);
         try{
             const { data } = await axios('/api/convert', {
@@ -114,8 +113,9 @@ export default function Converter(){
         }
     }
 
-    const toggleText = (e) =>{
+    const toggleText = async (e) =>{
         e.preventDefault();
+        if (!convertedText) await fetchConvertedText();
         setToggle(!toggle)
     }
 
@@ -130,6 +130,7 @@ export default function Converter(){
         const reader = new FileReader();
         reader.onload = function(e) {
             setFileText(e.target.result);
+            console.log("set")
         };
         reader.readAsText(file);
         
@@ -152,7 +153,6 @@ export default function Converter(){
                     <label className=" p-2">Attach Document (must be .txt)
                         <input onChange={handleFileChange} accept=".txt" className="border rounded-md border-black mx-2" type="file" require/>
                     </label>
-                    <button onClick={fetchConvertedText} className="bg-black rounded-md text-white px-4 py-2 hover:bg-sky-500">Convert</button>
                     <button onClick={toggleText} className="bg-black rounded-md text-white px-4 py-2 mx-2 hover:bg-sky-500">{toggle ? "Turn on Bionic Reading" : "Turn off Bionic Reading"}</button>
                 </form>
                 
