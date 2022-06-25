@@ -7,12 +7,10 @@
 
 import axios from 'axios';
 import React, {useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import parse from 'html-react-parser';
 import Header from './Header';
-import ReactTooltip from 'react-tooltip';
 import LoadingModal from './LoadingModal';
-import SuccessModal from './SuccessModal';
 import ErrorModal from './ErrorModal';
 
 export default function SavedDocConverter(){
@@ -20,11 +18,8 @@ export default function SavedDocConverter(){
                                               font_color: "#000000",
                                               background_color: "#fdfbdd",
                                               line_spacing: 1.5});
-    const [fileText, setFileText] = useState("");
     const [convertedText, setConvertedText] = useState();
-    const [documentName, setDocumentName] = useState("");
     const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [toggle, setToggle] = useState(false);
@@ -38,11 +33,6 @@ export default function SavedDocConverter(){
         };
        
     }, [])
-    
-    // useEffect(() => {
-    //     getMedia(location.state.id);
-    //     //setFileText(results)
-    // }, [location])
     
 
     const getSettings = async () => {
@@ -65,7 +55,6 @@ export default function SavedDocConverter(){
 
     // }
 
-{/*Click Events*/}
     const fetchConvertedText = async (e) => {
         setLoading(true);
         try{
@@ -94,7 +83,6 @@ export default function SavedDocConverter(){
         setToggle(!toggle)
     }
 
-{/*Handle Changes*/}
     const handleInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -105,6 +93,8 @@ export default function SavedDocConverter(){
         <>
             <Header buttonOne="My Documents" buttonTwo="Sign Out" linkOne="/documents" linkTwo="/" />
             {loading ? <LoadingModal /> : ""}
+            {error ? <ErrorModal closeError={() => setError(false)} message={errorMessage.message} title={errorMessage.title} />: ""}
+
             <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
             <form className="bg-white w-full flex justify-center py-2 border">
                    

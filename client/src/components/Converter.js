@@ -7,10 +7,8 @@
 
 import axios from 'axios';
 import React, {useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom'
 import parse from 'html-react-parser';
 import Header from './Header';
-import ReactTooltip from 'react-tooltip';
 import LoadingModal from './LoadingModal';
 import SuccessModal from './SuccessModal';
 import ErrorModal from './ErrorModal';
@@ -28,7 +26,6 @@ export default function Converter(){
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [toggle, setToggle] = useState(false);
-    const location = useLocation();
 
 //load user settings upon page loading
     useEffect(() => {
@@ -39,10 +36,7 @@ export default function Converter(){
        
     }, [])
     
-    // useEffect(() => {
-    //     getMedia(location.state.id);
-    //     //setFileText(results)
-    // }, [location])
+    
     
 
     const getSettings = async () => {
@@ -68,7 +62,6 @@ export default function Converter(){
     
 
 
-{/*Click Events*/}
     const fetchConvertedText = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -102,7 +95,7 @@ export default function Converter(){
             setError(true);
         }
         try{
-            let response = await axios('/api/media',{
+            await axios('/api/media',{
                 method: "POST",
                 headers: {
                     authorization: `Bearer ${token}`
@@ -126,7 +119,6 @@ export default function Converter(){
         setToggle(!toggle)
     }
 
-{/*Handle Changes*/}
     const handleInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
