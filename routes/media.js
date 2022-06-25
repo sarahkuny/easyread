@@ -38,7 +38,7 @@ router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
 
 //GET media document by id
 
-router.get("/document/:id", async function (req, res, next) {
+router.get("/document/:id", userShouldBeLoggedIn, async function (req, res, next) {
   // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
 
   try {
@@ -73,7 +73,7 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 
 router.delete(
   "/document/:id",
-  // userShouldBeLoggedIn,
+   userShouldBeLoggedIn,
   async function (req, res, next) {
     try {
       // await db(`DELETE FROM shared WHERE media_id=${req.params.id};`);

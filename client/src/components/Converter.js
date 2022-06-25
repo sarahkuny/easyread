@@ -7,7 +7,7 @@
 
 import axios from 'axios';
 import React, {useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import parse from 'html-react-parser';
 import Header from './Header';
 import ReactTooltip from 'react-tooltip';
@@ -28,16 +28,21 @@ export default function Converter(){
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [toggle, setToggle] = useState(false);
-    
+    const location = useLocation();
 
 //load user settings upon page loading
     useEffect(() => {
         let token = localStorage.getItem("token");
         if (token !== null){
             getSettings();
-        }
+        };
+       
     }, [])
     
+    // useEffect(() => {
+    //     getMedia(location.state.id);
+    //     //setFileText(results)
+    // }, [location])
     
 
     const getSettings = async () => {
@@ -60,6 +65,7 @@ export default function Converter(){
 
     // }
 
+    
 
 
 {/*Click Events*/}
@@ -127,13 +133,14 @@ export default function Converter(){
         setSettings({...settings, [name]: value})
     }
 
-    const handleFileChange = (e) =>{
+    const handleFileChange =async (e) =>{
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.onload = function(e) {
             setFileText(e.target.result);
         };
         reader.readAsText(file);
+        
     }
 
     const handleDocumentNameChange = (e) => {
@@ -164,7 +171,7 @@ export default function Converter(){
                         <label className="text-white">Font Color
                             <input 
                                 onChange={handleInputChange}
-                                className="w-10 ml-2"
+                                className="w-14 ml-2"
                                 name="font_color"
                                 value={settings.font_color}
                                 type="color"
@@ -175,7 +182,7 @@ export default function Converter(){
                         <label className="m-2 text-white">Background Color
                             <input 
                                 onChange={handleInputChange}
-                                className="w-10 ml-2"
+                                className="w-14 ml-2"
                                 name="background_color"
                                 value={settings.background_color}
                                 type="color" 
@@ -186,7 +193,7 @@ export default function Converter(){
                         <label className="m-2 text-white">Font Size
                             <input 
                                 onChange={handleInputChange}
-                                className="w-10 ml-2 text-black"
+                                className="w-14 ml-2 text-black px-1"
                                 name="font_size"
                                 value={settings.font_size}
                                 min="1"
@@ -198,7 +205,7 @@ export default function Converter(){
                         <label className="m-2 text-white">Line Spacing
                             <input 
                                 onChange={handleInputChange}
-                                className="w-10 m-2 text-black"
+                                className="w-14 m-2 text-black px-1"
                                 name="line_spacing"
                                 value={settings.line_spacing}
                                 min="1"
