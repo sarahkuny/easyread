@@ -58,7 +58,7 @@ export default function MyDocuments() {
           },
       });
       let content = (data[0].content);
-      navigate('/convert', {state: {content: content}})
+      navigate('/convert/saved', {state: {content: content}})
   } catch (err) {
       console.log(err)
   }

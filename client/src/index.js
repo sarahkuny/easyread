@@ -8,7 +8,7 @@ import Login from   './components/Login';
 import Converter from './components/Converter';
 import About from './components/About';
 import MyDocuments from './components/MyDocuments';
-
+import SavedDocConverter from './components/SavedDocConverter';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,6 +22,7 @@ root.render(
       <Route path="/convert" element={<Converter />} />
       <Route path="/about" element={<About />} />
       <Route path="/documents" element={<MyDocuments />} />
+      <Route path="/convert/saved" element={<SavedDocConverter />} />
     </Routes>
     </BrowserRouter>
   </React.StrictMode>
