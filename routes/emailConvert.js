@@ -45,6 +45,8 @@ router.post("/:id", userShouldBeLoggedIn, async function (req, res, next) {
     let results = data[0].content; //Ellie's suggestion
     console.log("results", results);
 
+    // let convertedEmailText = await fetchConvertedText(results);
+
     // let ___ = await fetchConvertedText(req); ??
   } catch (err) {
     res.status(500).send(err);

@@ -1,6 +1,6 @@
 const axios = require("axios");
 require("dotenv").config();
-async function fetchConvertedText(req) {
+async function nvertedText(req) {
   const { content, fixation, saccade } = req.body;
   let results = "";
   arrayContent = content.split(" ");
