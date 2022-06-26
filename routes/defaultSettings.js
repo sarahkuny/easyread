@@ -26,13 +26,13 @@ router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
 
 //POST settings
 router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
-  const { fontSize, fontColor, backgroundColor, lineSpacing, fixation, saccade } = req.body;
+  const { font_size, font_color, background_color, line_spacing } = req.body;
   const username = req.username;
 
   try {
     const results = await db(`SELECT id FROM users WHERE username="${username}";`);
     const user = results.data[0]
-    await db(`INSERT INTO default_settings (user_id, font_size, font_color, background_color, line_spacing, fixation, saccade) VALUES (${user.id}, ${fontSize}, "${fontColor}", "${backgroundColor}", ${lineSpacing}, ${fixation}, ${saccade});`)
+    await db(`INSERT INTO default_settings (user_id, font_size, font_color, background_color, line_spacing) VALUES (${user.id}, ${font_size}, "${font_color}", "${background_color}", ${line_spacing});`)
     const { data } = await db(`SELECT * FROM default_settings;`);
     res.status(200).send(data)
   } catch (err){

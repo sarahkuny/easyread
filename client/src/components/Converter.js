@@ -7,19 +7,17 @@
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 import Header from "./Header";
-import ReactTooltip from "react-tooltip";
 import LoadingModal from "./LoadingModal";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
 
 export default function Converter() {
   const [settings, setSettings] = useState({
-    font_size: 16,
+    font_size: "16",
     font_color: "#000000",
-    background_color: "#FFFDD0",
+    background_color: "#fdfbdd",
     line_spacing: 1.5,
   });
   const [fileText, setFileText] = useState("");
@@ -29,13 +27,15 @@ export default function Converter() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
-  const [fontSize, setFontSize] = useState(`text-[${settings.font_size}px]`);
   //load user settings upon page loading
-  // useEffect(() => {
-  //      getSettings();
-  // }, [])
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token !== null) {
+      getSettings();
+    }
+  }, []);
 
   const getSettings = async () => {
     try {
@@ -46,7 +46,7 @@ export default function Converter() {
           authorization: `Bearer ${token}`,
         },
       });
-      setSettings(data);
+      setSettings(data[0]);
     } catch (err) {
       console.log(err);
     }
@@ -56,11 +56,7 @@ export default function Converter() {
 
   // }
 
-  {
-    /*Click Events*/
-  }
   const fetchConvertedText = async (e) => {
-    e.preventDefault();
     setLoading(true);
     try {
       const { data } = await axios("/api/convert", {
@@ -71,7 +67,6 @@ export default function Converter() {
           content: `${fileText}`,
         },
       });
-      console.log(data);
       const parsed = parse(data);
       setConvertedText(parsed);
       setLoading(false);
@@ -98,7 +93,7 @@ export default function Converter() {
       setError(true);
     }
     try {
-      let response = await axios("/api/media", {
+      await axios("/api/media", {
         method: "POST",
         headers: {
           authorization: `Bearer ${token}`,
@@ -111,30 +106,32 @@ export default function Converter() {
       setDocumentName("");
       setSuccess(true);
     } catch (err) {
-      console.log(err);
+      setErrorMessage({
+        title: "Cannot Save Document",
+        message: "Please check your connection or try again later.",
+      });
+      setError(true);
     }
   };
 
-  const toggleText = (e) => {
+  const toggleText = async (e) => {
     e.preventDefault();
+    if (!convertedText) await fetchConvertedText();
     setToggle(!toggle);
   };
 
-  {
-    /*Handle Changes*/
-  }
   const handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setSettings({ ...settings, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    console.log("button clicked");
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = function (e) {
       setFileText(e.target.result);
+      console.log("set");
     };
     reader.readAsText(file);
   };
@@ -185,12 +182,6 @@ export default function Converter() {
             />
           </label>
           <button
-            onClick={fetchConvertedText}
-            className="bg-black rounded-md text-white px-4 py-2 hover:bg-sky-500"
-          >
-            Convert
-          </button>
-          <button
             onClick={toggleText}
             className="bg-black rounded-md text-white px-4 py-2 mx-2 hover:bg-sky-500"
           >
@@ -206,7 +197,7 @@ export default function Converter() {
               Font Color
               <input
                 onChange={handleInputChange}
-                className="w-10 ml-2"
+                className="w-14 ml-2"
                 name="font_color"
                 value={settings.font_color}
                 type="color"
@@ -218,7 +209,7 @@ export default function Converter() {
               Background Color
               <input
                 onChange={handleInputChange}
-                className="w-10 ml-2"
+                className="w-14 ml-2"
                 name="background_color"
                 value={settings.background_color}
                 type="color"
@@ -230,7 +221,7 @@ export default function Converter() {
               Font Size
               <input
                 onChange={handleInputChange}
-                className="w-10 ml-2 text-black"
+                className="w-14 ml-2 text-black px-1"
                 name="font_size"
                 value={settings.font_size}
                 min="1"
@@ -243,7 +234,7 @@ export default function Converter() {
               Line Spacing
               <input
                 onChange={handleInputChange}
-                className="w-10 m-2 text-black"
+                className="w-14 m-2 text-black px-1"
                 name="line_spacing"
                 value={settings.line_spacing}
                 min="1"
@@ -254,8 +245,17 @@ export default function Converter() {
         </div>
 
         {/* converted text */}
-        <div className="w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll">
-          <p className={fontSize}>{toggle ? fileText : convertedText}</p>
+        <div className={"w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll"}>
+          <p
+            style={{
+              backgroundColor: `${settings.background_color}`,
+              color: `${settings.font_color}`,
+              fontSize: `${settings.font_size}px`,
+              lineHeight: `${settings.line_spacing}`,
+            }}
+          >
+            {toggle ? fileText : convertedText}
+          </p>
         </div>
         {/* Save Document Form */}
         <form

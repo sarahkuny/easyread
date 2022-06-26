@@ -5,11 +5,12 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EmailButton from "./EmailButton";
 
 export default function MyDocuments() {
   const [documents, setDocuments] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllDocuments();
@@ -46,6 +47,24 @@ export default function MyDocuments() {
       console.log(err);
     }
   };
+
+  const handleTitleClick =async  (id) => {
+    try {
+      let token = localStorage.getItem("token");
+      const { data } = await axios(`/api/media/document/${id}`, {
+          method: "GET",
+          headers: {
+              authorization: `Bearer ${token}`
+          },
+      });
+      let content = (data[0].content);
+      navigate('/convert/saved', {state: {content: content}})
+  } catch (err) {
+      console.log(err)
+  }
+
+    
+  }
 
   // const handleDelete = (id) => {
   //   let id = event.target.id;
@@ -100,11 +119,9 @@ export default function MyDocuments() {
                   {documents.map((document) => {
                     return (
                       <tr className="odd:bg-white even:bg-sky-100 text-black">
-                        <Link to="/convert">
-                          <td id={document.id} className="py-2 px-3">
+                          <td onClick={()=>handleTitleClick(document.id)} id={document.id} className="py-2 px-3">
                             {document.name}
                           </td>
-                        </Link>
                         <td className="p-3 text-right pr-14 ">
                           {/* <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
                             <svg

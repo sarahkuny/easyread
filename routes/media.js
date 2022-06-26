@@ -47,11 +47,19 @@ router.get("/:owner_id", async function (req, res, next) {
 
 //GET media document by id
 
+<<<<<<< HEAD
 router.get(
   "/document/:id",
   userShouldBeLoggedIn,
   async function (req, res, next) {
     // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
+||||||| 9a3cadb
+router.get("/document/:id", async function (req, res, next) {
+  // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
+=======
+router.get("/document/:id", userShouldBeLoggedIn, async function (req, res, next) {
+  // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
+>>>>>>> 31105d85784abbd598f3fd122087001bcd7ce566
 
     try {
       const { data } = await db(
@@ -87,7 +95,13 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 //DELETE media by media id
 router.delete(
   "/document/:id",
+<<<<<<< HEAD
   userShouldBeLoggedIn,
+||||||| 9a3cadb
+  // userShouldBeLoggedIn,
+=======
+   userShouldBeLoggedIn,
+>>>>>>> 31105d85784abbd598f3fd122087001bcd7ce566
   async function (req, res, next) {
     try {
       // await db(`DELETE FROM shared WHERE media_id=${req.params.id};`);
