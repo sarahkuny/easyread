@@ -25,8 +25,12 @@ export default function EmailButton() {
 
     // Fetch converted document
     try {
-      const { data } = await axios("/api/converter/", {
+      const { data } = await axios("/api/emailConvert/:id", {
+        //check on syntax for id
         method: "POST",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
       });
       setConvertedDocument(data);
     } catch (err) {

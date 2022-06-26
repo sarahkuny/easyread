@@ -40,20 +40,23 @@ router.use(express.json());
 router.post("/:id", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { data } = await db(
-      // `SELECT user_id, fixation, saccade FROM default_settings WHERE user_id=${req.params.id};` //create inner join
-      `SELECT media.content, default_settings.fixation, default_settings.saccade FROM media INNER JOIN default_settings ON media.owner_id = default_settings.user_id AND media.owner_id = ${req.params.id};`
+      //  `SELECT * FROM media WHERE id=${req.params.id};` -original
+      `SELECT m.content, d.fixation, d.saccade AS convert_text FROM media m JOIN default_settings d ON m.owner_id = d.user_id AND m.id=${req.params.id};` //Shubhra's suggestion
     );
     if (!data.length) res.status(404).send("no media exists with this id");
     else {
       // res.status(200).send(data[0].content);
 
-      let results = data[0]; //Ellie's suggestion
-      console.log("results", results);
+      let results = data[0];
+      console.log("results", results); //results should return content, fixation, saccade (FetchCovertedText.js)
 
       let convertedEmailText = fetchConvertedText(results);
+      //converting results to bionic reading
+      //with the fetchConvertedText function
+      // which is saved as convertedEmailText variable
       res.status(200).send(convertedEmailText);
+      //sending variable convertedEmailText back as the final result of the post
     }
-    // let ___ = await fetchConvertedText(req); ??
   } catch (err) {
     res.status(500).send(err);
   }
