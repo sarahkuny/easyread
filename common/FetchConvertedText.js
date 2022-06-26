@@ -1,8 +1,10 @@
 const axios = require("axios");
 require("dotenv").config();
-async function nvertedText(req) {
+async function FetchConvertedText(req) {
   const { content, fixation, saccade } = req.body;
+  // const { content, fixation, saccade } = req;
   let results = "";
+  console.log(content, " testing ", req);
   arrayContent = content.split(" ");
 
   while (arrayContent.length) {
@@ -39,4 +41,4 @@ async function nvertedText(req) {
   return results;
 }
 
-module.exports = fetchConvertedText;
+module.exports = FetchConvertedText;
