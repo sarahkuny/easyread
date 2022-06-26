@@ -8,7 +8,7 @@ const fetchConvertedText = require("../common/fetchConvertedText"); //method to 
 
 /* POST request:
 
-1. needs to be logged in -userShouldBeLoggedIn
+1. needs to be logged in -userShouldBeLoggedIn /
 2. Query media table to find what text wants to be converted by using 
    document id  take the content and send to convert route
 3. Save this in a variable
