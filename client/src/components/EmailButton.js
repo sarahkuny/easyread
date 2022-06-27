@@ -25,6 +25,7 @@ export default function EmailButton() {
 
     // Fetch converted document
     try {
+      let token = localStorage.getItem("token")
       const { data } = await axios("/api/emailConvert/:id", {
         //check on syntax for id
         method: "POST",
