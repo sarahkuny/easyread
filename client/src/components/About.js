@@ -4,16 +4,15 @@
 //example image of converted text
 import React from "react";
 import Header from "./Header";
-import { Link } from "react-router-dom";
 
 export default function About() {
   return (
     <>
       <Header
         buttonOne="Converter"
-        buttonTwo="Sign Out"
+        buttonTwo="Sign Up"
         linkOne="/convert"
-        linkTwo="/"
+        linkTwo="/signup"
       />
       <div class="bg-gradient-to-br from-zinc-900 via-slate-900 to-sky-500 min-h-screen flex items-center justify-center px-16">
         <div class="relative w-full max-w-xl">
