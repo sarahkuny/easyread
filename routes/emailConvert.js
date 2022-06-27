@@ -44,15 +44,16 @@ router.post("/:id", userShouldBeLoggedIn, async function (req, res, next) {
       // `SELECT m.content, d.fixation, d.saccade AS convert_text FROM media m JOIN default_settings d ON m.owner_id = d.user_id AND m.id=${req.params.id};` //Shubhra's suggestion
       // `SELECT media.content FROM media JOIN default_settings ON media.owner_id = default_settings.user_id AND media.id=1;`
     );
-    if (!data.length) res.status(404).send("no media exists with this id");
-    else {
+    if (!data.length) {
+      res.status(404).send("no media exists with this id");
+    } else {
       // res.status(200).send(data[0].content);
 
       let results = data[0];
 
       console.log("results", results.content); //results should return content, fixation, saccade (FetchCovertedText.js)
       let requestBody = {
-        content: `${results.content}`,
+        content: results.content,
         fixation: 1,
         saccade: 10,
       };
