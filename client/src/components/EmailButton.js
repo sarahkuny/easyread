@@ -1,13 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import emailjs from "@emailjs/browser";
+import React, {  useState } from "react";
+import emailjs, { send } from "@emailjs/browser";
 
 export default function EmailButton({ id }) {
   const [showModal, setShowModal] = useState(false);
   const [recipientName, setRecipientName] = useState();
   const [recipientEmail, setRecipientEmail] = useState();
   const [user, setUser] = useState();
-  const [convertedDocument, setConvertedDocument] = useState();
 
   const handleUserName = (event) => {
     setUser(event.target.value);
@@ -30,28 +29,22 @@ export default function EmailButton({ id }) {
           authorization: `Bearer ${token}`,
         },
       });
-      console.log(data);
-      setConvertedDocument(data);
-      //console.log(convertedDocument, "is the doc");
+      return(data);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleSendEmail = async () => {
-    setShowModal(false);
-    await fetchDocument();
-
-    // create template params object for the email
+  const sendEmail = async (content) => {
     const emailObj = {
       recipientName: recipientName,
       recipientEmail: recipientEmail,
       user: user,
-      convertedDocument: convertedDocument,
+      convertedDocument: content,
     };
-    console.log(convertedDocument, "is the doc");
+    
     //sending the email
-
+    console.log("the email object is", emailObj)
     emailjs
       .send(
         "service_au002tq",
@@ -67,6 +60,14 @@ export default function EmailButton({ id }) {
           console.log("FAILED...", error);
         }
       );
+  }
+
+  const handleSendEmail = async () => {
+    setShowModal(false);
+    let content = await fetchDocument();
+    await sendEmail(content);
+    // create template params object for the email
+    
   };
 
   return (

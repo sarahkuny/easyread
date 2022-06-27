@@ -2,9 +2,8 @@
 //Sign Up Form
 //link to login component (send to parent)
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import parse from "html-react-parser";
 import img from "../assets/bionic-reading-signup.png"; 
 import ErrorModal from "./ErrorModal";
 
