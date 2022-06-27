@@ -40,15 +40,8 @@ con.connect(function (err) {
   con.query(sqlMedia, function (err, result) {
     if (err) throw err;
     console.log("Table creation `media` was successful!");
-  });
-
-  let sqlShared =
-    "DROP TABLE if exists shared; CREATE TABLE shared(id INT NOT NULL AUTO_INCREMENT, media_id INT not null, recipient_id INT not null, PRIMARY KEY (id), FOREIGN KEY (recipient_id) REFERENCES users(id), FOREIGN KEY (media_id) REFERENCES media(id));";
-  con.query(sqlShared, function (err, result) {
-    if (err) throw err;
-    console.log("Table creation `shared` was successful!");
-
     console.log("Closing...");
   });
+
   con.end();
 });
