@@ -1,9 +1,11 @@
 const axios = require("axios");
 require("dotenv").config();
-async function fetchConvertedText(req) {
+async function FetchConvertedText(req) {
   const { content, fixation, saccade } = req.body;
+  // const { content, fixation, saccade } = req;
   let results = "";
   arrayContent = content.split(" ");
+  console.log("req.body", req.body);
 
   while (arrayContent.length) {
     let chunk = arrayContent.splice(0, 400);
@@ -35,8 +37,8 @@ async function fetchConvertedText(req) {
       return error;
     }
   }
-
+  console.log("FETCHCONVERTED results", results);
   return results;
 }
 
-module.exports = fetchConvertedText;
+module.exports = FetchConvertedText;
