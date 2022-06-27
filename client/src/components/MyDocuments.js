@@ -48,23 +48,21 @@ export default function MyDocuments() {
     }
   };
 
-  const handleTitleClick =async  (id) => {
+  const handleTitleClick = async (id) => {
     try {
       let token = localStorage.getItem("token");
       const { data } = await axios(`/api/media/document/${id}`, {
-          method: "GET",
-          headers: {
-              authorization: `Bearer ${token}`
-          },
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
       });
-      let content = (data[0].content);
-      navigate('/convert/saved', {state: {content: content}})
-  } catch (err) {
-      console.log(err)
-  }
-
-    
-  }
+      let content = data[0].content;
+      navigate("/convert/saved", { state: { content: content } });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // const handleDelete = (id) => {
   //   let id = event.target.id;
@@ -119,9 +117,13 @@ export default function MyDocuments() {
                   {documents.map((document) => {
                     return (
                       <tr className="odd:bg-white even:bg-sky-100 text-black">
-                          <td onClick={()=>handleTitleClick(document.id)} id={document.id} className="py-2 px-3">
-                            {document.name}
-                          </td>
+                        <td
+                          onClick={() => handleTitleClick(document.id)}
+                          id={document.id}
+                          className="py-2 px-3"
+                        >
+                          {document.name}
+                        </td>
                         <td className="p-3 text-right pr-14 ">
                           {/* <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
                             <svg
@@ -133,7 +135,7 @@ export default function MyDocuments() {
                               <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
                             </svg>
                           </button> */}
-                          <EmailButton />
+                          <EmailButton id={document.id} />
                           <button
                             id={document.id}
                             onClick={() => handleDelete(document.id)}

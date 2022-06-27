@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
 
-export default function EmailButton() {
+export default function EmailButton({ id }) {
   const [showModal, setShowModal] = useState(false);
   const [recipientName, setRecipientName] = useState();
   const [recipientEmail, setRecipientEmail] = useState();
@@ -20,23 +20,27 @@ export default function EmailButton() {
     console.log(recipientEmail);
   };
 
-  const handleSendEmail = async () => {
-    setShowModal(false);
-
-    // Fetch converted document
+  const fetchDocument = async () => {
     try {
-      let token = localStorage.getItem("token")
-      const { data } = await axios("/api/emailConvert/:id", {
+      let token = localStorage.getItem("token");
+      const { data } = await axios(`/api/emailConvert/${id}`, {
         //check on syntax for id
         method: "POST",
         headers: {
           authorization: `Bearer ${token}`,
         },
       });
+      console.log(data);
       setConvertedDocument(data);
+      //console.log(convertedDocument, "is the doc");
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleSendEmail = async () => {
+    setShowModal(false);
+    await fetchDocument();
 
     // create template params object for the email
     const emailObj = {
@@ -45,17 +49,24 @@ export default function EmailButton() {
       user: user,
       convertedDocument: convertedDocument,
     };
-
+    console.log(convertedDocument, "is the doc");
     //sending the email
 
-    emailjs.send("service_au002tq", "YOUR_TEMPLATE_ID", emailObj).then(
-      function (response) {
-        console.log("SUCCESS!", response.status, response.text);
-      },
-      function (error) {
-        console.log("FAILED...", error);
-      }
-    );
+    emailjs
+      .send(
+        "service_au002tq",
+        "template_irzod5n",
+        emailObj,
+        "OPTb-EeRcr0hB7QYT"
+      )
+      .then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
   };
 
   return (
