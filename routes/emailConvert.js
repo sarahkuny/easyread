@@ -63,6 +63,8 @@ router.post("/:id", userShouldBeLoggedIn, async function (req, res, next) {
       //converting results to bionic reading
       //with the fetchConvertedText function
       // which is saved as convertedEmailText variable
+      console.log("convertedEmailText", convertedEmailText);
+
       res.status(200).send(convertedEmailText);
       //sending variable convertedEmailText back as the final result of the post
     }
