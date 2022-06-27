@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, {  useState } from "react";
-import emailjs, { send } from "@emailjs/browser";
+import emailjs from "@emailjs/browser";
 import SuccessModal from "./SuccessModal";
 import LoadingModal from "./LoadingModal";
 import ErrorModal from "./ErrorModal";
