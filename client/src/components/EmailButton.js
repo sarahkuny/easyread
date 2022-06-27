@@ -1,12 +1,19 @@
 import axios from "axios";
 import React, {  useState } from "react";
 import emailjs, { send } from "@emailjs/browser";
+import SuccessModal from "./SuccessModal";
+import LoadingModal from "./LoadingModal";
+import ErrorModal from "./ErrorModal";
 
 export default function EmailButton({ id }) {
   const [showModal, setShowModal] = useState(false);
   const [recipientName, setRecipientName] = useState();
   const [recipientEmail, setRecipientEmail] = useState();
   const [user, setUser] = useState();
+  const [loading, setLoading] = useState();
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleUserName = (event) => {
     setUser(event.target.value);
@@ -54,16 +61,24 @@ export default function EmailButton({ id }) {
       )
       .then(
         function (response) {
-          console.log("SUCCESS!", response.status, response.text);
+          setLoading(false);
+          setSuccess(true);
         },
         function (error) {
-          console.log("FAILED...", error);
+          setErrorMessage({
+            title: "Cannot Send Email",
+            message:
+              "Please make sure you've entered a valid email or try again later.",
+          });
+          setLoading(false);
+          setError(true);
         }
       );
   }
 
   const handleSendEmail = async () => {
     setShowModal(false);
+    setLoading(true);
     let content = await fetchDocument();
     await sendEmail(content);
     // create template params object for the email
@@ -72,6 +87,25 @@ export default function EmailButton({ id }) {
 
   return (
     <>
+    {loading ? <LoadingModal /> : ""}
+    {error ? (
+          <ErrorModal
+            closeError={() => setError(false)}
+            message={errorMessage.message}
+            title={errorMessage.title}
+          />
+        ) : (
+          ""
+        )}
+        {success ? (
+          <SuccessModal
+            closeMessage={() => setSuccess(false)}
+            title="Success!"
+            message="Email has been sent to the recipient's provided email address."
+          />
+        ) : (
+          ""
+        )}
       <button
         onClick={() => setShowModal(true)}
         className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
