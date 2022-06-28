@@ -35,6 +35,7 @@ export default function MyDocuments() {
     console.log("id", id);
     let token = localStorage.getItem("token");
     try {
+      // const response = await axios(`/api/media/document/${id}`, {
       const response = await axios(`/api/media/document/${id}`, {
         method: "DELETE",
         headers: {
