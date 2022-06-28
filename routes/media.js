@@ -38,7 +38,6 @@ router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //GET media document by id
-
 router.get("/document/:id", userShouldBeLoggedIn, async function (req, res, next) {
     try {
       const { data } = await db(
