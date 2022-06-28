@@ -4,6 +4,7 @@
 //example image of converted text
 import React from "react";
 import Header from "./Header";
+import settingsDemonstrationGif from "../assets/settings_gif.gif";
 
 export default function About() {
   return (
@@ -30,8 +31,8 @@ export default function About() {
                 Reading is an enjoyable pastime for many, but for some, it can
                 be an unpleasant or even frustrating experience. Our goal with
                 easy<b>Read</b> is to help aid those with learning difficulties,
-                as well as teachers, students, anyone who may benefit reading in
-                a non-traditional way.
+                as well as teachers, students, and anyone who may benefit from
+                reading in a non-traditional way.
               </p>
             </div>
             <h2
@@ -44,12 +45,17 @@ export default function About() {
             </h2>
             <div class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center">
               <p className="pt-2 text-xl">
-                Users are able to convert and customize any text, in order to
-                best fit their needs. Our text converter tool includes settings
-                such as font color and size, background color, line spacing, and
-                and 'Bionic Reading'. Users are also able to saving their
-                preferred settings, making all future text conversions more
+                Users can upload, convert, and save any .txt document to our
+                text converter. They can use the text converter tool to
+                customize the text display settings, best fitting their needs.
+                Settings options include font color and size, background color,
+                line spacing, and 'Bionic Reading.' Users can also save their
+                preferred default settings, making all future text conversions
                 seamless and effortless.
+                <img
+                  src={settingsDemonstrationGif}
+                  alt="settings demonstration gif"
+                />
               </p>
             </div>
             <h2 className="w-50  pt-6 text-2xl font-bold text-white text-center">
@@ -60,18 +66,19 @@ export default function About() {
             "
             >
               <p className=" pt-2 text-xl mb-3">
-                easy<b>Read</b> helps improve its readers' comprehension and
-                focus by using the Bionic Reading method, which creates
-                artificial fixation points within the coverted text. Initial
-                letters of each word are bolded, so the reader is only focused
-                on the highlighted letters. The reader's brain is able to center
-                complete each word, creating a more shallow form of reading. As
-                a result, readers are able to experience a deeper understanding
-                of the text.
+                One of the tools easy<b>Read</b> provides to help improve its
+                users' reading focus and comprehension is the 'Bionic Reading'
+                button. When a user activates the Bionic Reading button,
+                artificial fixation points are within the coverted text. The
+                initial letters of each word are bolded. By doing so, the reader
+                is only focused on the highlighted letters when reading. Their
+                brain can center and complete words, creating a more shallow
+                form of reading. As a result, readers can experience a deeper
+                understanding of the text.
               </p>
             </div>
             <h2 className="w-50  pt-6 text-2xl font-bold text-white text-center ">
-              What does converted text look like?
+              What does Bionic Reading look like?
             </h2>
             <div
               class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center

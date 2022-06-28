@@ -35,6 +35,7 @@ export default function MyDocuments() {
     console.log("id", id);
     let token = localStorage.getItem("token");
     try {
+      // const response = await axios(`/api/media/document/${id}`, {
       const response = await axios(`/api/media/document/${id}`, {
         method: "DELETE",
         headers: {
@@ -48,23 +49,21 @@ export default function MyDocuments() {
     }
   };
 
-  const handleTitleClick =async  (id) => {
+  const handleTitleClick = async (id) => {
     try {
       let token = localStorage.getItem("token");
       const { data } = await axios(`/api/media/document/${id}`, {
-          method: "GET",
-          headers: {
-              authorization: `Bearer ${token}`
-          },
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
       });
-      let content = (data[0].content);
-      navigate('/convert/saved', {state: {content: content}})
-  } catch (err) {
-      console.log(err)
-  }
-
-    
-  }
+      let content = data[0].content;
+      navigate("/convert/saved", { state: { content: content } });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // const handleDelete = (id) => {
   //   let id = event.target.id;
@@ -119,9 +118,13 @@ export default function MyDocuments() {
                   {documents.map((document) => {
                     return (
                       <tr className="odd:bg-white even:bg-sky-100 text-black">
-                          <td onClick={()=>handleTitleClick(document.id)} id={document.id} className="py-2 px-3">
-                            {document.name}
-                          </td>
+                        <td
+                          onClick={() => handleTitleClick(document.id)}
+                          id={document.id}
+                          className="py-2 px-3"
+                        >
+                          {document.name}
+                        </td>
                         <td className="p-3 text-right pr-14 ">
                           {/* <button className=" rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2">
                             <svg
