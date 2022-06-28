@@ -99,7 +99,7 @@ export default function MyDocuments() {
                           <button
                             id={document.id}
                             onClick={() => handleDelete(document.id)}
-                            className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
+                            className=" active:bg-sky-400 rounded-lg hover:bg-sky-300 shadow  hover:shadow-lg  bg-black text-white text-l py-1 px-2 m-2"
                           >
                             <div>
                               <div className=" items-center flex text-xs">

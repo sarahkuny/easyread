@@ -107,7 +107,7 @@ export default function EmailButton({ id }) {
       )}
       <button
         onClick={() => setShowModal(true)}
-        className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
+        className=" shadow  hover:shadow-lg  active:bg-sky-400 rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
       >
         <div className=" items-center flex text-xs">
           <svg
