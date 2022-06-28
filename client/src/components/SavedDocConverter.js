@@ -27,11 +27,7 @@ export default function SavedDocConverter(){
     const navigate = useNavigate();
 //load user settings upon page loading
     useEffect(() => {
-        let token = localStorage.getItem("token");
-        if (token !== null){
-            getSettings();
-        };
-       
+       getSettings();
     }, [])
     
 
@@ -45,15 +41,29 @@ export default function SavedDocConverter(){
                 },
             })
         setSettings(data[0]);
-        
         } catch (err){
             console.log(err)
         }
     }
 
-    // const putSettings = async () => {
-
-    // }
+    const saveSettings = async (e) => {
+        try{
+          let token = localStorage.getItem("token");
+          const name = e.target.name;
+          const value = e.target.value;
+          await axios("/api/defaultSettings", {
+            method: "PUT",
+            headers: {
+              authorization: `Bearer ${token}`
+            },
+            data: 
+              { ...settings, [name]: value }
+            
+          })
+        } catch (err) {
+          console.log(err)
+        }    
+      }
 
     const fetchConvertedText = async (e) => {
         setLoading(true);
@@ -83,10 +93,11 @@ export default function SavedDocConverter(){
         setToggle(!toggle)
     }
 
-    const handleInputChange = (e) => {
+    const handleInputChange = async (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        setSettings({...settings, [name]: value})
+        await saveSettings(e);
+        setSettings({ ...settings, [name]: value });
     }
 
     return(

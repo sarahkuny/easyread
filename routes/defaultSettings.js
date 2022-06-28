@@ -46,10 +46,8 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   }
 });
 
-//PUT: edit settings
-//user_id, font_size, font_color, background_color, line_spacing
-// https://faridho.gitbooks.io/create-rest-api-by-node-js-express-js-and-mysql/content/put-method.html
-router.put("/:user_id", userShouldBeLoggedIn, async function (req, res, next) {
+
+router.put("/", userShouldBeLoggedIn, async function (req, res, next) {
   const {
     font_size,
     font_color,

@@ -15,10 +15,10 @@ import ErrorModal from "./ErrorModal";
 
 export default function Converter() {
   const [settings, setSettings] = useState({
-    font_size: "16",
-    font_color: "#000000",
-    background_color: "#fdfbdd",
-    line_spacing: 1.5,
+    font_size: "",
+    font_color: "",
+    background_color: "",
+    line_spacing: "",
   });
   const [fileText, setFileText] = useState("");
   const [convertedText, setConvertedText] = useState();
@@ -31,11 +31,9 @@ export default function Converter() {
 
   //load user settings upon page loading
   useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (token !== null) {
-      getSettings();
-    }
+    getSettings();
   }, []);
+
 
   const getSettings = async () => {
     try {
@@ -48,13 +46,33 @@ export default function Converter() {
       });
       setSettings(data[0]);
     } catch (err) {
-      console.log(err);
+      setSettings({
+        font_size: "16",
+        font_color: "#000000",
+        background_color: "#fdfbdd",
+        line_spacing: 1.5
+      })
     }
   };
 
-  // const putSettings = async () => {
-
-  // }
+  const saveSettings = async (e) => {
+    try{
+      let token = localStorage.getItem("token");
+      const name = e.target.name;
+      const value = e.target.value;
+      await axios("/api/defaultSettings", {
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${token}`
+        },
+        data: 
+          { ...settings, [name]: value }
+        
+      })
+    } catch (err) {
+      console.log(err)
+    }    
+  }
 
   const fetchConvertedText = async (e) => {
     setLoading(true);
@@ -108,7 +126,7 @@ export default function Converter() {
     } catch (err) {
       setErrorMessage({
         title: "Cannot Save Document",
-        message: "Please check your connection or try again later.",
+        message: "Please log in or try again later.",
       });
       setError(true);
     }
@@ -120,10 +138,12 @@ export default function Converter() {
     setToggle(!toggle);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    await saveSettings(e);
     setSettings({ ...settings, [name]: value });
+    
   };
 
   const handleFileChange = async (e) => {
@@ -131,7 +151,6 @@ export default function Converter() {
     const reader = new FileReader();
     reader.onload = function (e) {
       setFileText(e.target.result);
-      console.log("set");
     };
     reader.readAsText(file);
   };
@@ -142,7 +161,8 @@ export default function Converter() {
   };
 
   return (
-    <>
+    
+      <>
       <Header
         buttonOne="My Documents"
         buttonTwo="Sign Out"
@@ -245,7 +265,7 @@ export default function Converter() {
         </div>
 
         {/* converted text */}
-        <div className={"w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll"}>
+        <div className={"w-5/6 h-screen m-auto  overflow-scroll"}>
           <p
             style={{
               backgroundColor: `${settings.background_color}`,
@@ -288,6 +308,7 @@ export default function Converter() {
           </details>
         </div>
       </div>
-    </>
+      </>
+    
   );
 }

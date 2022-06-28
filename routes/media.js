@@ -43,8 +43,11 @@ router.get("/document/:id", userShouldBeLoggedIn, async function (req, res, next
       const { data } = await db(
         `SELECT * FROM media WHERE id=${req.params.id};`
       );
-      if (!data.length) res.status(404).send("no media exists with this id");
-      else res.status(200).send(data);
+      if (!data.length) {
+        res.status(404).send("no media exists with this id");
+      } else {
+        res.status(200).send(data);
+      }
     } catch (err) {
       res.status(500).send(err);
     }
