@@ -107,7 +107,7 @@ export default function EmailButton({ id }) {
       )}
       <button
         onClick={() => setShowModal(true)}
-        className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
+        className=" shadow  hover:shadow-lg  active:bg-sky-400 rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"
       >
         <div className=" items-center flex text-xs">
           <svg
@@ -123,63 +123,83 @@ export default function EmailButton({ id }) {
       </button>
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div className=" justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                <div>
+                  <button type="button" onClick={() => setShowModal(false)}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-7 w-7 m-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="#ef4444"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <div className="selection:flex items-start justify-between px-4 pb-2 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
                     Share your document
                   </h3>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  <label className="absolute left-14  ">Your Name*</label>
+                <div className="relative p-6 flex-auto ">
+                  <label className="absolute left-10  ">Your Name*</label>
                   <br></br>
                   <input
                     type="text"
-                    className="outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 mx-3 my-3"
+                    className=" m-3 p-1 justify-items-center w-64 font-normal outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 mx-3 my-3"
                     onChange={handleUserName}
                     value={user}
                   />
                   <br></br>
-                  <label className="absolute left-14">Recipient's Name*</label>
+                  <label className="absolute left-10">Recipient's Name*</label>
                   <br></br>
                   <input
                     type="text"
-                    className="outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 mx-3 my-3"
+                    className="m-3 p-1 justify-items-center w-64 font-normal outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 my-3"
                     required
                     onChange={handleRecipientName}
                     value={recipientName}
                   />
                   <br></br>
-                  <label className="absolute left-14">Recipient's Email*</label>
+                  <label className="absolute left-10">Recipient's Email*</label>
                   <br></br>
                   <input
                     type="text"
-                    className="outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 mx-3 my-3"
+                    className=" m-3 p-1 justify-items-center w-64 font-normal outline-4 outline-black shadow-lg rounded border-solid bg-slate-200 mx-3 my-3"
                     required
                     onChange={handleRecipientEmail}
                     value={recipientEmail}
                   />
                 </div>
                 {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                {/* <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b"> */}
+                <div className=" flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
-                    className="bg-emerald-500 text-black active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className=" flex items-center hover:bg-sky-200 text-black active:bg-sky-400 active:text-white font-bold uppercase text-sm px-6 py-3 rounded shadow  hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={handleSendEmail}
                   >
                     Send
                   </button>{" "}
-                  <button
+                  {/* <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
                     Close
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
