@@ -12,13 +12,11 @@ import Header from "./Header";
 import LoadingModal from "./LoadingModal";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
+import { useBeforeunload } from 'react-beforeunload'
 
 export default function Converter() {
   const [settings, setSettings] = useState({
-    font_size: "16",
-    font_color: "#000000",
-    background_color: "#fdfbdd",
-    line_spacing: 1.5,
+    
   });
   const [fileText, setFileText] = useState("");
   const [convertedText, setConvertedText] = useState();
@@ -32,10 +30,16 @@ export default function Converter() {
   //load user settings upon page loading
   useEffect(() => {
     let token = localStorage.getItem("token");
+    console.log("token", token)
     if (token !== null) {
       getSettings();
     }
   }, []);
+
+  useEffect(() => {
+    saveSettings();
+  }, [settings])
+
 
   const getSettings = async () => {
     try {
@@ -52,9 +56,25 @@ export default function Converter() {
     }
   };
 
-  // const putSettings = async () => {
-
-  // }
+  const saveSettings = async () => {
+    try{
+      let token = localStorage.getItem("token");
+      await axios("/api/defaultSettings", {
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${token}`
+        },
+        data: {
+          font_size: settings.font_size,
+          font_color: settings.font_color,
+          background_color: settings.background_color,
+          line_spacing: settings.line_spacing
+        }
+      })
+    } catch (err) {
+      console.log(err)
+    }    
+  }
 
   const fetchConvertedText = async (e) => {
     setLoading(true);
@@ -120,10 +140,10 @@ export default function Converter() {
     setToggle(!toggle);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setSettings({ ...settings, [name]: value });
+    setSettings({ ...settings, [name]: value })
   };
 
   const handleFileChange = async (e) => {
@@ -142,7 +162,8 @@ export default function Converter() {
   };
 
   return (
-    <>
+    
+      <>
       <Header
         buttonOne="My Documents"
         buttonTwo="Sign Out"
@@ -288,6 +309,7 @@ export default function Converter() {
           </details>
         </div>
       </div>
-    </>
+      </>
+    
   );
 }
