@@ -31,7 +31,7 @@
 ### API Routes
 
 ![API Routes- users route](readme-assets/api-routes-users.png)
-![API Routes- defaultSettings and emailConvert route](readme-assetsapi-routes-default-settings-and-emailConvert.png)
+![API Routes- defaultSettings and emailConvert route](readme-assets/api-routes-default-settings-and-emailConvert.png)
 ![API Routes- media route](readme-assets/api-routes-media.png)
 ![API Routes- media route continued and convert route](readme-assets/api-routes-media2-convert.png)
 
