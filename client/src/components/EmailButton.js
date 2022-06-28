@@ -1,13 +1,19 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import emailjs from "@emailjs/browser";
+import SuccessModal from "./SuccessModal";
+import LoadingModal from "./LoadingModal";
+import ErrorModal from "./ErrorModal";
 
-export default function EmailButton() {
+export default function EmailButton({ id }) {
   const [showModal, setShowModal] = useState(false);
   const [recipientName, setRecipientName] = useState();
   const [recipientEmail, setRecipientEmail] = useState();
   const [user, setUser] = useState();
-  const [convertedDocument, setConvertedDocument] = useState();
+  const [loading, setLoading] = useState();
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleUserName = (event) => {
     setUser(event.target.value);
@@ -20,46 +26,86 @@ export default function EmailButton() {
     console.log(recipientEmail);
   };
 
-  const handleSendEmail = async () => {
-    setShowModal(false);
-
-    // Fetch converted document
+  const fetchDocument = async () => {
     try {
-      let token = localStorage.getItem("token")
-      const { data } = await axios("/api/emailConvert/:id", {
+      let token = localStorage.getItem("token");
+      const { data } = await axios(`/api/emailConvert/${id}`, {
         //check on syntax for id
         method: "POST",
         headers: {
           authorization: `Bearer ${token}`,
         },
       });
-      setConvertedDocument(data);
+      return(data);
     } catch (err) {
       console.log(err);
     }
+  };
 
-    // create template params object for the email
+  const sendEmail = async (content) => {
     const emailObj = {
       recipientName: recipientName,
       recipientEmail: recipientEmail,
       user: user,
-      convertedDocument: convertedDocument,
+      convertedDocument: content,
     };
-
+    
     //sending the email
+    console.log("the email object is", emailObj)
+    emailjs
+      .send(
+        "service_au002tq",
+        "template_irzod5n",
+        emailObj,
+        "OPTb-EeRcr0hB7QYT"
+      )
+      .then(
+        function (response) {
+          setLoading(false);
+          setSuccess(true);
+        },
+        function (error) {
+          setErrorMessage({
+            title: "Cannot Send Email",
+            message:
+              "Please make sure you've entered a valid email or try again later.",
+          });
+          setLoading(false);
+          setError(true);
+        }
+      );
+  }
 
-    emailjs.send("service_au002tq", "YOUR_TEMPLATE_ID", emailObj).then(
-      function (response) {
-        console.log("SUCCESS!", response.status, response.text);
-      },
-      function (error) {
-        console.log("FAILED...", error);
-      }
-    );
+  const handleSendEmail = async () => {
+    setShowModal(false);
+    setLoading(true);
+    let content = await fetchDocument();
+    await sendEmail(content);
+    // create template params object for the email
+    
   };
 
   return (
     <>
+    {loading ? <LoadingModal /> : ""}
+    {error ? (
+          <ErrorModal
+            closeError={() => setError(false)}
+            message={errorMessage.message}
+            title={errorMessage.title}
+          />
+        ) : (
+          ""
+        )}
+        {success ? (
+          <SuccessModal
+            closeMessage={() => setSuccess(false)}
+            title="Success!"
+            message="Email has been sent to the recipient's provided email address."
+          />
+        ) : (
+          ""
+        )}
       <button
         onClick={() => setShowModal(true)}
         className="rounded-lg hover:bg-sky-300 bg-black text-white text-l py-1 px-2 m-2"

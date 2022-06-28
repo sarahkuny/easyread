@@ -13,7 +13,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/", async function (req, res, next) {
-  let results = await fetchConvertedText(req);
+  let results = await fetchConvertedText(req.body);
   console.log(results);
   res.send(results);
 });
