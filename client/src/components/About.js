@@ -100,14 +100,31 @@ export default function About() {
                 />
               </p>
             </div>
-            <div className="flex items-center justify-center">
-              <button className="items-center py-2 px-2 bg-white text-black  rounded-lg my-6 w-60 hover:bg-sky-300 text-2xl">
+            <div className="flex items-center justify-center ">
+              <button className=" items-center py-2 px-2 bg-white text-black  rounded-lg my-6 w-50 hover:bg-sky-300 text-2xl">
                 <a
                   href="https://bionic-reading.com/about/"
                   target="_blank"
                   rel="noreferrer"
+                  className="flex items-center justify-center"
                 >
                   Learn More
+                  <div className=" pl-1 animate-pulse">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-7 w-7"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+                      />
+                    </svg>
+                  </div>
                 </a>
               </button>
             </div>
