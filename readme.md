@@ -1,13 +1,15 @@
 # easyRead
-## easyRead is a full-stack app that makes reading accessible for all. Developed as a solution for those with dyslexia, stroke patients, students, teachers, or anyone looking to make reading an easier experience, easyRead leverages the Bionic Reading API and dynamic UI elements to configure text to work for you. Visit the about page to learn more. 
 
-***
+## easyRead is a full-stack app that makes reading accessible for all. Developed as a solution for those with dyslexia, stroke patients, students, teachers, or anyone looking to make reading an easier experience, easyRead leverages the Bionic Reading API and dynamic UI elements to configure text to work for you. Visit the about page to learn more.
+
+---
 
 # Architecture
 
 ## Front-End
 
 ### Wire-Frame
+
 ![Homepage](readme-assets/homepage.png)
 ![Sign Up](readme-assets/signup.png)
 ![Log In](readme-assets/login.png)
@@ -25,6 +27,13 @@
 ### Database Schema
 
 ![Database Schema](readme-assets/database-schema.png)
+
+### API Routes
+
+![API Routes- users route](readme-assets/api-routes-users.png)
+![API Routes- defaultSettings and emailConvert route](readme-assets/api-routes-default-settings-and-emailConvert.png)
+![API Routes- media route](readme-assets/api-routes-media.png)
+![API Routes- media route continued and convert route](readme-assets/api-routes-media2-convert.png)
 
 ## Setup
 
