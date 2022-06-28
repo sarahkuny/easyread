@@ -12,11 +12,13 @@ import Header from "./Header";
 import LoadingModal from "./LoadingModal";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
-import { useBeforeunload } from 'react-beforeunload'
 
 export default function Converter() {
   const [settings, setSettings] = useState({
-    
+    font_size: "",
+    font_color: "",
+    background_color: "",
+    line_spacing: "",
   });
   const [fileText, setFileText] = useState("");
   const [convertedText, setConvertedText] = useState();
@@ -29,16 +31,8 @@ export default function Converter() {
 
   //load user settings upon page loading
   useEffect(() => {
-    let token = localStorage.getItem("token");
-    console.log("token", token)
-    if (token !== null) {
-      getSettings();
-    }
+    getSettings();
   }, []);
-
-  useEffect(() => {
-    saveSettings();
-  }, [settings])
 
 
   const getSettings = async () => {
@@ -52,24 +46,28 @@ export default function Converter() {
       });
       setSettings(data[0]);
     } catch (err) {
-      console.log(err);
+      setSettings({
+        font_size: "16",
+        font_color: "#000000",
+        background_color: "#fdfbdd",
+        line_spacing: 1.5
+      })
     }
   };
 
-  const saveSettings = async () => {
+  const saveSettings = async (e) => {
     try{
       let token = localStorage.getItem("token");
+      const name = e.target.name;
+      const value = e.target.value;
       await axios("/api/defaultSettings", {
         method: "PUT",
         headers: {
           authorization: `Bearer ${token}`
         },
-        data: {
-          font_size: settings.font_size,
-          font_color: settings.font_color,
-          background_color: settings.background_color,
-          line_spacing: settings.line_spacing
-        }
+        data: 
+          { ...settings, [name]: value }
+        
       })
     } catch (err) {
       console.log(err)
@@ -143,7 +141,9 @@ export default function Converter() {
   const handleInputChange = async (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setSettings({ ...settings, [name]: value })
+    await saveSettings(e);
+    setSettings({ ...settings, [name]: value });
+    
   };
 
   const handleFileChange = async (e) => {
@@ -151,7 +151,6 @@ export default function Converter() {
     const reader = new FileReader();
     reader.onload = function (e) {
       setFileText(e.target.result);
-      console.log("set");
     };
     reader.readAsText(file);
   };
@@ -266,7 +265,7 @@ export default function Converter() {
         </div>
 
         {/* converted text */}
-        <div className={"w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll"}>
+        <div className={"w-5/6 h-screen m-auto  overflow-scroll"}>
           <p
             style={{
               backgroundColor: `${settings.background_color}`,
