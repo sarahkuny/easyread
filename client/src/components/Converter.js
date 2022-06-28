@@ -126,7 +126,7 @@ export default function Converter() {
     } catch (err) {
       setErrorMessage({
         title: "Cannot Save Document",
-        message: "Please check your connection or try again later.",
+        message: "Please log in or try again later.",
       });
       setError(true);
     }
