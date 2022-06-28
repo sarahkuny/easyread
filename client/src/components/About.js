@@ -1,7 +1,3 @@
-//text explaining website
-//link to resources/research
-//link to about bionic reading
-//example image of converted text
 import React from "react";
 import Header from "./Header";
 import settingsDemonstrationGif from "../assets/settings_gif.gif";
@@ -112,7 +108,7 @@ export default function About() {
                   <div className=" pl-1 animate-pulse">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      class="h-7 w-7"
+                      class="h-6 w-6"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

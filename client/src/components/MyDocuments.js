@@ -1,7 +1,3 @@
-//Header - go to converter, sign out
-//Documents
-//each row: document title, share (email popup), delete
-
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
@@ -35,7 +31,6 @@ export default function MyDocuments() {
     console.log("id", id);
     let token = localStorage.getItem("token");
     try {
-      // const response = await axios(`/api/media/document/${id}`, {
       const response = await axios(`/api/media/document/${id}`, {
         method: "DELETE",
         headers: {
@@ -64,32 +59,6 @@ export default function MyDocuments() {
       console.log(err);
     }
   };
-
-  // const handleDelete = (id) => {
-  //   let id = event.target.id;
-  //   deleteDocument(event);
-  // };
-
-  // pull content from media table
-  // send content to bionic reading api (abstracted function)
-  // get html results
-  // email html results
-  // const getAllDocuments = async () => {
-  //   let token = localStorage.getItem("token");
-  //   try {
-  //     const { data } = await axios("/api/media", {
-  //       method: "GET",
-  //       headers: {
-  //         authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     setDocuments(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // JSX and TAILWIND
   return (
     <>
       <Header
