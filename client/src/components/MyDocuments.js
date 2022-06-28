@@ -86,7 +86,7 @@ export default function MyDocuments() {
                 <tbody>
                   {documents.map((document) => {
                     return (
-                      <tr className="odd:bg-white even:bg-sky-100 text-black hover:font-extrabold">
+                      <tr className="odd:bg-white even:bg-sky-100 text-black hover:font-extrabold ">
                         <td
                           onClick={() => handleTitleClick(document.id)}
                           id={document.id}
@@ -94,7 +94,7 @@ export default function MyDocuments() {
                         >
                           {document.name}
                         </td>
-                        <td className="p-3 text-right pr- ">
+                        <td className="p-3 text-right">
                           <EmailButton id={document.id} />
                           <button
                             id={document.id}
