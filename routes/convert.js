@@ -8,13 +8,8 @@ const fetchConvertedText = require("../common/FetchConvertedText");
 
 router.use(express.json());
 
-router.get("/", function (req, res, next) {
-  res.send("route works");
-});
-
 router.post("/", async function (req, res, next) {
   let results = await fetchConvertedText(req.body);
-  console.log(results);
   res.send(results);
 });
 

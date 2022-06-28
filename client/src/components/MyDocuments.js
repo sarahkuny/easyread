@@ -9,13 +9,13 @@ export default function MyDocuments() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllDocuments();
+    getDocuments();
   }, []);
 
-  const getAllDocuments = async () => {
+  const getDocuments = async () => {
     let token = localStorage.getItem("token");
     try {
-      const { data } = await axios("/api/media", {
+      const { data } = await axios("/api/media/user", {
         method: "GET",
         headers: {
           authorization: `Bearer ${token}`,

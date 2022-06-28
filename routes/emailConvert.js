@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../model/helper");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
-
-const fetchConvertedText = require("../common/FetchConvertedText"); //method to call the bionic reading api
+const fetchConvertedText = require("../common/FetchConvertedText"); 
 router.use(express.json());
 
 router.post("/:id", userShouldBeLoggedIn, async function (req, res, next) {
@@ -14,21 +13,13 @@ router.post("/:id", userShouldBeLoggedIn, async function (req, res, next) {
     if (!data.length) {
       res.status(404).send("no media exists with this id");
     } else {
-      let results = data[0];
-
-      console.log("results", results.content);
+      let content = data[0].content;
       let requestBody = {
-        content: results.content,
+        content: content,
         fixation: 1,
         saccade: 10,
       };
-
-      console.log("requestBody", requestBody);
-
       let convertedEmailText = await fetchConvertedText(requestBody);
-
-      console.log("convertedEmailText", convertedEmailText);
-
       res.status(200).send(convertedEmailText);
     }
   } catch (err) {
