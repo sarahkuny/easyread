@@ -26,7 +26,6 @@ router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
     const results = await db(
       `SELECT id FROM users WHERE username="${username}";`
     );
-    console.log("results", results)
     const user = results.data[0];
     const { data } = await db(
       `SELECT * FROM media WHERE owner_id=${user.id};`
@@ -83,9 +82,13 @@ router.delete(
   userShouldBeLoggedIn,
   async function (req, res, next) {
     try {
-      // await db(`DELETE FROM shared WHERE media_id=${req.params.id};`);
+      const username = req.username;
+      const results = await db(
+        `SELECT id FROM users WHERE username="${username}";`
+      );
+      const user = results.data[0];
       await db(`DELETE FROM media WHERE id=${req.params.id};`);
-      const { data } = await db(`SELECT * FROM media;`);
+      const { data } = await db(`SELECT * FROM media where owner_id=${user.id};`);
       res.status(200).send(data);
     } catch (err) {
       res.status(500).send(err);
