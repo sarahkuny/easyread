@@ -39,12 +39,7 @@ router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
 
 //GET media document by id
 
-router.get(
-  "/document/:id",
-  userShouldBeLoggedIn,
-  async function (req, res, next) {
-    // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
-
+router.get("/document/:id", userShouldBeLoggedIn, async function (req, res, next) {
     try {
       const { data } = await db(
         `SELECT * FROM media WHERE id=${req.params.id};`
@@ -77,10 +72,7 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
 });
 
 //DELETE media by media id
-router.delete(
-  "/document/:id",
-  userShouldBeLoggedIn,
-  async function (req, res, next) {
+router.delete("/document/:id", userShouldBeLoggedIn, async function (req, res, next) {
     try {
       const username = req.username;
       const results = await db(
@@ -98,18 +90,5 @@ router.delete(
   }
 );
 
-// router.get("/:owner_id", async function (req, res, next) {
-//   // router.get("/:owner_id", userShouldBeLoggedIn, async function (req, res, next) {
-
-//   try {
-//     const { data } = await db(
-//       `SELECT * FROM media WHERE owner_id=${req.params.owner_id};`
-//     );
-//     if (!data.length) res.status(404).send("no media exists for this user");
-//     res.status(200).send(data);
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// });
 
 module.exports = router;
