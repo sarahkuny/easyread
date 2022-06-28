@@ -5,6 +5,7 @@
 import React from "react";
 import Header from "./Header";
 import settingsDemonstrationGif from "../assets/settings_gif.gif";
+import bionicReadingGif from "../assets/bionicReadingGif.gif";
 
 export default function About() {
   return (
@@ -41,7 +42,7 @@ export default function About() {
             
             w-50 pt-6 font-bold text-white text-center"
             >
-              How does it work?
+              How does easy<b>Read</b> work?
             </h2>
             <div class="p-6 bg-white rounded-lg flex items-center justify-between space-x-8 text-center">
               <p className="pt-2 text-xl">
@@ -93,6 +94,10 @@ export default function About() {
                 <b>an</b>d <b>experien</b>ce <b>bett</b>er <b>readi</b>ng{" "}
                 <b>foc</b>
                 us <b>an</b>d <b>comprehens</b>ion."{" "}
+                <img
+                  src={bionicReadingGif}
+                  alt="bionic reading demonstration gif"
+                />
               </p>
             </div>
             <div className="flex items-center justify-center">
