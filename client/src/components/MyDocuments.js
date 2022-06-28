@@ -86,11 +86,11 @@ export default function MyDocuments() {
                 <tbody>
                   {documents.map((document) => {
                     return (
-                      <tr className="odd:bg-white even:bg-sky-100 text-black">
+                      <tr className="odd:bg-white even:bg-sky-100 text-black hover:font-extrabold">
                         <td
                           onClick={() => handleTitleClick(document.id)}
                           id={document.id}
-                          className="py-2 px-10"
+                          className="py-2 px-10 "
                         >
                           {document.name}
                         </td>
