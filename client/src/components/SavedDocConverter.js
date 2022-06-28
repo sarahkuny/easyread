@@ -166,7 +166,7 @@ export default function SavedDocConverter(){
 
                 {/* converted text */}
                 <div 
-                className={"w-5/6 h-screen m-auto bg-yellow-50 overflow-scroll" }
+                className={"w-5/6 h-screen m-auto overflow-scroll" }
                 >
                     <p style={{ backgroundColor: `${settings.background_color}`, color: `${settings.font_color}`, fontSize: `${settings.font_size}px`, lineHeight: `${settings.line_spacing}` }}>{toggle ? convertedText : location.state.content}</p>
                 </div>
