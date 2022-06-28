@@ -252,6 +252,8 @@ export default function Converter() {
               color: `${settings.font_color}`,
               fontSize: `${settings.font_size}px`,
               lineHeight: `${settings.line_spacing}`,
+              padding: "0 5rem",
+              textAlign: "justify"
             }}
           >
             {toggle ? fileText : convertedText}
