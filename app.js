@@ -7,7 +7,8 @@ var logger = require("morgan");
 const defaultSettingsRouter = require("./routes/defaultSettings");
 const usersRouter = require("./routes/users");
 const mediaRouter = require("./routes/media");
-const sharedRouter = require("./routes/shared");
+const convertRouter = require("./routes/convert");
+const emailConvert = require("./routes/emailConvert");
 
 const app = express();
 
@@ -21,7 +22,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/defaultSettings", defaultSettingsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/media", mediaRouter);
-app.use("/api/shared", sharedRouter);
+app.use("/api/convert", convertRouter);
+app.use("/api/emailConvert", emailConvert);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

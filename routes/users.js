@@ -9,21 +9,21 @@ router.use(express.json());
 
 //GET all users
 //helpful for development, but comment out before deploying
-router.get("/", async function (req, res, next) {
-  try {
-    const { data } = await db(`SELECT * FROM users;`);
-    if (data.length) {
-      res.status(200).send(data);
-    } else {
-      res.status(404).send("No users in database");
-    }
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
+// router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
+//   try {
+//     const { data } = await db(`SELECT * FROM users;`);
+//     if (data.length) {
+//       res.status(200).send(data);
+//     } else {
+//       res.status(404).send("No users in database");
+//     }
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
 
 //GET by id
-router.get("/:id", async function (req, res, next) {
+router.get("/:id", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { data } = await db(`SELECT * FROM users WHERE id=${req.params.id};`);
     res.status(200).send(data);
@@ -54,7 +54,7 @@ router.post("/", async function (req, res, next) {
 });
 
 //DELETE user
-router.delete("/:id", async function (req, res, next) {
+router.delete("/:id", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     await db(`DELETE FROM users WHERE id=${req.params.id};`);
     res.status(200).send("user deleted");
