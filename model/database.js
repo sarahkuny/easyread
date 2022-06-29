@@ -7,11 +7,11 @@ const DB_PASS = process.env.DB_PASS;
 const DB_NAME = process.env.DB_NAME;
 
 const con = mysql.createConnection({
-  host: DB_HOST || "127.0.0.1",
-  user: DB_USER || "root",
+  host: DB_HOST ,
+  user: DB_USER ,
   //port: 52000, //Docker
   password: DB_PASS,
-  database: DB_NAME || "easyread",
+  database: DB_NAME,
   multipleStatements: true,
 });
 
