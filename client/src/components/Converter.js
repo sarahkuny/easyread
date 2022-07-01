@@ -156,10 +156,10 @@ export default function Converter() {
 
   return (
     
-      <>
+      <div className="bg-zinc-900">
       <Header />
       {loading ? <LoadingModal /> : ""}
-      <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
+      <div className="w-5/6 h-full bg-zinc-900 m-auto shadow-2xl">
         {error ? (
           <ErrorModal
             closeError={() => setError(false)}
@@ -254,17 +254,16 @@ export default function Converter() {
         </div>
 
         {/* converted text */}
-        <div className={"w-5/6 h-screen m-auto  overflow-scroll"}>
-          <p
-            style={{
-              backgroundColor: `${settings.background_color}`,
-              color: `${settings.font_color}`,
-              fontSize: `${settings.font_size}px`,
-              lineHeight: `${settings.line_spacing}`,
-              padding: "0 5rem",
-              textAlign: "justify"
-            }}
-          >
+        <div className={"w-5/6 h-screen m-auto overflow-scroll"}
+        style={{
+          backgroundColor: `${settings.background_color}`,
+          color: `${settings.font_color}`,
+          fontSize: `${settings.font_size}px`,
+          lineHeight: `${settings.line_spacing}`,
+          padding: "0 5rem",
+          textAlign: "justify"
+        }}>
+          <p>
             {toggle ? fileText : convertedText}
           </p>
         </div>
@@ -298,7 +297,7 @@ export default function Converter() {
           </details>
         </div>
       </div>
-      </>
+      </div>
     
   );
 }

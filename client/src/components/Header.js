@@ -60,7 +60,7 @@ export default function Header() {
         <Link to="/login">Log In</Link>
         <Link to="/signup">Sign Up</Link>
       </Menu>
-      <div className="flex justify-between items-center h-24">
+      <div className="flex justify-between items-center bg-white h-24">
         <Link to="/">
           <h1 className="text-5xl ml-3 font-louisgeorge">
             easy<b>Read</b>

@@ -13,6 +13,9 @@ module.exports = {
       fontFamily: {
         louisgeorge: ["Louis George Cafe", "sans-serif"],
       },
+      backgroundImage: {
+        aboutBanner: `url('/src/assets/about-banner.jpg')`
+      }
     },
   },
   plugins: [
