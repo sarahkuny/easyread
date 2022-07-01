@@ -1,9 +1,3 @@
-//Header - go to documents, sign out button
-//Document upload form
-//Settings
-//Converted Text
-//Save Document Form
-//Help button with popup
 
 import axios from 'axios';
 import React, {useState, useEffect } from 'react';

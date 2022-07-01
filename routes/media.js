@@ -9,11 +9,7 @@ router.use(express.json());
 router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const results = await db(`SELECT * FROM media;`);
-    if (results.data.length) {
-      res.status(200).send(results.data);
-    } else {
-      res.status(404).send("No media in database");
-    }
+    res.status(200).send(results.data);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -30,7 +26,7 @@ router.get("/user", userShouldBeLoggedIn, async function (req, res, next) {
     const { data } = await db(
       `SELECT * FROM media WHERE owner_id=${user.id};`
     );
-    if (!data.length) res.status(404).send("no media exists for this user");
+   
     res.status(200).send(data);
   } catch (err) {
     res.status(500).send(err);

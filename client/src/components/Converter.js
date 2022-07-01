@@ -1,9 +1,3 @@
-//Header - go to documents, sign out button
-//Document upload form
-//Settings
-//Converted Text
-//Save Document Form
-//Help button with popup
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
@@ -296,6 +290,7 @@ export default function Converter() {
             Save Document
           </button>
         </form>
+        {/* Need Help */}
         <div className="bg-zinc-900 text-white rounded-md">
           <details>
             <summary>Need help?</summary>
