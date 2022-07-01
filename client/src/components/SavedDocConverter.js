@@ -96,7 +96,7 @@ export default function SavedDocConverter(){
 
     return(
         <>
-            <Header buttonOne="My Documents" buttonTwo="Sign Out" linkOne="/documents" linkTwo="/" />
+            <Header />
             {loading ? <LoadingModal /> : ""}
             {error ? <ErrorModal closeError={() => setError(false)} message={errorMessage.message} title={errorMessage.title} />: ""}
 

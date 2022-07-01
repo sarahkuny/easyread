@@ -61,12 +61,7 @@ export default function MyDocuments() {
   };
   return (
     <>
-      <Header
-        buttonOne="Converter"
-        buttonTwo="Sign Out"
-        linkOne="/convert"
-        linkTwo="/"
-      />
+      <Header />
       <div className="bg-slate-50 w-full  h-screen">
         <div className=" bg-slate-50 font-bold  text-xl ">
           <div className="text-center">

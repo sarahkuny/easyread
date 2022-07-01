@@ -1,17 +1,12 @@
 import React from "react";
-import Header from "./Header";
 import settingsDemonstrationGif from "../assets/settings_gif.gif";
 import bionicReadingGif from "../assets/bionicReadingGif.gif";
-
+import Header from "./Header";
 export default function About() {
+  
   return (
     <>
-      <Header
-        buttonOne="Converter"
-        buttonTwo="Sign Up"
-        linkOne="/convert"
-        linkTwo="/signup"
-      />
+      <Header />
       <div class="bg-gradient-to-br from-zinc-900 via-slate-900 to-sky-500 min-h-screen flex items-center justify-center px-16">
         <div class="relative w-full max-w-xl">
           <div class="m-8 relative space-y-4">

@@ -157,12 +157,7 @@ export default function Converter() {
   return (
     
       <>
-      <Header
-        buttonOne="My Documents"
-        buttonTwo="Sign Out"
-        linkOne="/documents"
-        linkTwo="/"
-      />
+      <Header />
       {loading ? <LoadingModal /> : ""}
       <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
         {error ? (
