@@ -6,7 +6,6 @@ import Header from "./Header";
 import LoadingModal from "./LoadingModal";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
-import { ToggleSlider } from "react-toggle-slider";
 
 export default function Converter() {
   const [settings, setSettings] = useState({
@@ -200,7 +199,7 @@ export default function Converter() {
           </label>
           <button
             onClick={toggleText}
-            className="bg-black rounded-md text-white px-4 py-2 mx-2 hover:bg-sky-500"
+            className="bg-black rounded-md text-white px-4 py-2 mx-2 hover:bg-blue-300 hover:text-black"
           >
             {toggle ? "Turn on Bionic Reading" : "Turn off Bionic Reading"}
           </button>
@@ -264,7 +263,6 @@ export default function Converter() {
               Dark Mode
             </label>
           </div>
-          <ToggleSlider />
         </div>
 
         {/* converted text */}
