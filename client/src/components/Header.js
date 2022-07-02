@@ -93,21 +93,21 @@ export default function Header( {darkMode} ) {
 
   const authStatus = {
     true: {
-      logout: <li onClick={logOut}>Log Out</li>,
-      documents: <Link to="/documents">Saved Documents</Link>
+      logout: <li onClick={logOut} className="hover:text-blue-400">Log Out</li>,
+      documents: <Link to="/documents" className="hover:text-blue-400">Saved Documents</Link>
 
     },
     false:{
-      login: <Link to="/login">Log In</Link>,
-      signup: <Link to="/singup">Sign Up</Link>
+      login: <Link to="/login" className="hover:text-blue-400 font-bold">Log In</Link>,
+      signup: <Link to="/singup" className="hover:text-blue-400">Sign Up</Link>
     } 
   }
   
   return (
     <div className="sticky top-0 z-50">
       <Menu right styles={ menuStyles }>
-        <Link to="/about">About</Link>
-        <Link to="/convert">Convert</Link>
+        <Link to="/about" className="hover:text-blue-400">About</Link>
+        <Link to="/convert" className="hover:text-blue-400">Convert</Link>
         {userIsLoggedIn ? authStatus.true.documents : authStatus.false.signup}
         {userIsLoggedIn ? authStatus.true.logout : authStatus.false.login}
         {success ? <SuccessModal closeMessage={() => setSuccess(false)}
