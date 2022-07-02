@@ -8,7 +8,7 @@ import LoadingModal from './LoadingModal';
 import ErrorModal from './ErrorModal';
 import Toggle from './Toggle';
 
-export default function SavedDocConverter(){
+export default function SavedDocConverter( ){
     const [settings, setSettings] = useState({font_size: "16",
                                               font_color: "#000000",
                                               background_color: "#fdfbdd",
@@ -143,7 +143,7 @@ export default function SavedDocConverter(){
 
     return(
         <div style={(darkMode ? darkStyles : lightStyles)}>
-            <Header darkMode={darkMode}/>
+            <Header darkMode={darkMode} />
             {loading ? <LoadingModal /> : ""}
             {error ? <ErrorModal closeError={() => setError(false)} message={errorMessage.message} title={errorMessage.title} />: ""}
 

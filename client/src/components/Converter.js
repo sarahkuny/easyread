@@ -55,6 +55,17 @@ export default function Converter() {
         backgroundColor: "black",
         color:"white"
       }
+    },
+    save: {
+      dark: {
+        backgroundColor: "#18181b",
+        color: 'white',
+        border: 'grey'
+      },
+      light: {
+        backgroundColor: "#f8fafc",
+        color: 'black',
+      },
     }
   }
 
@@ -211,7 +222,7 @@ export default function Converter() {
   return (
     
       <div style = {(darkMode ? darkStyles : lightStyles)}>
-      <Header darkMode={darkMode}/>
+      <Header darkMode={darkMode} />
       {loading ? <LoadingModal /> : ""}
       <div className="w-5/6 h-full bg-zinc-900  m-auto "
       style={(darkMode ? darkStyles : lightStyles)}
@@ -336,13 +347,13 @@ export default function Converter() {
         {/* Save Document Form */}
         <form
           onSubmit={saveDocument}
-          className="bg-white w-full flex justify-center py-2 border"
+          className=" w-full flex justify-center py-2 border"
           style={(darkMode ? formStyles.dark : formStyles.light)}
         >
           <label className="py-2 ">Document Title</label>
           <input
             onChange={handleDocumentNameChange}
-            className="mx-4 px-2 w-3/6 border rounded-md border-black"
+            className="mx-4 px-2 w-3/6 border rounded-md border-black text-black"
             value={documentName}
             required
           />

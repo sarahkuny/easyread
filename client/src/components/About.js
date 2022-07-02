@@ -1,12 +1,13 @@
 import React from "react";
 import Header from "./Header";
-import sarah from "../assets/sarah.jpeg"
-import shannon from "../assets/shannon.jpg"
+import sarah from "../assets/sarah.jpeg";
+import shannon from "../assets/shannon.jpg";
+import hannah from "../assets/hannah.JPG";
 import bionicExample from "../assets/bionic-example.png"
-export default function About() {
+export default function About({authStatus}) {
     return (
     <>
-      <Header />
+      <Header loggedIn={authStatus} />
       {/* Banner */}
       <div className="snap-y">
         <div className=" bg-zinc-900 h-min-content flex flex-col items-center">
@@ -16,9 +17,14 @@ export default function About() {
         </div>
         {/* Mission */}
         <div className="snap-center bg-zinc-900 flex items-center justify-center">
-            <div className="w-[720px] flex justify-center">
-                <img src={sarah} alt="Sarah Kuny" className="rounded-full h-[200px] w-[200px] mr-10"/>
-                <img src={shannon} alt="Shannon Williams" className="rounded-full h-[200px] w-[200px]"/>
+            <div>
+                <div className="w-[720px] flex justify-center">
+                    <img src={sarah} alt="Sarah Kuny" className="rounded-full h-[200px] w-[200px] mr-10"/>
+                    <img src={shannon} alt="Shannon Williams" className="rounded-full h-[200px] w-[200px]"/>
+                </div>
+                <div className="flex justify-center">
+                    <img src={hannah} alt="Hannah Willows" className="rounded-full h-[200px] w-[200px]"/>
+                </div>
             </div>
             <div className="w-[720px] text-center pt-10 h-screen text-white flex flex-col items-center justify-center">
                 <h3 className="text-7xl font-louisgeorge mb-10">Our Mission</h3>

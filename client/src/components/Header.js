@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {slide as Menu} from 'react-burger-menu';
-
+import axios from 'axios';
 export default function Header( {darkMode} ) {
+ const [userIsLoggedIn, setUserIsLoggedIn] = useState();
+ 
+  useEffect(() => {
+    checkAuthStatus();
+  }, [])
+
+  const checkAuthStatus = async () => {
+    try {
+      let token = localStorage.getItem("token");
+      await axios('/api/media',{
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      setUserIsLoggedIn(true);
+    } catch (err) {
+     setUserIsLoggedIn(false);
+    }
+  }
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    setUserIsLoggedIn(false)
+  }
+
   const menuStyles = {
     bmBurgerButton: {
       position: 'absolute',
@@ -61,15 +87,28 @@ export default function Header( {darkMode} ) {
       color: "white",
     }
   }
+
+  const authStatus = {
+    true: {
+      logout: <Link to="/" onClick={logOut}>Log Out</Link>,
+      documents: <Link to="/documents">Saved Documents</Link>
+
+    },
+    false:{
+      login: <Link to="/login">Log In</Link>,
+      signup: <Link to="/singup">Sign Up</Link>
+    } 
+  }
   
   return (
     <>
       <Menu right styles={ menuStyles }>
         <Link to="/about">About</Link>
         <Link to="/convert">Convert</Link>
-        <Link to="/documents">Saved Documents</Link>
-        <Link to="/login">Log In</Link>
-        <Link to="/signup">Sign Up</Link>
+        {userIsLoggedIn ? authStatus.true.documents : authStatus.false.signup}
+        {userIsLoggedIn ? authStatus.true.logout : authStatus.false.login}
+        
+      
       </Menu>
       <div className="flex justify-between items-center bg-white h-24"
            style={(darkMode ? headerStyles.dark : headerStyles.light  )}

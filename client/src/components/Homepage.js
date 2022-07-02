@@ -3,9 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header"; 
 export default function Homepage() {
+  
   return (
     <div>
-     <Header />
+     <Header  />
       <div className="flex flex-row">
         <div className="bg-black basis-1/2 h-screen">
           <div className="grid grid-cols-1 place-items-center h-screen">

@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import "./output.css";
 import "./components/SignUp";
@@ -11,18 +10,18 @@ import About from './components/About';
 import MyDocuments from './components/MyDocuments';
 import SavedDocConverter from './components/SavedDocConverter';
 import Homepage from './components/Homepage';
+import Logout from './components/Logout'
 
 function App() {
-
-  
   return (
     <>     
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Homepage />  }/>
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/convert" element={<Converter />} />
+          <Route path="/login" element={<Login  />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/convert" element={<Converter  />} />
           <Route path="/about" element={<About />} />
           <Route path="/documents" element={<MyDocuments />} />
           <Route path="/convert/saved" element={<SavedDocConverter />} />
