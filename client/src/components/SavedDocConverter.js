@@ -6,6 +6,7 @@ import parse from 'html-react-parser';
 import Header from './Header';
 import LoadingModal from './LoadingModal';
 import ErrorModal from './ErrorModal';
+import Toggle from './Toggle';
 
 export default function SavedDocConverter(){
     const [settings, setSettings] = useState({font_size: "16",
@@ -19,6 +20,49 @@ export default function SavedDocConverter(){
     const [toggle, setToggle] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
+    const [darkMode, setDarkMode] = useState(false);
+
+  const darkStyles = {
+    backgroundColor: "#18181b",
+    color: 'white',
+    boxShadow: '0 0 50px -12px rgb(200 200 200 / 0.25)'
+  }
+  const lightStyles = {
+    backgroundColor: "#f8fafc",
+    color: 'black',
+    boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.25)'
+  }
+  
+  const formStyles = {
+    dark: {
+      backgroundColor: "#18181b",
+      color: 'white',
+      border: 'grey'
+    },
+    light: {
+      backgroundColor: "#f8fafc",
+      color: 'black',
+    },
+    button: {
+      dark:{
+        backgroundColor: "white",
+        color: "black"
+      },
+      light:{
+        backgroundColor: "black",
+        color:"white"
+      }
+    }
+  }
+
+  const settingsStyles = {
+    dark: {
+      backgroundColor: "#3f3f46"
+    },
+    light: {
+      backgroundColor: "black"
+    }
+  }
 //load user settings upon page loading
     useEffect(() => {
        getSettings();
@@ -93,21 +137,39 @@ export default function SavedDocConverter(){
         await saveSettings(e);
         setSettings({ ...settings, [name]: value });
     }
+    const toggleMode = () => {
+        setDarkMode(!darkMode)
+      }
 
     return(
-        <>
-            <Header />
+        <div style={(darkMode ? darkStyles : lightStyles)}>
+            <Header darkMode={darkMode}/>
             {loading ? <LoadingModal /> : ""}
             {error ? <ErrorModal closeError={() => setError(false)} message={errorMessage.message} title={errorMessage.title} />: ""}
 
-            <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
-            <form className="bg-white w-full flex justify-center py-2 border">
-                   
-                    <button onClick={() => navigate('/convert')} className="bg-black rounded-md text-white px-4 py-2 hover:bg-sky-500">Upload a Different Document</button>
-                    <button onClick={toggleText} className="bg-black rounded-md text-white px-4 py-2 mx-2 hover:bg-sky-500">{toggle ? "Turn off Bionic Reading" : "Turn on Bionic Reading"}</button>
+            <div className="w-5/6 h-full m-auto "
+                style={(darkMode ? darkStyles : lightStyles)}
+            >           
+                <form className=" w-full flex justify-center py-2 border rounded"
+                      style={(darkMode ? formStyles.dark : formStyles.light)}
+                >
+                    <button onClick={() => navigate('/convert')} 
+                            className="rounded-md px-4 py-2 hover:bg-sky-500"
+                            style={(darkMode ? formStyles.button.dark : formStyles.button.light)}
+                    >
+                        Upload a Different Document
+                    </button>
+                    <button onClick={toggleText} 
+                            className=" rounded-md px-4 py-2 mx-2 hover:bg-sky-500"
+                            style={(darkMode ? formStyles.button.dark : formStyles.button.light)}
+                    >
+                        {toggle ? "Turn off Bionic Reading" : "Turn on Bionic Reading"}
+                    </button>
                 </form>
                 {/* Settings */}
-                <div className="w-full h-12 flex bg-black rounded-md justify-evenly items-center px-2">
+                <div className="w-full h-12 flex  rounded-md justify-evenly items-center px-2"
+                     style={(darkMode ? settingsStyles.dark : settingsStyles.light)}
+                >
                     <h4 className="font-bold text-1xl text-white">Settings</h4>
                     <div>
                         <label className="text-white">Font Color
@@ -155,7 +217,12 @@ export default function SavedDocConverter(){
                                 />
                         </label>
                     </div>
-                    
+                    <div className="flex items-center">
+                        <label className="m-2 text-white">
+                            Dark Mode
+                        </label>
+                        <Toggle toggleDarkMode={toggleMode}/>
+                    </div> 
                 </div>
 
                 {/* converted text */}
@@ -177,7 +244,7 @@ export default function SavedDocConverter(){
                
             </div>
            
-        </>
+        </div>
     )
 }
 
