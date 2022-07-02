@@ -205,10 +205,15 @@ export default function Converter() {
         });
         setError(true);
       }
-      setFileText(e.target.result);
+      setText(e)
     };
     reader.readAsText(file);
   };
+
+  const setText = (e) => {
+    setFileText(e.target.result);
+
+  }
 
   const handleDocumentNameChange = (e) => {
     const name = e.target.value;

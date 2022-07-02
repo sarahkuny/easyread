@@ -55,13 +55,14 @@ router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const { name, content } = req.body;
     const username = req.username;
-
+    let parsedContent = content.replaceAll(`"`, `''`);
+    console.log(parsedContent)
     const { data } = await db(
       `SELECT id FROM users WHERE username="${username}";`
     );
     const owner = data[0];
     await db(
-      `INSERT INTO media (owner_id, name, content) VALUES (${owner.id}, "${name}", "${content}");`
+      `INSERT INTO media (owner_id, name, content) VALUES (${owner.id}, "${name}", "${parsedContent}");`
     );
     res.status(200).send("media added!");
   } catch (err) {
