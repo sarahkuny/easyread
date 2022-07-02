@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {slide as Menu} from 'react-burger-menu';
 import axios from 'axios';
+import SuccessModal from "./SuccessModal";
+
 export default function Header( {darkMode} ) {
  const [userIsLoggedIn, setUserIsLoggedIn] = useState();
- 
+ const [success, setSuccess] = useState(false);
   useEffect(() => {
     checkAuthStatus();
   }, [])
@@ -26,7 +28,8 @@ export default function Header( {darkMode} ) {
 
   const logOut = () => {
     localStorage.removeItem("token");
-    setUserIsLoggedIn(false)
+    setUserIsLoggedIn(false);
+    setSuccess(true);
   }
 
   const menuStyles = {
@@ -64,13 +67,13 @@ export default function Header( {darkMode} ) {
     },
     bmItemList: {
       color: 'black',
-      textTransform: 'uppercase',
       display: 'flex',
       flexDirection: 'column',
     },
     bmItem: {
       display: 'inline-block',
       padding: '1em .5em',
+      textTransform: 'uppercase'
     },
     bmOverlay: {
       background: 'rgba(0, 0, 0, 0.3)'
@@ -90,7 +93,7 @@ export default function Header( {darkMode} ) {
 
   const authStatus = {
     true: {
-      logout: <Link to="/" onClick={logOut}>Log Out</Link>,
+      logout: <li onClick={logOut}>Log Out</li>,
       documents: <Link to="/documents">Saved Documents</Link>
 
     },
@@ -101,12 +104,16 @@ export default function Header( {darkMode} ) {
   }
   
   return (
-    <>
+    <div className="sticky top-0 z-50">
       <Menu right styles={ menuStyles }>
         <Link to="/about">About</Link>
         <Link to="/convert">Convert</Link>
         {userIsLoggedIn ? authStatus.true.documents : authStatus.false.signup}
         {userIsLoggedIn ? authStatus.true.logout : authStatus.false.login}
+        {success ? <SuccessModal closeMessage={() => setSuccess(false)}
+            title="Success!"
+            message="You have been logged out." 
+            className="static normal-case"/> : null}
         
       
       </Menu>
@@ -119,6 +126,6 @@ export default function Header( {darkMode} ) {
           </h1>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
