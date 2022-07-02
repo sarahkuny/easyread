@@ -6,6 +6,7 @@ import Header from "./Header";
 import LoadingModal from "./LoadingModal";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
+import { ToggleSlider } from "react-toggle-slider";
 
 export default function Converter() {
   const [settings, setSettings] = useState({
@@ -144,6 +145,13 @@ export default function Converter() {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = function (e) {
+      if (!e.target.result){
+        setErrorMessage({
+          title: "Document Empty",
+          message: "Your file does not contain any text. Please try again with a different file."
+        });
+        setError(true);
+      }
       setFileText(e.target.result);
     };
     reader.readAsText(file);
@@ -156,10 +164,10 @@ export default function Converter() {
 
   return (
     
-      <div className="bg-zinc-900">
+      <div className="bg-slate-50">
       <Header />
       {loading ? <LoadingModal /> : ""}
-      <div className="w-5/6 h-full bg-zinc-900 m-auto shadow-2xl">
+      <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
         {error ? (
           <ErrorModal
             closeError={() => setError(false)}
@@ -251,6 +259,12 @@ export default function Converter() {
               />
             </label>
           </div>
+          <div className="">
+            <label className="m-2 text-white">
+              Dark Mode
+            </label>
+          </div>
+          <ToggleSlider />
         </div>
 
         {/* converted text */}
