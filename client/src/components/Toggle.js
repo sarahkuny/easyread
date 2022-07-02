@@ -8,7 +8,7 @@ function Toggle({toggleDarkMode}) {
         backgroundColor: '#f8fafc'
     },
     container: {
-        backgroundColor: '#3f3f46'
+        backgroundColor: 'black'
     }
   }
 

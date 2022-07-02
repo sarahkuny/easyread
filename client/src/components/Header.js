@@ -54,11 +54,11 @@ export default function Header( {darkMode} ) {
   const headerStyles = {
     light: {
       backgroundColor: 'white',
-      color: '#18181b'
+      color: '#18181b',
     },
     dark: {
       backgroundColor: '#18181b',
-      color: "white"
+      color: "white",
     }
   }
   

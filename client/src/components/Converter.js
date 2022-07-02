@@ -27,18 +27,20 @@ export default function Converter() {
 
   const darkStyles = {
     backgroundColor: "#18181b",
-    color: 'white'
+    color: 'white',
+    boxShadow: '0 0 50px -12px rgb(200 200 200 / 0.25)'
   }
   const lightStyles = {
     backgroundColor: "#f8fafc",
-    color: 'black'
+    color: 'black',
+    boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.25)'
   }
   
   const formStyles = {
     dark: {
-      backgroundColor: "#3f3f46",
+      backgroundColor: "#18181b",
       color: 'white',
-      border: 'none'
+      border: 'grey'
     },
     light: {
       backgroundColor: "#f8fafc",
@@ -53,6 +55,15 @@ export default function Converter() {
         backgroundColor: "black",
         color:"white"
       }
+    }
+  }
+
+  const settingsStyles = {
+    dark: {
+      backgroundColor: "#3f3f46"
+    },
+    light: {
+      backgroundColor: "black"
     }
   }
   //load user settings upon page loading
@@ -202,8 +213,8 @@ export default function Converter() {
       <div style = {(darkMode ? darkStyles : lightStyles)}>
       <Header darkMode={darkMode}/>
       {loading ? <LoadingModal /> : ""}
-      <div className="w-5/6 h-full bg-zinc-900  m-auto shadow-2xl"
-      style={(darkMode ? formStyles.dark : lightStyles)}
+      <div className="w-5/6 h-full bg-zinc-900  m-auto "
+      style={(darkMode ? darkStyles : lightStyles)}
       >
         {error ? (
           <ErrorModal
@@ -246,7 +257,9 @@ export default function Converter() {
         </form>
 
         {/* Settings */}
-        <div className="w-full h-12 flex bg-black rounded-md justify-evenly items-center px-2">
+        <div className="w-full h-12 flex  rounded-md justify-evenly items-center px-2"
+             style={(darkMode ? settingsStyles.dark : settingsStyles.light)}
+        >
           <h4 className="font-bold text-1xl text-white">Settings</h4>
           <div>
             <label className="text-white">
