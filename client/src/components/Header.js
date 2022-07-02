@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {slide as Menu} from 'react-burger-menu';
 
-export default function Header() {
+export default function Header( {darkMode} ) {
   const menuStyles = {
     bmBurgerButton: {
       position: 'absolute',
@@ -12,7 +12,7 @@ export default function Header() {
       top: '33px'
     },
     bmBurgerBars: {
-      background: 'black'
+      background: (darkMode ? 'white' : 'black')
     },
     bmBurgerBarsHover: {
       background: '#93c5fd'
@@ -50,6 +50,17 @@ export default function Header() {
       background: 'rgba(0, 0, 0, 0.3)'
     }
   }
+
+  const headerStyles = {
+    light: {
+      backgroundColor: 'white',
+      color: '#18181b'
+    },
+    dark: {
+      backgroundColor: '#18181b',
+      color: "white"
+    }
+  }
   
   return (
     <>
@@ -60,7 +71,9 @@ export default function Header() {
         <Link to="/login">Log In</Link>
         <Link to="/signup">Sign Up</Link>
       </Menu>
-      <div className="flex justify-between items-center bg-white h-24">
+      <div className="flex justify-between items-center bg-white h-24"
+           style={(darkMode ? headerStyles.dark : headerStyles.light  )}
+      >
         <Link to="/">
           <h1 className="text-5xl ml-3 font-louisgeorge">
             easy<b>Read</b>
@@ -68,33 +81,5 @@ export default function Header() {
         </Link>
       </div>
     </>
-
-
-    // <>
-    //   <div className="flex justify-between items-center h-24">
-    //     <Link to="/">
-    //       <h1 className="text-5xl ml-3 font-louisgeorge">
-    //         easy<b>Read</b>
-    //       </h1>
-    //     </Link>
-    //     <div className="mr-3">
-    //       <Link to="/convert">
-    //         <button className="font-medium text-lg bg-black text-white m-1 py-2 px-5 rounded-md shadow-md hover:bg-sky-500">
-    //           Converter
-    //         </button>
-    //       </Link>
-    //       <Link to="/mydocuments">
-    //         <button className="font-medium text-lg bg-black text-white m-1 py-2 px-5 rounded-md shadow-md hover:bg-sky-500">
-    //           Saved Documents
-    //         </button>
-    //       </Link>
-    //       <Link to="/">
-    //         <button className="font-medium text-lg bg-black text-white m-1 py-2 px-5 rounded-md shadow-md hover:bg-sky-500">
-    //           Sign Out
-    //         </button>
-    //       </Link>
-    //     </div>
-    //   </div>
-    // </>
   );
 }

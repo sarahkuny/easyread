@@ -6,6 +6,7 @@ import Header from "./Header";
 import LoadingModal from "./LoadingModal";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
+import Toggle from "./Toggle";
 
 export default function Converter() {
   const [settings, setSettings] = useState({
@@ -22,7 +23,38 @@ export default function Converter() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [toggle, setToggle] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
+  const darkStyles = {
+    backgroundColor: "#18181b",
+    color: 'white'
+  }
+  const lightStyles = {
+    backgroundColor: "#f8fafc",
+    color: 'black'
+  }
+  
+  const formStyles = {
+    dark: {
+      backgroundColor: "#3f3f46",
+      color: 'white',
+      border: 'none'
+    },
+    light: {
+      backgroundColor: "#f8fafc",
+      color: 'black',
+    },
+    button: {
+      dark:{
+        backgroundColor: "white",
+        color: "black"
+      },
+      light:{
+        backgroundColor: "black",
+        color:"white"
+      }
+    }
+  }
   //load user settings upon page loading
   useEffect(() => {
     getSettings();
@@ -161,12 +193,18 @@ export default function Converter() {
     setDocumentName(name);
   };
 
+  const toggleMode = () => {
+    setDarkMode(!darkMode)
+  }
+
   return (
     
-      <div className="bg-slate-50">
-      <Header />
+      <div style = {(darkMode ? darkStyles : lightStyles)}>
+      <Header darkMode={darkMode}/>
       {loading ? <LoadingModal /> : ""}
-      <div className="w-5/6 h-full bg-slate-50 m-auto shadow-2xl">
+      <div className="w-5/6 h-full bg-zinc-900  m-auto shadow-2xl"
+      style={(darkMode ? formStyles.dark : lightStyles)}
+      >
         {error ? (
           <ErrorModal
             closeError={() => setError(false)}
@@ -186,20 +224,22 @@ export default function Converter() {
           ""
         )}
         {/* upload form */}
-        <form className="bg-white w-full flex justify-center py-2 border">
+        <form className="w-full flex justify-center py-2 border rounded "
+              style={(darkMode ? formStyles.dark : formStyles.light)}>
           <label className=" p-2">
             Attach Document (must be .txt)
             <input
               onChange={handleFileChange}
               accept=".txt"
-              className="border rounded-md border-black mx-2"
+              className="border rounded-md border mx-2"
               type="file"
               require
             />
           </label>
           <button
             onClick={toggleText}
-            className="bg-black rounded-md text-white px-4 py-2 mx-2 hover:bg-blue-300 hover:text-black"
+            className=" rounded-md  px-4 py-2 mx-2 hover:bg-blue-300 hover:text-black"
+            style={(darkMode ? formStyles.button.dark : formStyles.button.light)}
           >
             {toggle ? "Turn on Bionic Reading" : "Turn off Bionic Reading"}
           </button>
@@ -258,10 +298,11 @@ export default function Converter() {
               />
             </label>
           </div>
-          <div className="">
+          <div className="flex items-center">
             <label className="m-2 text-white">
               Dark Mode
             </label>
+            <Toggle toggleDarkMode={toggleMode}/>
           </div>
         </div>
 
@@ -283,6 +324,7 @@ export default function Converter() {
         <form
           onSubmit={saveDocument}
           className="bg-white w-full flex justify-center py-2 border"
+          style={(darkMode ? formStyles.dark : formStyles.light)}
         >
           <label className="py-2 ">Document Title</label>
           <input
