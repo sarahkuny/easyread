@@ -99,7 +99,7 @@ export default function Header( {darkMode} ) {
     },
     false:{
       login: <Link to="/login" className="hover:text-blue-400 font-bold">Log In</Link>,
-      signup: <Link to="/singup" className="hover:text-blue-400">Sign Up</Link>
+      signup: <Link to="/signup" className="hover:text-blue-400">Sign Up</Link>
     } 
   }
   
