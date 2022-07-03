@@ -7,7 +7,8 @@ export default function Homepage() {
   return (
     <div>
      <Header  />
-      <div className="flex flex-row">
+      <div className="flex flex-col lg:flex-row">
+        {/* left content */}
         <div className="bg-black basis-1/2 h-screen">
           <div className="grid grid-cols-1 place-items-center h-screen">
             <div>
@@ -26,8 +27,9 @@ export default function Homepage() {
             </div>
           </div>
         </div>
+        {/* right-content */}
         <div className="basis-1/2 h-screen">
-          <div className="bg-cover h-screen bg-right-bottom bg-[url('./assets/banner-pic.jpg')]">
+          <div className="bg-cover h-screen bg-right-bottom bg-homepage">
             <div className="grid grid-cols-1 place-items-center h-screen">
               <div>
                 <div className="flex justify-center">

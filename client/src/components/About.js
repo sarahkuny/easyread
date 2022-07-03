@@ -4,10 +4,10 @@ import sarah from "../assets/sarah.jpeg";
 import shannon from "../assets/shannon.jpg";
 import hannah from "../assets/hannah.JPG";
 import bionicExample from "../assets/bionic-example.png"
-export default function About({authStatus}) {
+export default function About() {
     return (
     <>
-      <Header loggedIn={authStatus} />
+      <Header />
       {/* Banner */}
       <div className="snap-y">
         <div className=" bg-zinc-900 h-min-content flex flex-col items-center">

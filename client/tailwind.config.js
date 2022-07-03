@@ -14,7 +14,8 @@ module.exports = {
         louisgeorge: ["Louis George Cafe", "sans-serif"],
       },
       backgroundImage: {
-        aboutBanner: `url('/src/assets/about-banner.jpg')`
+        aboutBanner: `url('/src/assets/about-banner.jpg')`,
+        homepage: `url('/src/assets/banner-pic.jpg')`
       }
     },
   },

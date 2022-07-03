@@ -72,10 +72,10 @@ export default function MyDocuments() {
           <div className="flex-col h-screen l m-auto w-5/6 shadow-2xl bg-white rounded-t-xl overflow-y-auto max-height-48 ">
             <div className="bg-slate-900 rounded-t-xl">
               <table className="w-full text-white overflow-y-auto  max-height-80">
-                <thead>
+                <thead className="">
                   <tr>
-                    <th className="text-left py-2 px-10 ">Document Title</th>
-                    <th className="text-right py-2 pr-24">Actions</th>
+                    <th className="text-left py-2 px-4 md:px-10 ">Document Title</th>
+                    <th className="text-right py-2 px-4 md:pr-24">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -85,11 +85,12 @@ export default function MyDocuments() {
                         <td
                           onClick={() => handleTitleClick(document.id)}
                           id={document.id}
-                          className="py-2 px-10 "
+                          className="py-2 px-4 md:px-10 text-sm md:text-lg lg:text-xl"
                         >
                           {document.name}
                         </td>
-                        <td className="p-3 text-right">
+                        <td className=" md:p-3 text-right ">
+                          
                           <EmailButton id={document.id} />
                           <button
                             id={document.id}
@@ -112,10 +113,12 @@ export default function MyDocuments() {
                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                                   />
                                 </svg>
-                                <div className="p-1">Delete</div>
+                                <div className="p-1 hidden md:inline">Delete</div>
                               </div>
                             </div>
                           </button>
+                          
+                          
                         </td>
                       </tr>
                     );
