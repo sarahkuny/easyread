@@ -255,12 +255,12 @@ export default function Converter() {
         {/* upload form */}
         <form className="w-full flex flex-col lg:flex-row justify-center py-2 border rounded "
               style={(darkMode ? formStyles.dark : formStyles.light)}>
-          <label className=" p-2">
+          <label className=" text-center p-2">
             Attach Document (must be .txt)
             <input
               onChange={handleFileChange}
               accept=".txt"
-              className="border rounded-md border mx-2"
+              className="border rounded-md border max-w-[300px] md:max-w-none lg:mx-2"
               type="file"
               require
             />
@@ -280,7 +280,7 @@ export default function Converter() {
         >
           <h4 className={showSettings ? "text-right text-white font-bold":"font-bold text-xl text-white text-center flex flex-col items-center justify-center"}
               onClick={() => setShowSettings(!showSettings)}
-          >Settings{showSettings ? "":<Icon icon="fa-solid:chevron-down" color="white" />}</h4>
+          >{showSettings ? <Icon className="item-center" icon="fa-solid:chevron-up" color="white" />:""}Settings{showSettings ? "":<Icon icon="fa-solid:chevron-down" color="white" />}</h4>
           <div className={showSettings ? "flex flex-col md:flex-row justify-evenly md:items-center text-sm mt-1": "hidden"}>
             <div>
             <label className="m-2 text-white">
@@ -358,33 +358,24 @@ export default function Converter() {
         {/* Save Document Form */}
         <form
           onSubmit={saveDocument}
-          className=" w-full flex justify-center py-2 border"
+          className="w-full flex flex-col lg:flex-row justify-center py-2 border rounded  "
           style={(darkMode ? formStyles.dark : formStyles.light)}
         >
-          <label className="py-2 ">Document Title</label>
-          <input
-            onChange={handleDocumentNameChange}
-            className="mx-4 px-2 w-3/6 border rounded-md border-black text-black"
-            value={documentName}
-            required
-          />
-
-          <button className="bg-black text-xl rounded-md text-white mx-5 p-2 hover:bg-sky-500">
+          
+            <label className="text-center py-2 ">Document Title
+            </label>
+            <input
+                onChange={handleDocumentNameChange}
+                className="border-black rounded-md border lg:w-3/6 lg:mx-2"
+                value={documentName}
+                required
+              />
+          <button className="rounded-md bg-black text-white px-4 py-2 mx-2 my-2 lg:my-0 hover:bg-blue-300 hover:text-black">
             Save Document
           </button>
         </form>
-        {/* Need Help */}
-        <div className="bg-zinc-900 text-white rounded-md">
-          <details>
-            <summary>Need help?</summary>
-            <p>
-              Upload a .txt file to load text into the converter. You can adjust
-              your text settings using the settings bar found just above the
-              text. To save a document to My Documents, enter a name and click
-              "Save Document."
-            </p>
-          </details>
-        </div>
+       
+      
       </div>
       </div>
     
