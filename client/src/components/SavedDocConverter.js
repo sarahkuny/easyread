@@ -7,6 +7,8 @@ import Header from './Header';
 import LoadingModal from './LoadingModal';
 import ErrorModal from './ErrorModal';
 import Toggle from './Toggle';
+import { Icon } from '@iconify/react';
+
 
 export default function SavedDocConverter( ){
     const [settings, setSettings] = useState({font_size: "16",
@@ -21,6 +23,7 @@ export default function SavedDocConverter( ){
     const location = useLocation();
     const navigate = useNavigate();
     const [darkMode, setDarkMode] = useState(false);
+    const [showSettings, setShowSettings] = useState(false)
 
   const darkStyles = {
     backgroundColor: "#18181b",
@@ -150,80 +153,88 @@ export default function SavedDocConverter( ){
             <div className="w-5/6 h-full m-auto "
                 style={(darkMode ? darkStyles : lightStyles)}
             >           
-                <form className=" w-full flex justify-center py-2 border rounded"
+                <form className=" w-full flex flex-col  lg:flex-row justify-center py-2 border rounded"
                       style={(darkMode ? formStyles.dark : formStyles.light)}
                 >
                     <button onClick={() => navigate('/convert')} 
-                            className="rounded-md px-4 py-2 hover:bg-sky-500"
+                            className="rounded-md mb-2 lg:mb-0  px-4 py-2 hover:bg-sky-500"
                             style={(darkMode ? formStyles.button.dark : formStyles.button.light)}
                     >
                         Upload a Different Document
                     </button>
                     <button onClick={toggleText} 
-                            className=" rounded-md px-4 py-2 mx-2 hover:bg-sky-500"
+                            className=" rounded-md mb-2 px-4 py-2  lg:mb-0 lg:ml-2 hover:bg-sky-500"
                             style={(darkMode ? formStyles.button.dark : formStyles.button.light)}
                     >
                         {toggle ? "Turn off Bionic Reading" : "Turn on Bionic Reading"}
                     </button>
                 </form>
-                {/* Settings */}
-                <div className="w-full h-12 flex  rounded-md justify-evenly items-center px-2"
-                     style={(darkMode ? settingsStyles.dark : settingsStyles.light)}
-                >
-                    <h4 className="font-bold text-1xl text-white">Settings</h4>
-                    <div>
-                        <label className="text-white">Font Color
-                            <input 
-                                onChange={handleInputChange}
-                                className="w-14 ml-2"
-                                name="font_color"
-                                value={settings.font_color}
-                                type="color"
-                            />
-                        </label>
-                    </div>
-                    <div className="">
-                        <label className="m-2 text-white">Background Color
-                            <input 
-                                onChange={handleInputChange}
-                                className="w-14 ml-2"
-                                name="background_color"
-                                value={settings.background_color}
-                                type="color" 
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <label className="m-2 text-white">Font Size
-                            <input 
-                                onChange={handleInputChange}
-                                className="w-14 ml-2 text-black px-1"
-                                name="font_size"
-                                value={settings.font_size}
-                                min="1"
-                                type="number"
-                                />
-                        </label>
-                    </div>
-                    <div>
-                        <label className="m-2 text-white">Line Spacing
-                            <input 
-                                onChange={handleInputChange}
-                                className="w-14 m-2 text-black px-1"
-                                name="line_spacing"
-                                value={settings.line_spacing}
-                                min="1"
-                                type="number"
-                                />
-                        </label>
-                    </div>
-                    <div className="flex items-center">
-                        <label className="m-2 text-white">
-                            Dark Mode
-                        </label>
-                        <Toggle toggleDarkMode={toggleMode}/>
-                    </div> 
-                </div>
+                    {/* Settings */}
+        <div className="w-full lg:h-12 flex rounded-md justify-evenly items-center px-2"
+             style={(darkMode ? settingsStyles.dark : settingsStyles.light)}
+        >
+          <h4 className={showSettings ? " text-white font-bold":"font-bold text-xl text-white text-center flex flex-col items-center justify-center"}
+              onClick={() => setShowSettings(!showSettings)}
+          >{showSettings ? <Icon  icon="fa-solid:chevron-up" color="white" />:""}Settings{showSettings ? "":<Icon icon="fa-solid:chevron-down" color="white" />}</h4>
+          <div className={showSettings ? "flex flex-col md:flex-row justify-evenly md:items-center text-sm mt-1": "hidden"}>
+            <div>
+            <label className="m-2 text-white">
+              Font Color
+              <input
+                onChange={handleInputChange}
+                className="w-10 ml-2"
+                name="font_color"
+                value={settings.font_color}
+                type="color"
+              />
+            </label>
+          </div>
+          <div className="">
+            <label className="m-2 text-white">
+              Background Color
+              <input
+                onChange={handleInputChange}
+                className="w-10 ml-2"
+                name="background_color"
+                value={settings.background_color}
+                type="color"
+              />
+            </label>
+          </div>
+          <div>
+            <label className="m-2 text-white">
+              Font Size
+              <input
+                onChange={handleInputChange}
+                className="md:w-14 w-12 my-1 md:my-0 ml-1 text-black px-1 "
+                name="font_size"
+                value={settings.font_size}
+                min="1"
+                type="number"
+              />
+            </label>
+          </div>
+          <div>
+            <label className="m-2 text-white">
+              Line Spacing
+              <input
+                onChange={handleInputChange}
+                className="md:w-14 w-12 ml-1 text-black px-1 "
+                name="line_spacing"
+                value={settings.line_spacing}
+                min="1"
+                type="number"
+              />
+            </label>
+          </div>
+          <div className="flex items-center">
+            <label className="m-2 text-white">
+              Dark Mode
+            </label>
+            <Toggle toggleDarkMode={toggleMode}/>
+          </div>
+          </div>
+        </div>
 
                 {/* converted text */}
                 <div 
@@ -233,14 +244,7 @@ export default function SavedDocConverter( ){
                 </div>
                 {/* Save Document Form */}
                 
-                <div className="bg-zinc-900 text-white rounded-md">
-                    <details>
-                        <summary>Need help?</summary>
-                        <p>Upload a .txt file to load text into the converter. You can adjust your 
-                            text settings using the settings bar found just above the text. To save a document to My Documents, enter a name and click "Save Document."
-                        </p>
-                    </details>
-                </div>
+                
                
             </div>
            

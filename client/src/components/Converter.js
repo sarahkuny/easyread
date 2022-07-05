@@ -278,9 +278,9 @@ export default function Converter() {
         <div className="w-full lg:h-12 flex rounded-md justify-evenly items-center px-2"
              style={(darkMode ? settingsStyles.dark : settingsStyles.light)}
         >
-          <h4 className={showSettings ? "text-right text-white font-bold":"font-bold text-xl text-white text-center flex flex-col items-center justify-center"}
+          <h4 className={showSettings ? " text-white font-bold":"font-bold text-xl text-white text-center flex flex-col items-center justify-center"}
               onClick={() => setShowSettings(!showSettings)}
-          >{showSettings ? <Icon className="item-center" icon="fa-solid:chevron-up" color="white" />:""}Settings{showSettings ? "":<Icon icon="fa-solid:chevron-down" color="white" />}</h4>
+          >{showSettings ? <Icon  icon="fa-solid:chevron-up" color="white" />:""}Settings{showSettings ? "":<Icon icon="fa-solid:chevron-down" color="white" />}</h4>
           <div className={showSettings ? "flex flex-col md:flex-row justify-evenly md:items-center text-sm mt-1": "hidden"}>
             <div>
             <label className="m-2 text-white">
