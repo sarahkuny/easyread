@@ -7,6 +7,7 @@ import LoadingModal from "./LoadingModal";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
 import Toggle from "./Toggle";
+import { Icon } from '@iconify/react';
 
 export default function Converter() {
   const [settings, setSettings] = useState({
@@ -24,6 +25,7 @@ export default function Converter() {
   const [errorMessage, setErrorMessage] = useState("");
   const [toggle, setToggle] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   const darkStyles = {
     backgroundColor: "#18181b",
@@ -251,7 +253,7 @@ export default function Converter() {
           ""
         )}
         {/* upload form */}
-        <form className="w-full flex justify-center py-2 border rounded "
+        <form className="w-full flex flex-col lg:flex-row justify-center py-2 border rounded "
               style={(darkMode ? formStyles.dark : formStyles.light)}>
           <label className=" p-2">
             Attach Document (must be .txt)
@@ -273,16 +275,19 @@ export default function Converter() {
         </form>
 
         {/* Settings */}
-        <div className="w-full h-12 flex  rounded-md justify-evenly items-center px-2"
+        <div className="w-full lg:h-12 flex rounded-md justify-evenly items-center px-2"
              style={(darkMode ? settingsStyles.dark : settingsStyles.light)}
         >
-          <h4 className="font-bold text-1xl text-white">Settings</h4>
-          <div>
-            <label className="text-white">
+          <h4 className={showSettings ? "text-right text-white font-bold":"font-bold text-xl text-white text-center flex flex-col items-center justify-center"}
+              onClick={() => setShowSettings(!showSettings)}
+          >Settings{showSettings ? "":<Icon icon="fa-solid:chevron-down" color="white" />}</h4>
+          <div className={showSettings ? "flex flex-col md:flex-row justify-evenly md:items-center text-sm mt-1": "hidden"}>
+            <div>
+            <label className="m-2 text-white">
               Font Color
               <input
                 onChange={handleInputChange}
-                className="w-14 ml-2"
+                className="w-10 ml-2"
                 name="font_color"
                 value={settings.font_color}
                 type="color"
@@ -294,7 +299,7 @@ export default function Converter() {
               Background Color
               <input
                 onChange={handleInputChange}
-                className="w-14 ml-2"
+                className="w-10 ml-2"
                 name="background_color"
                 value={settings.background_color}
                 type="color"
@@ -306,7 +311,7 @@ export default function Converter() {
               Font Size
               <input
                 onChange={handleInputChange}
-                className="w-14 ml-2 text-black px-1"
+                className="md:w-14 w-12 my-1 md:my-0 ml-1 text-black px-1 "
                 name="font_size"
                 value={settings.font_size}
                 min="1"
@@ -319,7 +324,7 @@ export default function Converter() {
               Line Spacing
               <input
                 onChange={handleInputChange}
-                className="w-14 m-2 text-black px-1"
+                className="md:w-14 w-12 ml-1 text-black px-1 "
                 name="line_spacing"
                 value={settings.line_spacing}
                 min="1"
@@ -333,6 +338,7 @@ export default function Converter() {
             </label>
             <Toggle toggleDarkMode={toggleMode}/>
           </div>
+          </div>
         </div>
 
         {/* converted text */}
@@ -342,7 +348,7 @@ export default function Converter() {
           color: `${settings.font_color}`,
           fontSize: `${settings.font_size}px`,
           lineHeight: `${settings.line_spacing}`,
-          padding: "0 5rem",
+           padding: "0 .5rem",
           textAlign: "justify"
         }}>
           <p>
