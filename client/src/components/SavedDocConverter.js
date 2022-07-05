@@ -8,7 +8,7 @@ import LoadingModal from './LoadingModal';
 import ErrorModal from './ErrorModal';
 import Toggle from './Toggle';
 import { Icon } from '@iconify/react';
-
+import Footer from './Footer';
 
 export default function SavedDocConverter( ){
     const [settings, setSettings] = useState({font_size: "16",
@@ -150,7 +150,7 @@ export default function SavedDocConverter( ){
             {loading ? <LoadingModal /> : ""}
             {error ? <ErrorModal closeError={() => setError(false)} message={errorMessage.message} title={errorMessage.title} />: ""}
 
-            <div className="w-5/6 h-full m-auto "
+            <div className="w-5/6 h-full m-auto mb-2"
                 style={(darkMode ? darkStyles : lightStyles)}
             >           
                 <form className=" w-full flex flex-col  lg:flex-row justify-center py-2 border rounded"
@@ -242,12 +242,12 @@ export default function SavedDocConverter( ){
                 >
                     <p style={{ backgroundColor: `${settings.background_color}`, color: `${settings.font_color}`, fontSize: `${settings.font_size}px`, lineHeight: `${settings.line_spacing}` }}>{toggle ? convertedText : location.state.content}</p>
                 </div>
-                {/* Save Document Form */}
+               
                 
                 
                
             </div>
-           
+            <Footer />
         </div>
     )
 }

@@ -8,6 +8,7 @@ import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
 import Toggle from "./Toggle";
 import { Icon } from '@iconify/react';
+import Footer from "./Footer";
 
 export default function Converter() {
   const [settings, setSettings] = useState({
@@ -358,25 +359,23 @@ export default function Converter() {
         {/* Save Document Form */}
         <form
           onSubmit={saveDocument}
-          className="w-full flex flex-col lg:flex-row justify-center py-2 border rounded  "
+          className="w-full flex flex-col lg:flex-row justify-center py-2 border rounded mb-2  "
           style={(darkMode ? formStyles.dark : formStyles.light)}
         >
           
-            <label className="text-center py-2 ">Document Title
-            </label>
+            <label className="text-center py-2 ">Document Title</label>
             <input
                 onChange={handleDocumentNameChange}
                 className="border-black rounded-md border h-10 pl-1 lg:w-3/6 lg:mx-2"
                 value={documentName}
                 required
               />
-          <button className="rounded-md bg-black text-white px-4 py-2 mx-2 my-2 lg:my-0 hover:bg-blue-300 hover:text-black">
-            Save Document
-          </button>
+            <button className="rounded-md bg-black text-white px-4 py-2 mx-2 my-2 lg:my-0 hover:bg-blue-300     hover:text-black">
+              Save Document
+            </button>
         </form>
-       
-      
-      </div>
+       </div>
+       <Footer />
       </div>
     
   );

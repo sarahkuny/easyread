@@ -4,6 +4,7 @@ import React, { useState  } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import img from "../assets/bionic-reading-signup.png";
 import ErrorModal from './ErrorModal';
+import Footer from './Footer';
 
 export default function Login(){
     const [credentials, setCredentials] = useState({ username:"", password: ""});
@@ -75,6 +76,7 @@ export default function Login(){
                     <h6 className="italic text-xs mt-3 px-3">Need an account? <Link to="/signup"><b>Sign Up</b></Link> </h6>
                 </div>
             </div>  
+            <Footer />
             </div> 
         </>
     )

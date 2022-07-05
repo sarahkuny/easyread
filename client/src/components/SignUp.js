@@ -1,11 +1,9 @@
-//Header
-//Sign Up Form
-//link to login component (send to parent)
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import img from "../assets/bionic-reading-signup.png"; 
 import ErrorModal from "./ErrorModal";
+import Footer from "./Footer";
 
 export default function SignUp() {
     const [credentials, setCredentials] = useState({ first_name:"", last_name:"", username:"", password: ""});
@@ -127,6 +125,7 @@ export default function SignUp() {
                     <h6 className="italic text-xs mt-3 px-3">Already have an account? <Link to="/login"><b>Log In</b></Link> </h6>
                 </div>
             </div>  
+            <Footer />
             </div> 
         </>
     )

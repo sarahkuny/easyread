@@ -4,6 +4,8 @@ import sarah from "../assets/sarah.jpeg";
 import shannon from "../assets/shannon.jpg";
 import hannah from "../assets/hannah.JPG";
 import bionicExample from "../assets/bionic-example.png"
+import Footer from "./Footer";
+
 export default function About() {
     return (
     <>
@@ -56,6 +58,6 @@ export default function About() {
         
             
       </div>
-      
+      <Footer />
     </>
 )}

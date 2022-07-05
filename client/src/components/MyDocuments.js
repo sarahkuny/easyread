@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 import EmailButton from "./EmailButton";
+import Footer from "./Footer"
 
 export default function MyDocuments() {
   const [documents, setDocuments] = useState([]);
@@ -63,7 +64,7 @@ export default function MyDocuments() {
     <>
       <Header />
       <div className="bg-slate-50 w-full  h-screen">
-        <div className=" bg-slate-50 font-bold  text-xl ">
+        <div className=" bg-slate-50 font-bold  text-xl mb-2">
           <div className="text-center">
             <h1 className="text-2xl font-bold 5 p-3 bg-slate-50">
               Saved Documents
@@ -128,6 +129,7 @@ export default function MyDocuments() {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );
