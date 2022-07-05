@@ -6,7 +6,7 @@ export default function ErrorModal({closeError, title, message}) {
     return(
     <>
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ">
-            <div className="relative top-1/3 mx-auto p-5 border w-2/6 h-2/6 shadow-lg rounded-md bg-white flex flex-col justify-center">
+            <div className="relative top-1/3 mx-auto p-5 border md:w-3/6 lg:w-2/6 lg:h-2/6 shadow-lg rounded-md bg-white flex flex-col justify-center">
                 <div className="mt-3 text-center ">
 		            <div className="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-red-100">
                         <svg 

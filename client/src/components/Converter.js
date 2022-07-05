@@ -366,7 +366,7 @@ export default function Converter() {
             </label>
             <input
                 onChange={handleDocumentNameChange}
-                className="border-black rounded-md border h-10  lg:w-3/6 lg:mx-2"
+                className="border-black rounded-md border h-10 pl-1 lg:w-3/6 lg:mx-2"
                 value={documentName}
                 required
               />
