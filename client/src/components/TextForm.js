@@ -92,7 +92,7 @@ export default function TextForm({darkMode, handleError, handleSetText, handleSe
                     onChange={handleTextChange}
                     className=" 
                     w-full
-                    resize
+                    resize-y
                     px-1
                     py-1.5
                     text-base
@@ -105,7 +105,7 @@ export default function TextForm({darkMode, handleError, handleSetText, handleSe
                     ease-in-out
                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 rows="3"
-                placeholder="Hint: Pull bottom right corner to adjust text-box size"
+                placeholder="To adjust text-box size, pull bottom-right corner down."
                 value={textInput}/>
               <div className="flex w-full justify-end">
                 <input
@@ -117,9 +117,9 @@ export default function TextForm({darkMode, handleError, handleSetText, handleSe
                   require
                 /> 
                 <label for="file-btn"
-                      className="text-center py-1 my-1  bg-zinc-300 text-black rounded w-2/6 sm:w-[100px]"
+                      className="text-center py-1 my-1  bg-zinc-200 text-black rounded w-2/6 sm:w-[100px] hover:bg-zinc-300"
                 >Choose File</label>
-                <button  className="text-center py-1 my-1 mx-2 bg-black text-white rounded w-2/6  sm:w-[100px]">Submit</button>
+                <button  className="text-center py-1 my-1 mx-2 bg-black text-white rounded w-2/6  sm:w-[100px] hover:bg-blue-600">Submit</button>
               </div>
               
 
