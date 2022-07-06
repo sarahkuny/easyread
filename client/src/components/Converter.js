@@ -113,7 +113,11 @@ export default function Converter() {
   }
 
   const setText = (e) => {
-    setdisplayText(e.target.result);
+    setdisplayText(e.target.result)
+  }
+
+  const setTextInput = (text) => {
+    setdisplayText(text)
   }
 
  
@@ -153,6 +157,7 @@ export default function Converter() {
           darkMode={darkMode} 
           handleError={(message) => handleError(message)} 
           handleSetText={(e) => setText(e)}
+          handleSetTextInput={(text) => setTextInput(text)}
           />
 
         <SettingsPanel 
