@@ -3,7 +3,7 @@ import axios from "axios";
 import Toggle from "./Toggle";
 import { Icon } from '@iconify/react';
 
-export default function SettingsPanel({darkMode, settings, setSettings, toggleMode}) {
+export default function SettingsPanel({darkMode, settings, setSettings, toggleMode, toggleText, toggle}) {
     const [showSettings, setShowSettings] = useState(false);
 
     const settingsStyles = {
@@ -41,14 +41,48 @@ export default function SettingsPanel({darkMode, settings, setSettings, toggleMo
         }    
     }
 
+    const formStyles = {
+      dark: {
+        backgroundColor: "#18181b",
+        color: 'white',
+        border: 'grey'
+      },
+      light: {
+        backgroundColor: "#f8fafc",
+        color: 'black',
+      },
+      button: {
+        dark:{
+          backgroundColor: "#3f3f46",
+          color: "white"
+        },
+        light:{
+          backgroundColor: "black",
+          color:"white"
+        }
+      },
+      save: {
+        dark: {
+          backgroundColor: "#18181b",
+          color: 'white',
+          border: 'grey'
+        },
+        light: {
+          backgroundColor: "#f8fafc",
+          color: 'black',
+        },
+      }
+    }
+
     return (
         <div className="w-full lg:h-12 flex rounded-md justify-evenly items-center px-2"
              style={(darkMode ? settingsStyles.dark : settingsStyles.light)}
         >
-          <h4 className={showSettings ? " text-white font-bold":"font-bold text-xl text-white text-center flex flex-col items-center justify-center"}
+          <h4 className={showSettings ? " text-white font-bold":"font-bold  text-white text-center flex flex-col items-center justify-center"}
               onClick={() => setShowSettings(!showSettings)}
-          >{showSettings ? <Icon  icon="fa-solid:chevron-up" color="white" />:""}Settings{showSettings ? "":<Icon icon="fa-solid:chevron-down" color="white" />}</h4>
+          >{showSettings ? <Icon icon="fa-solid:chevron-up" color="white" />:""}Settings{showSettings ? "":<Icon icon="fa-solid:chevron-down" color="white" />}</h4>
           <div className={showSettings ? "flex flex-col md:flex-row justify-evenly md:items-center text-sm mt-1": "hidden"}>
+          
             <div>
             <label className="m-2 text-white">
               Font Color
@@ -91,7 +125,7 @@ export default function SettingsPanel({darkMode, settings, setSettings, toggleMo
               Line Spacing
               <input
                 onChange={handleInputChange}
-                className="md:w-14 w-12 ml-1 text-black px-1 "
+                className="md:w-14 w-12 ml-1 text-black px-1"
                 name="line_spacing"
                 value={settings.line_spacing}
                 min="1"
@@ -99,6 +133,13 @@ export default function SettingsPanel({darkMode, settings, setSettings, toggleMo
               />
             </label>
           </div>
+          <div
+              onClick={toggleText}
+              className="rounded-md m-2  text-sm   hover:bg-blue-300 hover:text-black"
+              style={(darkMode ? formStyles.button.dark : formStyles.button.light)}
+            >
+              {toggle ? "Turn on Bionic Reading" : "Turn off Bionic Reading"}
+            </div>
           <div className="flex items-center">
             <label className="m-2 text-white">
               Dark Mode

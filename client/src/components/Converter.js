@@ -153,14 +153,15 @@ export default function Converter() {
           darkMode={darkMode} 
           handleError={(message) => handleError(message)} 
           handleSetText={(e) => setText(e)}
-          toggleText={(e) => toggleText(e)}
-          toggle={toggle}/>
+          />
 
         <SettingsPanel 
           darkMode={darkMode}
           settings={settings}
           setSettings={(newSettings) => setSettings(newSettings)}
           toggleMode={toggleMode}
+          toggleText={(e) => toggleText(e)}
+          toggle={toggle}
           />
 
         <DisplayedText 
