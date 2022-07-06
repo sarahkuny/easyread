@@ -128,7 +128,7 @@ export default function TextForm({darkMode, handleError, handleSetText, handleSe
               
             }
             
-              <button className="text-center p-2 mx-2 bg-blue-400 text-white rounded text-sm lg:text-md"
+              <button className="text-center p-2 mx-2 bg-blue-400 text-white rounded text-sm lg:text-md font-bold"
                     onClick={toggleInput}>
               {inputToggle ? "Enter Text Manually":"Attach Text Document"}</button>
             
