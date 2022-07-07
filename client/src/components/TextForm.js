@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function TextForm({darkMode, handleError, handleSetText, handleSetTextInput}) {
     const [textInput, setTextInput] = useState("")

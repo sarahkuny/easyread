@@ -132,7 +132,7 @@ export default function Converter() {
       <div style = {(darkMode ? darkStyles : lightStyles)}>
       <Header darkMode={darkMode} />
       {loading ? <LoadingModal /> : ""}
-      <div className="w-5/6 h-full bg-zinc-900  m-auto "
+      <div className="w-full lg:w-5/6 h-full bg-zinc-900 m-auto"
       style={(darkMode ? darkStyles : lightStyles)}
       >
         {error ? (
