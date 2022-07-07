@@ -19,7 +19,7 @@ export default function Converter() {
     line_spacing: "",
   });
   const [displayText, setdisplayText] = useState("");
-  const [convertedText, setConvertedText] = useState();
+  const [convertedText, setConvertedText] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -69,7 +69,7 @@ export default function Converter() {
 
   
 
-  const fetchConvertedText = async (e) => {
+  const fetchConvertedText = async (text) => {
     setLoading(true);
     try {
       const { data } = await axios("/api/convert", {
@@ -77,7 +77,7 @@ export default function Converter() {
         data: {
           fixation: 1,
           saccade: 10,
-          content: `${displayText}`,
+          content: `${text}`,
         },
       });
       const parsed = parse(data);
@@ -98,7 +98,6 @@ export default function Converter() {
 
   const toggleText = async (e) => {
     e.preventDefault();
-    if (!convertedText) await fetchConvertedText();
     setToggle(!toggle);
   };
 
@@ -112,12 +111,14 @@ export default function Converter() {
     setSuccess(true);
   }
 
-  const setText = (e) => {
-    setdisplayText(e.target.result)
+  const setText = async (e) => {
+    setdisplayText(e.target.result);
+    await fetchConvertedText(e.target.result);
   }
 
-  const setTextInput = (text) => {
+  const setTextInput = async (text) => {
     setdisplayText(text)
+    await fetchConvertedText(text);
   }
 
  
@@ -167,6 +168,7 @@ export default function Converter() {
           toggleMode={toggleMode}
           toggleText={(e) => toggleText(e)}
           toggle={toggle}
+          text={displayText}
           />
 
         <DisplayedText 

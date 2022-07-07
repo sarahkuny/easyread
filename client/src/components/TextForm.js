@@ -30,8 +30,7 @@ export default function TextForm({darkMode, handleError, handleSetText, handleSe
               title: "Document Empty",
               message: "Your file does not contain any text. Please try again with a different file."
             });
-          }
-          handleSetText(e)
+          }else {handleSetText(e)};
         };
         reader.readAsText(file);
       };

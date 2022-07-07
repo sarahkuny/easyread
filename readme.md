@@ -1,10 +1,12 @@
 # easyRead
 
+[Click here to visit deployed website](https://nameless-coast-38813.herokuapp.com/ "Link")
+
 ## easyRead is a full-stack app that makes reading accessible for all. Developed as a solution for those with dyslexia, stroke patients, students, teachers, or anyone looking to make reading an easier experience, easyRead leverages the Bionic Reading API and dynamic UI elements to configure text to work for you. Visit the about page to learn more.
 
 ---
 
-# Architecture
+## Architecture
 
 ## Front-End
 

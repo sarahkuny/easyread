@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function BionicReadingToggle({toggleText}) {
+export default function BionicReadingToggle({toggleText, text}) {
   const [toggle, setToggle] = useState(false);
   const darkStyle = {
     toggle: {
@@ -14,9 +14,8 @@ export default function BionicReadingToggle({toggleText}) {
   }
 
   const toggleMode = (e) =>{
-    setToggle(!toggle);
     toggleText(e);
-    
+    if (text) setToggle(!toggle);
   }
   return (
     <div
