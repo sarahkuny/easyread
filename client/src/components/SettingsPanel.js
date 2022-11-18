@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react';
 import BionicReadingToggle from "./BionicReadingToggle";
 
 export default function SettingsPanel({darkMode, settings, setSettings, toggleMode, toggleText, text}) {
-    const [showSettings, setShowSettings] = useState(false);
+    const [showSettings, setShowSettings] = useState(true);
 
     const settingsStyles = {
         dark: {
